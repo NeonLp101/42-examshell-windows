@@ -1,4 +1,4 @@
-# examshell — 42 Exam Rank 02 on Windows
+# 42 Examshell for Windows
 
 Practice the **42 Exam Rank 02** at home on Windows — **no Linux, no VM, no WSL**. Just Python and gcc.
 
@@ -39,7 +39,13 @@ winget install BrechtSanders.WinLibs.POSIX.UCRT
 
 Then **close the terminal and open a new one**, so Windows picks up the new programs.
 
-**2. Get examshell:** `git clone <this repository>` — or download the ZIP and extract it.
+**2. Get examshell:**
+
+```
+git clone https://github.com/NeonLp101/42-examshell-windows.git
+```
+
+or download the ZIP (green *Code* button → *Download ZIP*) and extract it.
 
 **3. Check the setup:**
 
