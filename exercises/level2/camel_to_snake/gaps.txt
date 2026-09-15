@@ -1,0 +1,66 @@
+@@ intro
+lowerCamelCase => snake_case: every uppercase letter starts a new word. So each time
+you meet an uppercase letter, print an underscore first, then the letter in lowercase.
+
+    helloWorld  =>  hello_world
+
+No malloc needed: we print while walking through the string.
+
+@@ file camel_to_snake.c
+#include <unistd.h>
+
+int	main(int argc, char **argv)
+{
+	char	*s;
+	char	c;
+
+	if (argc == 2)
+	{
+		s = argv[1];
+		while (*s)
+		{
+			c = *s;
+			if ({{1}})
+			{
+				write(1, {{2}}, 1);
+				c = {{3}};
+			}
+			write(1, &c, 1);
+			s++;
+		}
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+@@ gap 1
+answer: c >= 'A' && c <= 'Z'
+accept: 'A' <= c && c <= 'Z'
+accept: c <= 'Z' && c >= 'A'
+wrong: c >= 'a' && c <= 'z' => Lowercase letters stay as they are. A new word starts at an UPPERCASE letter.
+wrong: c >= 'A' || c <= 'Z' => With || this is true for every character. Use &&.
+hint: Where does a new word start in camelCase?
+In lowerCamelCase, every word after the first begins with an uppercase letter, so an
+uppercase letter is exactly where an underscore must go.
+
+@@ gap 2
+answer: "_"
+wrong: '_' => write needs an address: "_" (double quotes) is a string, i.e. a pointer to the character.
+hint: write needs a pointer to an underscore.
+`"_"` is a string literal: a pointer to the bytes '_' and '\0'. write prints 1 byte
+from there: the underscore.
+
+@@ gap 3
+answer: c + 32
+accept: c - 'A' + 'a'
+accept: c + ('a' - 'A')
+accept: c + 'a' - 'A'
+wrong: c - 32 => Wrong direction: lowercase letters have the bigger codes ('A' = 65, 'a' = 97).
+hint: Turn the uppercase letter into lowercase.
+snake_case is all lowercase: 'W' (87) + 32 = 'w' (119).
+
+@@ outro
+Remember:
+- uppercase letter => "_" + the lowercase letter
+- uppercase to lowercase: + 32
+- the conversion can be printed on the fly, no need to build a new string

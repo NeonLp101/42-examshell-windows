@@ -1,0 +1,29 @@
+@@ question
+match: exact
+answer: HelloWorld
+wrong: HelloWorld$ => ft_putstr prints no newline - nothing ends with $ here.
+wrong: Hello$World$ => ft_putstr prints no newline.
+What does the program output, as `cat -e` shows it?
+
+    ft_putstr("Hello");
+    ft_putstr("World");
+---
+ft_putstr writes exactly the characters of the string, nothing more: no newline, so
+`cat -e` shows no `$` at all.
+
+@@ question
+answer: 3
+How many times is `write` called by this ft_putstr?
+
+    ft_putstr("abc");
+---
+One call per character: 'a', 'b', 'c'. The '\0' is never written - the loop stops on it.
+
+@@ question
+answer: 4
+What is the value of this expression?
+
+    sizeof("abc")
+---
+A string literal is an array of its characters PLUS the '\0': 4 bytes.
+That's why `write(1, "\n", 1)` uses 1 and not sizeof.

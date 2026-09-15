@@ -1,0 +1,34 @@
+@@ question
+match: exact
+args: ["1", "2", "3", "5", "7", "24"]
+answer: 6$
+wrong: 42$ => paramsum COUNTS the arguments, it doesn't add them.
+    $> ./paramsum 1 2 3 5 7 24 | cat -e
+---
+Six arguments. The values don't matter - only how many there are.
+
+@@ question
+match: exact
+args: []
+answer: 0$
+wrong: $ => paramsum prints 0 when there are no arguments.
+    $> ./paramsum | cat -e
+---
+argc is 1 (just the program name): 0 arguments.
+
+@@ question
+match: exact
+args: [""]
+answer: 1$
+wrong: 0$ => An empty string in quotes is still an argument.
+    $> ./paramsum "" | cat -e
+---
+"" is an empty argument, but an argument: argc is 2.
+
+@@ question
+match: exact
+args: ["a b c"]
+answer: 1$
+    $> ./paramsum "a b c" | cat -e
+---
+The quotes make "a b c" ONE argument.

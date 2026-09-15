@@ -1,0 +1,8 @@
+{
+  "type": "function",
+  "expected_files": [
+    "swap_bits.c"
+  ],
+  "allowed_functions": [],
+  "seeds": 10
+}

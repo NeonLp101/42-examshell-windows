@@ -1,0 +1,29 @@
+@@ question
+match: exact
+args: ["42", "10"]
+answer: 2$
+    $> ./pgcd 42 10 | cat -e
+---
+(42, 10) => (10, 2) => (2, 0): 2.
+
+@@ question
+match: exact
+args: ["17", "3"]
+answer: 1$
+    $> ./pgcd 17 3 | cat -e
+---
+17 is prime and not a multiple of 3: their only common divisor is 1.
+
+@@ question
+answer: 2
+How many times does the while loop run for pgcd 42 10?
+---
+(42, 10) => (10, 2) is turn 1, (10, 2) => (2, 0) is turn 2. Then b is 0.
+
+@@ question
+match: exact
+args: ["7"]
+answer: $
+    $> ./pgcd 7 | cat -e
+---
+One argument instead of 2: only the newline.

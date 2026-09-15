@@ -1,0 +1,83 @@
+@@ intro
+Can s1 be written with characters of s2, taken in order (skipping some)? That's a
+"subsequence" test:
+
+    "faya" in "fgvvfdxcacpolhyghbreda"
+     f.........a........y......a        => yes
+
+Walk through s2 once; every time its character equals the next character we need from
+s1, move forward in s1. If we reach the end of s1, it's a match.
+
+@@ file wdmatch.c
+#include <unistd.h>
+
+int	main(int argc, char **argv)
+{
+	int	i;
+	int	j;
+
+	if (argc == 3)
+	{
+		i = 0;
+		j = 0;
+		while ({{1}})
+		{
+			if ({{2}})
+				{{3}};
+			i++;
+		}
+		if ({{4}})
+		{
+			i = 0;
+			while (argv[1][i])
+				i++;
+			write(1, argv[1], i);
+		}
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+@@ gap 1
+answer: argv[2][i] && argv[1][j]
+accept: argv[1][j] && argv[2][i]
+accept: argv[2][i]
+accept: argv[2][i] != '\0'
+wrong: argv[1][j] => When s1 isn't in s2, i runs past the end of s2. Stop at the end of s2.
+hint: Walk through s2 (and you can stop early once s1 is complete).
+We walk through s2 with i. Stopping also when s1 is complete (`argv[1][j]` is '\0') is
+an optional shortcut: nothing in s2 can match a '\0' anyway.
+
+@@ gap 2
+answer: argv[2][i] == argv[1][j]
+accept: argv[1][j] == argv[2][i]
+wrong: argv[2][i] == argv[1][i] => Two different positions: i walks s2, j walks s1.
+hint: Is the character of s2 the next one we need from s1?
+`argv[1][j]` is the next character of s1 that still has to be found.
+
+@@ gap 3
+answer: j++
+accept: ++j
+accept: j += 1
+wrong: i++ => i already moves every turn. When a character is found, move forward in s1: j++.
+hint: Found it: move to the next character of s1.
+Only j moves on a match. i moves on every turn, match or not.
+
+@@ gap 4
+answer: !argv[1][j]
+accept: argv[1][j] == '\0'
+accept: argv[1][j] == 0
+wrong: argv[1][j] => Reversed: that's true when some character of s1 was NOT found.
+wrong: argv[2][i] == '\0' => s2 always ends at some point. The question is whether s1 was completed.
+hint: Did j reach the end of s1?
+If every character of s1 was found in order, j stopped on s1's '\0'. Only then is s1
+printed.
+
+@@ outro
+The subsequence pattern (also used in hidenp):
+
+    i over s2, j over s1
+    if s2[i] == s1[j]: j++
+    match <=> s1[j] == '\0' at the end
+
+Remember: characters must appear in ORDER in s2, not just somewhere.

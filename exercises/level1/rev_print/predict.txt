@@ -1,0 +1,25 @@
+@@ question
+match: exact
+args: ["dub0 a POIL"]
+answer: LIOP a 0bud$
+    $> ./rev_print "dub0 a POIL" | cat -e
+---
+Every character is reversed, spaces included - not just the word order.
+
+@@ question
+match: exact
+args: ["ab", "cd"]
+answer: $
+wrong: dcba$ => Two parameters: only a newline.
+wrong: ba$ => Two parameters: only a newline.
+    $> ./rev_print "ab" "cd" | cat -e
+---
+"If the number of parameters is not 1, the program displays a newline."
+
+@@ question
+match: exact
+args: [""]
+answer: $
+    $> ./rev_print "" | cat -e
+---
+Length 0: `while (i--)` is false immediately, only the newline is printed.

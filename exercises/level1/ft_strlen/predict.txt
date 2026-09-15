@@ -1,0 +1,27 @@
+@@ question
+answer: 0
+    ft_strlen("")
+---
+The first character is already '\0': the loop never runs.
+
+@@ question
+answer: 11
+    ft_strlen("hello world")
+---
+5 + 1 (the space) + 5 = 11. Spaces are characters like any other.
+
+@@ question
+answer: 4
+wrong: 6 => \t and \n are ONE character each in C source code.
+    ft_strlen("a\tb\n")
+---
+In a C string literal, `\t` (tab) and `\n` (newline) are single characters written with
+two symbols: 'a', tab, 'b', newline = 4.
+
+@@ question
+answer: 6
+wrong: 5 => sizeof counts the '\0' too.
+    sizeof("hello")
+---
+sizeof a string literal counts the terminator: 5 characters + '\0' = 6. ft_strlen
+would say 5.

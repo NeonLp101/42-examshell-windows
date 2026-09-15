@@ -1,0 +1,72 @@
+@@ intro
+strpbrk(s1, s2) returns a POINTER to the first character of s1 that is also in s2, or
+NULL if there is none.
+
+    strpbrk("hello", "lo")   => pointer to "llo" (s1 + 2)
+    strpbrk("hello", "xyz")  => NULL
+
+Same double loop as strcspn, but it returns an address instead of a count.
+
+@@ file ft_strpbrk.c
+#include <stddef.h>
+
+char	*ft_strpbrk(const char *s1, const char *s2)
+{
+	const char	*p;
+
+	while (*s1)
+	{
+		p = s2;
+		while ({{1}})
+		{
+			if ({{2}})
+				return ({{3}});
+			p++;
+		}
+		s1++;
+	}
+	return ({{4}});
+}
+
+@@ gap 1
+answer: *p
+accept: *p != '\0'
+accept: *p != 0
+wrong: p => p is a pointer: never NULL here. Test the character *p.
+wrong: *s2 => s2 never moves: p is the pointer walking through s2.
+hint: Walk through s2 with p until its terminator.
+p restarts at the beginning of s2 for every character of s1 (`p = s2`), then walks
+until s2's '\0'.
+
+@@ gap 2
+answer: *p == *s1
+accept: *s1 == *p
+wrong: p == s1 => That compares two addresses. Compare the characters: *p == *s1.
+hint: Is the current character of s1 in s2?
+Both are pointers, so we compare the characters they point to.
+
+@@ gap 3
+answer: (char *)s1
+wrong: s1 => s1 is a const char *, the function returns a char *: gcc refuses to drop the const silently. Cast it: (char *)s1.
+wrong: (char *)p => p points into s2. strpbrk returns a pointer into s1.
+wrong: *s1 => That's the character. strpbrk returns the POINTER to it.
+hint: The address of the matching character in s1 - with the right type.
+We return the address of the match inside s1. The prototype takes `const char *` but
+returns `char *` (like the real strpbrk), so the const has to be cast away explicitly -
+otherwise -Werror stops the compilation.
+
+@@ gap 4
+answer: NULL
+accept: 0
+accept: (char *)0
+accept: (char *)NULL
+wrong: s1 => s1 now points to the '\0' at the end - strpbrk must return NULL when nothing matches.
+wrong: (char *)s1 => s1 now points to the '\0' at the end - strpbrk must return NULL when nothing matches.
+hint: What does strpbrk return when no character matches?
+No character of s1 is in s2 => NULL. (NULL is available because <stddef.h> is included.)
+
+@@ outro
+Remember:
+- strpbrk returns a pointer into s1, or NULL
+- `p = s2` restarts the search in s2 for every character of s1
+- returning a pointer from a const parameter needs a `(char *)` cast

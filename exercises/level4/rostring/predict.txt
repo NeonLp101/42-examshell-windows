@@ -1,0 +1,67 @@
+@@ question
+match: exact
+args: ["Que la lumiere soit"]
+answer: la lumiere soit Que$
+    $> ./rostring "Que la lumiere soit" | cat -e
+---
+Rotate by one word: the first word moves to the end, the others keep their order.
+
+@@ question
+match: exact
+args: ["abc   "]
+answer: abc$
+wrong: abc   $ => Trailing blanks are not part of any word - they are not printed.
+wrong: abc $ => Only one word: nothing comes before it, so no separator is printed.
+    $> ./rostring "abc   " | cat -e
+---
+A single word: there are no "other words" to print first, so the output is just
+the word. The trailing spaces separate nothing, so they disappear - no space before the `$`.
+
+@@ question
+match: exact
+args: ["   hello     big   world  "]
+answer: big world hello$
+wrong: big     world hello$ => Several blanks between words become exactly ONE space in the output.
+wrong:  big world hello$ => Leading blanks are ignored - the output starts directly with the first printed word.
+    $> ./rostring "   hello     big   world  " | cat -e
+---
+"Words will be separated by only one space in the output": leading and trailing
+blanks vanish, and runs of blanks collapse into one space.
+
+@@ question
+match: exact
+args: ["     AkjhZ zLKIJz , 23y"]
+answer: zLKIJz , 23y AkjhZ$
+    $> ./rostring "     AkjhZ zLKIJz , 23y" | cat -e
+---
+The lonely "," is a word too: a word is anything between blanks. So the words are
+AkjhZ | zLKIJz | , | 23y, and AkjhZ moves to the end.
+
+@@ question
+match: exact
+args: ["first", "2", "11000000"]
+answer: first$
+wrong: $ => Unlike fprime and rev_wstr, rostring only prints "\n" when there is LESS than one argument. Extra arguments are ignored.
+wrong: 2 11000000 first$ => Only argv[1] is rotated. The other arguments are ignored.
+    $> ./rostring "first" "2" "11000000" | cat -e
+---
+Read the subject word by word: "If there's less than one argument, the program
+displays \n." With 3 arguments the program just uses the first one - a single
+word, printed as is.
+
+@@ question
+match: exact
+args: ["   "]
+answer: $
+    $> ./rostring "   " | cat -e
+---
+One argument, but zero words: nothing is printed except the newline.
+
+@@ question
+match: exact
+args: ["one\ttwo\tthree"]
+answer: two three one$
+    $> ./rostring $'one\ttwo\tthree' | cat -e
+---
+In bash, `$'...'` turns `\t` into a real tab. Tabs separate words just like spaces,
+but the output always uses single spaces.

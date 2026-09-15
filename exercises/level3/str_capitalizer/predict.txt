@@ -1,0 +1,25 @@
+@@ question
+match: exact
+args: ["a FiRSt LiTTlE TESt"]
+answer: A First Little Test$
+    $> ./str_capitalizer "a FiRSt LiTTlE TESt" | cat -e
+---
+First letter of each word up, everything else down.
+
+@@ question
+match: exact
+args: ["__SecONd teST"]
+answer: __second Test$
+wrong: __Second Test$ => The first CHARACTER of "__SecONd" is '_', not a letter: no capital in that word.
+    $> ./str_capitalizer "__SecONd teST" | cat -e
+---
+The word starts with '_': the rule applies to the first character only, and it's not a
+letter.
+
+@@ question
+match: exact
+args: ["42words ARE here"]
+answer: 42words Are Here$
+    $> ./str_capitalizer "42words ARE here" | cat -e
+---
+"42words" starts with a digit: no capital, the letters are lowercased.

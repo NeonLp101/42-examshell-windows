@@ -1,0 +1,8 @@
+{
+  "type": "function",
+  "expected_files": [
+    "ft_atoi_base.c"
+  ],
+  "allowed_functions": [],
+  "seeds": 10
+}

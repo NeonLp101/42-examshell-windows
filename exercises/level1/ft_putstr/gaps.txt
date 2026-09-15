@@ -1,0 +1,70 @@
+@@ intro
+A string in C is a pointer to its first character; the string ends at the '\0'
+character (value 0). ft_putstr walks from the first character to the '\0' and
+writes each one.
+
+This version moves the pointer itself (`str++`) instead of using an index - both
+are fine, but pointer walking is worth understanding.
+
+@@ file ft_putstr.c
+#include <unistd.h>
+
+void	ft_putstr(char *str)
+{
+	while ({{1}})
+	{
+		{{2}};
+		{{3}};
+	}
+}
+
+@@ gap 1
+answer: *str
+accept: *str != '\0'
+accept: *str != 0
+accept: str[0]
+accept: str[0] != '\0'
+wrong: str => str is the POINTER - it is never NULL here, so the loop runs past the end of the string. Test the character: *str.
+wrong: str != '\0' => That compares the pointer, not the character. Dereference it: *str.
+wrong: *str != NULL => NULL is a pointer; *str is a char. Compare with '\0' - or just write *str.
+hint: Keep going while the CHARACTER str points to is not the terminator.
+`*str` is the character str points to. The loop runs while it's not '\0' (whose value
+is 0, i.e. false).
+
+Careful with `str` alone: that's the address, which is never 0 here - the loop would
+never stop and would read memory after the string.
+
+@@ gap 2
+answer: write(1, str, 1)
+accept: write(1, &*str, 1)
+accept: write(1, &str[0], 1)
+wrong: write(1, *str, 1) => write needs the ADDRESS of the byte. str already is that address.
+wrong: write(1, &str, 1) => &str is the address of the pointer variable itself, not of the character.
+hint: write needs a pointer to the byte to print. What do you already have?
+`str` already IS the address of the current character, so it can be given to write
+directly. `write(1, str, 1)` prints exactly one byte: the current character.
+
+@@ gap 3
+answer: str++
+accept: ++str
+accept: str += 1
+accept: str = str + 1
+wrong: *str++ => That moves str too, but the * is useless here (gcc -Wall: "value computed is not used" => compile error).
+wrong: (*str)++ => That increments the CHARACTER ('a' becomes 'b'...), not the pointer: str never moves forward.
+hint: Move the pointer to the next character.
+Pointer arithmetic: `str++` moves the pointer to the next character (one byte further
+for a char *). Because `str` is a local copy of the caller's pointer, moving it doesn't
+change anything for the caller.
+
+Watch the difference: `str++` moves the pointer, `(*str)++` changes the character.
+
+@@ outro
+Two ways to walk a string - learn both:
+
+    while (str[i])            while (*str)
+        write(1, &str[i++], 1);   write(1, str++, 1);
+
+Remember:
+- `str` = address, `*str` = character
+- '\0' ends every string, and its value is 0 (false)
+- ft_putstr prints no newline

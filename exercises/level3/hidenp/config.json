@@ -1,0 +1,49 @@
+{
+  "type": "program",
+  "expected_files": [
+    "hidenp.c"
+  ],
+  "allowed_functions": [
+    "write"
+  ],
+  "fixed_tests": [
+    [
+      "fgex.;",
+      "tyf34gdgf;'ektufjhgdgex.;.;rtjynur6"
+    ],
+    [
+      "abc",
+      "2altrb53c.sse"
+    ],
+    [
+      "abc",
+      "btarc"
+    ],
+    [],
+    [
+      "",
+      "abc"
+    ],
+    [
+      "",
+      ""
+    ],
+    [
+      "abc",
+      ""
+    ],
+    [
+      "a"
+    ],
+    [
+      "abc",
+      "abc"
+    ],
+    [
+      "aab",
+      "ab"
+    ]
+  ],
+  "generator": "two_strings",
+  "random_tests": 15
+}

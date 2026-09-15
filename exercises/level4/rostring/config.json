@@ -1,0 +1,12 @@
+{
+  "type": "program",
+  "expected_files": ["rostring.c"],
+  "allowed_functions": ["write", "malloc", "free"],
+  "fixed_tests": [
+    ["abc   "], ["Que la      lumiere soit et la lumiere fut"], ["     AkjhZ zLKIJz , 23y"],
+    ["first", "2", "11000000"], [], [""], ["   "], ["\t \t"], ["one"], ["one two"],
+    ["\tone\ttwo\tthree\t"], ["  hello   world  "]
+  ],
+  "generator": "words_messy",
+  "random_tests": 15
+}

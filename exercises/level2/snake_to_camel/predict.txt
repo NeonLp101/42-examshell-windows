@@ -1,0 +1,23 @@
+@@ question
+match: exact
+args: ["hello_world"]
+answer: helloWorld$
+    $> ./snake_to_camel "hello_world" | cat -e
+---
+The underscore disappears and 'w' becomes 'W'.
+
+@@ question
+match: exact
+args: ["here_is_a_snake_case_word"]
+answer: hereIsASnakeCaseWord$
+    $> ./snake_to_camel "here_is_a_snake_case_word" | cat -e
+---
+Each word after the first starts with an uppercase letter - even the one-letter word "a".
+
+@@ question
+match: exact
+args: []
+answer: $
+    $> ./snake_to_camel | cat -e
+---
+No argument: only the newline.

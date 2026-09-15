@@ -1,0 +1,24 @@
+@@ question
+answer: [0, -1, -2, -3]
+wrong: [-3, -2, -1, 0] => That's ft_rrange. ft_range starts at start (0) and goes toward end.
+Type the array, like [1, 2, 3]:
+
+    ft_range(0, -3)
+---
+From start (0) toward end (-3), both included.
+
+@@ question
+answer: 4
+How many elements does this array have?
+
+    ft_range(-1, 2)
+---
+-1, 0, 1, 2: distance 3, + 1 because both ends are included.
+
+@@ question
+answer: 12
+How many bytes must malloc allocate (with 4-byte ints)?
+
+    ft_range(1, 3)
+---
+3 elements * sizeof(int) (4) = 12 bytes.

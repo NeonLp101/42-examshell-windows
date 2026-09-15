@@ -1,0 +1,203 @@
+@@ intro
+ft_split returns an array of strings - a `char **` - that ends with a NULL pointer,
+so the caller knows where it stops:
+
+    ft_split("  hello \t world ")   =>   res[0] => "hello"
+                                          res[1] => "world"
+                                          res[2] =  NULL
+
+Memory is allocated on two levels:
+1. ONE array of pointers: (number of words + 1) slots, the extra one for NULL
+2. ONE string per word: (its length + 1) bytes, the extra one for '\0'
+
+So the plan: count the words => malloc the array => for each word: skip the
+separators, measure the word, malloc it, copy it.
+
+@@ file ft_split.c
+#include <stdlib.h>
+
+static int	is_sep(char c)
+{
+	return (c == ' ' || c == '\t' || c == '\n');
+}
+
+static int	count_words(char *str)
+{
+	int	count;
+	int	i;
+
+	count = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (!is_sep(str[i]) && {{1}})
+			count++;
+		i++;
+	}
+	return (count);
+}
+
+char	**ft_split(char *str)
+{
+	char	**res;
+	int		i;
+	int		j;
+	int		k;
+	int		len;
+
+	res = malloc(sizeof({{2}}) * (count_words(str) + 1));
+	if (!res)
+		return (NULL);
+	i = 0;
+	k = 0;
+	while (str[i])
+	{
+		while (str[i] && is_sep(str[i]))
+			i++;
+		if (!str[i])
+			break ;
+		len = 0;
+		while (str[i + len] && {{3}})
+			len++;
+		res[k] = malloc({{4}});
+		if (!res[k])
+			return (NULL);
+		j = 0;
+		while (j < len)
+		{
+			{{5}} = str[i + j];
+			j++;
+		}
+		res[k][len] = '\0';
+		{{6}};
+		k++;
+	}
+	res[k] = {{7}};
+	return (res);
+}
+
+@@ gap 1
+answer: (i == 0 || is_sep(str[i - 1]))
+accept: (0 == i || is_sep(str[i - 1]))
+accept: (!i || is_sep(str[i - 1]))
+wrong: i == 0 || is_sep(str[i - 1]) => Missing parentheses: && binds tighter than ||, so this reads (!is_sep(str[i]) && i == 0) || is_sep(str[i - 1]) - separators after separators get counted too. gcc -Wall even refuses it: "suggest parentheses around '&&' within '||'".
+wrong: (is_sep(str[i - 1]) || i == 0) => Right idea, wrong order: when i == 0 this reads str[-1] BEFORE checking i. It can pass tests by luck, but it reads outside the string. Put i == 0 first.
+wrong: is_sep(str[i + 1]) => That detects the END of a word - and misses the first word if the string doesn't start with a separator. Look at the previous character.
+hint: Count the START of each word: a non-separator that is the very first character, or whose previous character is ... ?
+We count word STARTS: a character that is not a separator AND is either the very
+first character or comes right after a separator.
+
+Two C details hide in there:
+
+- Short-circuit: when i == 0, `||` stops before evaluating `str[i - 1]`, so we
+  never read `str[-1]`. That's why `i == 0` must be on the LEFT.
+- The parentheses are required: `&&` binds tighter than `||`. Without them,
+  `a && i == 0 || b` means `(a && i == 0) || b`, which counts every character
+  that follows a separator - including other separators.
+
+@@ gap 2
+answer: char *
+accept: *res
+accept: res[0]
+wrong: char => sizeof(char) is 1, but each slot holds a POINTER (8 bytes). The array would be 8 times too small.
+wrong: char ** => That happens to be 8 bytes too, but it's the wrong type: each element of res is a char *.
+wrong: res => sizeof(res) is the size of the pointer variable res - it works by accident. What each slot holds is a char *.
+hint: res is an array. What is the type of ONE element of that array?
+`res` is a `char **`: a pointer to the first element of an array whose elements
+are `char *` (one pointer per word). So each slot is `sizeof(char *)` bytes -
+8 on a 64-bit machine.
+
+`sizeof(char)` would give 1 byte per slot: 8 times too small. Filling it overflows
+the buffer, which often crashes much later - one of the nastiest bugs to find.
+
+Handy trick: `sizeof(*res)` means "the size of what res points to", and stays
+correct even if you change the type later.
+
+The `+ 1` makes room for the final NULL.
+
+@@ gap 3
+answer: !is_sep(str[i + len])
+accept: is_sep(str[i + len]) == 0
+accept: !(is_sep(str[i + len]))
+wrong: !is_sep(str[i]) => str[i] never changes in this loop (i doesn't move), so it would count forever. Look ahead: str[i + len].
+wrong: is_sep(str[i + len]) => That keeps going while it IS a separator - we're measuring the word. Negate it.
+wrong: str[i + len] != ' ' => Tabs and newlines are separators too - use is_sep.
+hint: Keep counting while the character at position i + len is part of the word.
+Measure the word: move forward from its first character until the end of the
+string or the next separator. `str[i + len]` looks AHEAD without moving `i`, so
+`i` still marks the start of the word for the copy below.
+
+The `str[i + len] &&` in front stops at '\0' - is_sep('\0') is false, so without
+it the loop would run past the end of the string.
+
+@@ gap 4
+answer: len + 1
+accept: sizeof(char) * (len + 1)
+accept: (len + 1) * sizeof(char)
+accept: 1 + len
+wrong: len => No room for the '\0' that is written at res[k][len]. (Tests may even pass by luck - writing one byte past a malloc is still a bug.)
+wrong: sizeof(char *) * (len + 1) => It works, but it allocates 8 times too much: a word is an array of chars, not of pointers. sizeof(char) is 1.
+hint: len characters + the terminator.
+Room for the `len` characters of the word, plus the '\0' written right after the
+copy (`res[k][len] = '\0'` - index len is the (len + 1)-th byte).
+
+@@ gap 5
+answer: res[k][j]
+accept: *(res[k] + j)
+wrong: res[k] => res[k] is the whole word (a char *). You copy one character: res[k][j].
+wrong: res[j][k] => Swapped: res[k] is the word, [j] the character in it. res[k][j].
+wrong: res[k][i + j] => The word has its own indexes starting at 0: res[k][j]. i + j is the position in str.
+hint: Character number j of word number k.
+Double indexing on a `char **`:
+
+    res[k]         the k-th string (a char *)
+    res[k][j]      the j-th character of that string (a char)
+
+We copy `len` characters, starting at the word's first character `str[i]`.
+`str[i + j]` is character j of the word inside the original string.
+
+@@ gap 6
+answer: i += len
+accept: i = i + len
+accept: i = len + i
+wrong: i++ => That moves only one character: the rest of the word would be counted as new words.
+wrong: i = len => len is the LENGTH of the word, not a position in str. Add it: i += len.
+wrong: k++ => k is already incremented on the next line. The problem is i: it still points at the start of the word.
+hint: The word is copied. Move i past it.
+Jump over the word we just copied: i now points at the separator (or '\0') right
+after it, and the next loop turn skips the separators again.
+
+Without this line, the next turn starts on the same word: it gets copied again
+and again, and k runs past the end of the array => crash.
+
+@@ gap 7
+answer: NULL
+accept: 0
+accept: (char *)0
+accept: (void *)0
+accept: (char *)NULL
+wrong: "\0" => That's a pointer to an (empty) string, not NULL: the caller's while (res[i]) would never stop.
+wrong: "" => That's a pointer to an empty string, not NULL: the caller's while (res[i]) would never stop.
+hint: How does the caller know where the array ends?
+The array stores no length, so its end is marked with a NULL pointer - just like
+'\0' marks the end of a string. That's what "NULL-terminated array" means, and
+why we allocated count + 1 slots.
+
+Callers then loop with `while (res[i])`.
+
+@@ outro
+The shape of the solution:
+
+    count words             =>  malloc(sizeof(char *) * (count + 1))
+    for each word:
+        skip separators
+        measure it          =>  malloc(len + 1)
+        copy it + '\0'
+        move i past it
+    res[k] = NULL
+
+Common failures:
+- `sizeof(char)` instead of `sizeof(char *)` for the array of pointers
+- forgetting a `+ 1` (for the NULL or for the '\0')
+- treating only ' ' as a separator - the subject also says tabs and newlines
+- "" or "   " must return an array holding only NULL, not crash

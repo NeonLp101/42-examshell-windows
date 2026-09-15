@@ -1,0 +1,159 @@
+@@ intro
+The algorithm is called "trial division":
+
+    try factor = 2, 3, 4, 5, ...
+        while factor divides n: print it, divide n by it
+
+Example with 42: 2 divides 42 => print 2, n = 21. 2 doesn't divide 21 => try 3.
+3 divides 21 => print 3, n = 7. 3, 4, 5, 6 don't divide 7 => try 7 => print 7,
+n = 1 => done. Output: 2*3*7
+
+The only formatting trick is the `*`: it goes BETWEEN factors, never after the last one.
+
+@@ file fprime.c
+#include <stdio.h>
+#include <stdlib.h>
+
+int	main(int argc, char **argv)
+{
+	int	n;
+	int	factor;
+
+	if (argc == 2)
+	{
+		n = {{1}};
+		if (n == 1)
+			printf("1");
+		factor = {{2}};
+		while ({{3}})
+		{
+			if ({{4}})
+			{
+				printf("%d", factor);
+				{{5}};
+				if (n > 1)
+					printf({{6}});
+			}
+			else
+				{{7}};
+		}
+	}
+	printf("\n");
+	return (0);
+}
+
+@@ gap 1
+answer: atoi(argv[1])
+wrong: argv[1] => argv[1] is a string (a char *), n is an int. It has to be converted first.
+wrong: atoi(argv[0]) => argv[0] is the program name ("./fprime"). The first argument is argv[1].
+wrong: atoi(argv) => atoi takes one string. argv is the whole array of strings - pick the first argument: argv[1].
+hint: argv[1] is the text "225225", not a number. Which allowed function converts it?
+`argv` is an array of strings: `argv[0]` is the program name ("./fprime") and
+`argv[1]` the first argument. That's also why the program checks `argc == 2`:
+argc counts the program name too, so "one parameter" means argc == 2.
+
+The argument is text - the characters '2', '2', '5', ... - so it must be converted
+to an int. `atoi` ("ASCII to integer") does exactly that, and it's allowed.
+The subject promises the input is a valid positive int, so no error checking needed.
+
+@@ gap 2
+answer: 2
+wrong: 1 => Every number is divisible by 1, and n /= 1 never makes n smaller: infinite loop.
+wrong: 0 => n % 0 is a division by zero => crash.
+hint: What is the smallest prime number?
+Start testing divisors at 2, the smallest prime.
+
+Starting at 1 would loop forever: every number is divisible by 1, and `n /= 1`
+never makes n smaller. Starting at 0 would divide by zero => crash.
+
+(1 itself is handled just above: it has no prime factors, but the subject wants "1" printed.)
+
+@@ gap 3
+answer: n > 1
+accept: 1 < n
+accept: n != 1
+accept: factor <= n
+wrong: n > 0 => n never reaches 0: once all factors are divided out, n is 1. The loop would search forever.
+hint: Every factor found is divided out of n. When is there nothing left to factor?
+Each time we find a factor we divide it out of n, so n keeps shrinking:
+
+    225225 => 75075 => 25025 => 5005 => 1001 => 143 => 13 => 1
+          /3       /3       /5      /5      /7     /11   /13
+
+When n reaches 1, every prime factor has been printed and removed: stop.
+
+@@ gap 4
+answer: n % factor == 0
+accept: (n % factor) == 0
+accept: !(n % factor)
+accept: 0 == n % factor
+wrong: n / factor == 0 => / is the integer division (the quotient). The remainder is given by %.
+wrong: n % factor => That is true when the remainder is NOT zero, i.e. when factor does NOT divide n.
+hint: "factor divides n" means the remainder of n divided by factor is ... ?
+`%` is the modulo operator: the remainder of the integer division.
+`n % factor == 0` means "factor divides n exactly".
+
+    42 % 2 == 0     => 2 is a factor of 42
+    21 % 2 == 1     => 2 is not a factor of 21
+
+`%` binds tighter than `==`, so no parentheses are needed.
+
+@@ gap 5
+answer: n /= factor
+accept: n = n / factor
+wrong: n %= factor => That keeps the remainder (0 here). We need to divide the factor out: n /= factor.
+wrong: factor++ => Not yet! The same prime can divide n several times (225225 = 3*3*...). Divide n first.
+hint: Remove the factor you just printed from n.
+`n /= factor` is short for `n = n / factor` (compound assignment, same family as
+`+=`, `-=`, `*=`).
+
+Notice what we DON'T do: we don't move to the next factor. A prime can divide n
+several times (225225 = 3*3*5*5*7*11*13), so we stay on the same factor and test
+it again on the next loop turn. We only move on when it stops dividing.
+
+@@ gap 6
+answer: "*"
+accept: "%c", '*'
+accept: "%s", "*"
+wrong: '*' => printf's first argument must be a format STRING: double quotes. '*' is a single char (an int).
+hint: printf needs a string (double quotes) for the separator.
+The `*` goes BETWEEN factors. After dividing, if n is still bigger than 1 there
+is at least one more factor coming, so it's safe to print the separator now -
+and after the last factor (n == 1) nothing is printed.
+
+printf's first parameter is a format string, so it's `"*"` in double quotes.
+`'*'` is a single character (an int), and passing it to printf does not compile
+with -Werror.
+
+@@ gap 7
+answer: factor++
+accept: ++factor
+accept: factor += 1
+accept: factor = factor + 1
+wrong: n++ => n is the number being factored - it must only change by dividing. Move to the next candidate factor.
+hint: factor doesn't divide n (anymore). Try the next candidate.
+Only when `factor` doesn't divide n do we try the next number.
+
+The clever part: we test EVERY number (2, 3, 4, 5, 6, ...), not only primes, yet
+only primes ever get printed. Why? When factor reaches 4, all the 2s have already
+been divided out of n, so 4 can't divide n anymore. Same for 6 (the 2s and 3s are
+gone), 9, 10, ... A composite number is always "eaten" by its smaller prime
+factors first. No is_prime function needed.
+
+@@ outro
+Trial division in 4 lines:
+
+    factor = 2
+    while n > 1
+        if n % factor == 0:  print factor, n /= factor  (stay on the same factor)
+        else:                factor++
+
+Remember:
+- `argc == 2`, because argv[0] is the program name
+- print "\n" in every case, even with the wrong number of arguments
+- stay on the same factor after dividing (repeated primes like 3*3)
+- `*` between factors: print it only if n > 1 after dividing
+
+Speed bonus: for a big prime like 2147483647 this loop runs 2 billion times.
+You can stop early: as soon as `factor * factor > n`, the n that is left must be
+prime, so print it and stop (use a long for factor * factor, it can overflow an int).

@@ -1,0 +1,46 @@
+{
+  "type": "program",
+  "expected_files": [
+    "union.c"
+  ],
+  "allowed_functions": [
+    "write"
+  ],
+  "fixed_tests": [
+    [
+      "zpadinton",
+      "paqefwtdjetyiytjneytjoeyjnejeyj"
+    ],
+    [
+      "ddf6vewg64f",
+      "gtwthgdwthdwfteewhrtag6h4ffdhsd"
+    ],
+    [
+      "rien",
+      "cette phrase ne cache rien"
+    ],
+    [],
+    [
+      "rien"
+    ],
+    [
+      "",
+      ""
+    ],
+    [
+      "",
+      "abcab"
+    ],
+    [
+      "aaa",
+      ""
+    ],
+    [
+      "a",
+      "b",
+      "c"
+    ]
+  ],
+  "generator": "two_strings",
+  "random_tests": 15
+}

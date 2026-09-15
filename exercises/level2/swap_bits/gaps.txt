@@ -1,0 +1,60 @@
+@@ intro
+A byte is two halves of 4 bits ("nibbles"). swap_bits exchanges them:
+
+    0100 | 0001   =>   0001 | 0100          65 => 20
+
+Take the high half, take the low half, put them back in the other order.
+
+@@ file swap_bits.c
+unsigned char	swap_bits(unsigned char octet)
+{
+	unsigned char	high;
+	unsigned char	low;
+
+	high = {{1}};
+	low = {{2}};
+	return ({{3}});
+}
+
+@@ gap 1
+answer: octet >> 4
+accept: octet / 16
+wrong: octet << 4 => Shifting left pushes the high half OUT of the byte. Shift right to bring it down.
+wrong: octet & 0xF0 => That keeps the high half in place (e.g. 01000000). Shift it down: octet >> 4.
+hint: Move the 4 high bits down into the low positions.
+`octet >> 4` drops the 4 low bits and moves the high half down: 01000001 >> 4 = 00000100.
+
+@@ gap 2
+answer: octet & 0x0F
+accept: octet & 15
+accept: octet & 0xF
+accept: octet % 16
+accept: octet & 0x0f
+wrong: octet & 0xF0 => 0xF0 = 11110000 keeps the HIGH half. The low half is 0x0F = 00001111.
+wrong: octet >> 4 => That's the high half again.
+hint: A mask that keeps only the 4 low bits.
+`& 0x0F` (binary 00001111) keeps the 4 low bits and clears the others.
+Hexadecimal is handy for masks: each hex digit is exactly 4 bits.
+
+@@ gap 3
+answer: (low << 4) | high
+accept: low << 4 | high
+accept: high | (low << 4)
+accept: (low << 4) + high
+accept: low * 16 + high
+wrong: (high << 4) | low => That rebuilds the original byte. The halves must change places.
+wrong: low | high => Both halves end up in the low bits: shift the low half up first.
+hint: The old low half goes up, the old high half stays down.
+`low << 4` moves the low half into the high position, and `| high` fills the low
+position with the old high half:
+
+    low  = 0001  =>  low << 4 = 00010000
+    high = 0100  =>  | high   = 00010100  = 20
+
+The whole function also fits in one line: `return ((octet >> 4) | (octet << 4));`.
+
+@@ outro
+Bit toolbox:
+- `octet >> 4` = high nibble, `octet & 0x0F` = low nibble
+- `x << 4` moves a nibble into the high position
+- `|` combines bits that don't overlap

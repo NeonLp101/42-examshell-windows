@@ -1,0 +1,25 @@
+@@ question
+match: exact
+args: ["a FiRSt LiTTlE TESt"]
+answer: A firsT littlE tesT$
+    $> ./rstr_capitalizer "a FiRSt LiTTlE TESt" | cat -e
+---
+The last letter of each word goes up, the rest down. "a" is a one-letter word: its last
+letter is its first.
+
+@@ question
+match: exact
+args: ["   But... This"]
+answer:    but... thiS$
+wrong:    buT... thiS$ => The last CHARACTER of "But..." is '.', not a letter: nothing gets capitalized in that word.
+    $> ./rstr_capitalizer "   But... This" | cat -e
+---
+The word "But..." ends with '.', so its 't' is not the last character: it stays lowercase.
+
+@@ question
+match: exact
+args: []
+answer: $
+    $> ./rstr_capitalizer | cat -e
+---
+No argument: a single newline.

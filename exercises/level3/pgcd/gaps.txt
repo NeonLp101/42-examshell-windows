@@ -1,0 +1,76 @@
+@@ intro
+Euclid's algorithm: the greatest common divisor doesn't change when you replace (a, b)
+by (b, a % b). Repeat until b is 0 - then a is the answer.
+
+    (42, 12) => (12, 6) => (6, 0)   => 6
+
+Much faster than trying every divisor, and only 3 lines.
+
+@@ file pgcd.c
+#include <stdio.h>
+#include <stdlib.h>
+
+int	main(int argc, char **argv)
+{
+	int	a;
+	int	b;
+	int	tmp;
+
+	if (argc == 3)
+	{
+		a = atoi(argv[1]);
+		b = atoi(argv[2]);
+		while ({{1}})
+		{
+			tmp = {{2}};
+			a = {{3}};
+			b = tmp;
+		}
+		printf("%d", {{4}});
+	}
+	printf("\n");
+	return (0);
+}
+
+@@ gap 1
+answer: b
+accept: b != 0
+accept: b > 0
+wrong: a => b reaches 0 first: the loop would then compute a % 0 => crash.
+wrong: a != b => That's a different algorithm (subtraction). Here: loop while b is not 0.
+hint: Repeat until the remainder is 0.
+Each turn b becomes a remainder, which gets smaller and smaller; when it hits 0 we're done.
+
+@@ gap 2
+answer: a % b
+wrong: b % a => The order matters: the pair (a, b) becomes (b, a % b).
+wrong: a / b => Euclid uses the remainder, not the quotient.
+hint: The remainder of a divided by b.
+Save the remainder before a and b change.
+
+@@ gap 3
+answer: b
+wrong: tmp => tmp (the remainder) goes into b, on the next line. a takes the old b.
+hint: The pair (a, b) becomes (b, a % b).
+Shift the pair: a takes b's value, b takes the remainder. That's why tmp is needed - the
+three variables rotate.
+
+@@ gap 4
+answer: a
+wrong: b => When the loop ends, b is 0. The gcd is in a.
+wrong: tmp => tmp is the last remainder: 0. The gcd is in a.
+hint: When b became 0, where is the result?
+The last non-zero remainder ended up in a.
+
+@@ outro
+Euclid in 4 lines:
+
+    while (b)
+    {
+        tmp = a % b;
+        a = b;
+        b = tmp;
+    }
+
+Remember: pgcd prints "\n" alone for a wrong argument count, and the gcd of two
+positive numbers is always >= 1.

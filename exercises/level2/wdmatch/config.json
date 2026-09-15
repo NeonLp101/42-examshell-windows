@@ -1,0 +1,45 @@
+{
+  "type": "program",
+  "expected_files": [
+    "wdmatch.c"
+  ],
+  "allowed_functions": [
+    "write"
+  ],
+  "fixed_tests": [
+    [
+      "faya",
+      "fgvvfdxcacpolhyghbreda"
+    ],
+    [
+      "faya",
+      "fgvvfdxcacpolhyghbred"
+    ],
+    [
+      "quarante deux",
+      "qfqfsudf arzgsayns tsregfdgs sjytdekuoixq "
+    ],
+    [
+      "error",
+      "rrerrrfiiljdfxjyuifrrvcoojh"
+    ],
+    [],
+    [
+      "abc"
+    ],
+    [
+      "abc",
+      "abc"
+    ],
+    [
+      "aab",
+      "ab"
+    ],
+    [
+      "abc",
+      "a b c"
+    ]
+  ],
+  "generator": "two_strings",
+  "random_tests": 15
+}

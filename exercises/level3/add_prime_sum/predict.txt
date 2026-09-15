@@ -1,0 +1,34 @@
+@@ question
+match: exact
+args: ["5"]
+answer: 10$
+    $> ./add_prime_sum 5 | cat -e
+---
+The primes <= 5 are 2, 3 and 5: 10.
+
+@@ question
+match: exact
+args: ["7"]
+answer: 17$
+wrong: 16$ => 1 is not a prime: 2 + 3 + 5 + 7 = 17.
+    $> ./add_prime_sum 7 | cat -e
+---
+2 + 3 + 5 + 7 = 17.
+
+@@ question
+match: exact
+args: []
+answer: 0$
+wrong: $ => Unlike most exercises, add_prime_sum prints "0" for a wrong argument count.
+    $> ./add_prime_sum | cat -e
+---
+"If the number of arguments is not 1, or the argument is not a positive number, just
+display 0 followed by a newline."
+
+@@ question
+match: exact
+args: ["-5"]
+answer: 0$
+    $> ./add_prime_sum -5 | cat -e
+---
+Not a positive number: 0.

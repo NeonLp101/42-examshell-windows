@@ -1,0 +1,63 @@
+@@ intro
+Reverse a string IN PLACE: swap the first and last characters, then the second and the
+second-to-last, and so on, until you reach the middle.
+
+    "hello"   swap h,o => "oellh"   swap e,l => "olleh"   (the middle 'l' stays)
+
+Stop at the middle - going further would swap everything back.
+
+@@ file ft_strrev.c
+char	*ft_strrev(char *str)
+{
+	int		i;
+	int		len;
+	char	tmp;
+
+	len = 0;
+	while (str[len])
+		len++;
+	i = 0;
+	while ({{1}})
+	{
+		tmp = str[i];
+		str[i] = {{2}};
+		str[len - 1 - i] = tmp;
+		i++;
+	}
+	return ({{3}});
+}
+
+@@ gap 1
+answer: i < len / 2
+accept: i < len - 1 - i
+accept: i < len - i - 1
+accept: 2 * i < len
+accept: i * 2 < len
+wrong: i < len => That swaps every pair TWICE: the string ends up unchanged.
+wrong: i <= len / 2 => For even lengths ("ab") this swaps the middle pair back: "ab" stays "ab".
+hint: Stop at the middle of the string.
+Each swap handles two characters (i and its mirror len - 1 - i), so only the first half
+of the indexes is needed. With `i < len` the second half would swap every pair back.
+
+    "abcd": len / 2 = 2  => swaps (0,3) and (1,2)
+    "abc":  len / 2 = 1  => swaps (0,2), the middle 'b' stays
+
+@@ gap 2
+answer: str[len - 1 - i]
+accept: str[len - i - 1]
+wrong: str[len - i] => Off by one: for i = 0 that's str[len], the '\0'. The last character is at len - 1.
+wrong: str[len] => That's the terminator. The mirror of i is len - 1 - i.
+hint: The mirror position of i. The last character is at index len - 1.
+The mirror of index i is len - 1 - i: index 0 pairs with len - 1, index 1 with len - 2...
+
+@@ gap 3
+answer: str
+wrong: str + len => That points to the end. The subject says: return the parameter.
+hint: "It must return its parameter."
+The string was modified in place, so the result is at the same address: we return str.
+
+@@ outro
+Remember:
+- in place = swap characters inside the same memory, no malloc
+- mirror of i: len - 1 - i
+- stop at the middle: i < len / 2

@@ -1,0 +1,36 @@
+{
+  "type": "program",
+  "expected_files": [
+    "rotone.c"
+  ],
+  "allowed_functions": [
+    "write"
+  ],
+  "fixed_tests": [
+    [
+      "abc"
+    ],
+    [
+      "Les stagiaires du staff ne sentent pas toujours tres bon."
+    ],
+    [
+      "AkjhZ zLKIJz , 23y "
+    ],
+    [],
+    [
+      ""
+    ],
+    [
+      "zZ"
+    ],
+    [
+      "a",
+      "b"
+    ],
+    [
+      "@[`{"
+    ]
+  ],
+  "generator": "text",
+  "random_tests": 15
+}

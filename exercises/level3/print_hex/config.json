@@ -1,0 +1,39 @@
+{
+  "type": "program",
+  "expected_files": [
+    "print_hex.c"
+  ],
+  "allowed_functions": [
+    "write"
+  ],
+  "fixed_tests": [
+    [
+      "10"
+    ],
+    [
+      "255"
+    ],
+    [
+      "5156454"
+    ],
+    [],
+    [
+      "0"
+    ],
+    [
+      "16"
+    ],
+    [
+      "15"
+    ],
+    [
+      "2147483647"
+    ],
+    [
+      "1",
+      "2"
+    ]
+  ],
+  "generator": "print_hex",
+  "random_tests": 15
+}

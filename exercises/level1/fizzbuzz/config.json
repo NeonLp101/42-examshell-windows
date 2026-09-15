@@ -1,0 +1,12 @@
+{
+  "type": "program",
+  "expected_files": [
+    "fizzbuzz.c"
+  ],
+  "allowed_functions": [
+    "write"
+  ],
+  "fixed_tests": [
+    []
+  ]
+}

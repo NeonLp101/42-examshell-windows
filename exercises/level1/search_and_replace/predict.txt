@@ -1,0 +1,32 @@
+@@ question
+match: exact
+args: ["zaz", "art", "zul"]
+answer: $
+wrong: zzz$ => The 2nd and 3rd arguments must be single characters. "art" isn't => only a newline.
+    $> ./search_and_replace "zaz" "art" "zul" | cat -e
+---
+"art" and "zul" are not single characters: the program only prints the newline.
+
+@@ question
+match: exact
+args: ["Papache est un sabre", "a", "o"]
+answer: Popoche est un sobre$
+    $> ./search_and_replace "Papache est un sabre" "a" "o" | cat -e
+---
+Every 'a' becomes 'o'.
+
+@@ question
+match: exact
+args: ["zaz", "r", "u"]
+answer: zaz$
+    $> ./search_and_replace "zaz" "r" "u" | cat -e
+---
+'r' doesn't appear: the string is printed unchanged.
+
+@@ question
+match: exact
+args: ["jacob", "a", "b", "c", "e"]
+answer: $
+    $> ./search_and_replace "jacob" "a" "b" "c" "e" | cat -e
+---
+5 arguments instead of 3: only the newline.

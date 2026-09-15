@@ -1,0 +1,10 @@
+{
+  "type": "function",
+  "expected_files": [
+    "ft_range.c"
+  ],
+  "allowed_functions": [
+    "malloc"
+  ],
+  "seeds": 10
+}

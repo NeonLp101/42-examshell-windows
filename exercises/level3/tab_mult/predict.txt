@@ -1,0 +1,20 @@
+@@ question
+match: text
+answer: 7 x 19 = 133
+What is the 7th line printed by `./tab_mult 19`?
+---
+7 * 19 = 133.
+
+@@ question
+answer: 9
+How many lines does `./tab_mult 42` print?
+---
+From 1 x 42 to 9 x 42: 9 lines.
+
+@@ question
+match: exact
+args: []
+answer: $
+    $> ./tab_mult | cat -e
+---
+No parameter: only the newline.

@@ -1,0 +1,149 @@
+@@ intro
+Walk the string BACKWARDS, and every time you reach the start of a word, print it.
+
+    "Wingardium Leviosa"
+                       ^   start at the end
+                ^^^^^^^    walk left until the space   => print "Leviosa"
+     ^^^^^^^^^^            skip the space, walk left   => print "Wingardium"
+
+No malloc needed: `write` can print a slice of the original string directly, if
+you give it a pointer to the first character and a length.
+
+Here `i` means "one PAST the character we're looking at", so the character we
+test is always `s[i - 1]`. That keeps i >= 0 everywhere.
+
+@@ file rev_wstr.c
+#include <unistd.h>
+
+int	main(int argc, char **argv)
+{
+	char	*s;
+	int		i;
+	int		end;
+	int		first;
+
+	if (argc == 2)
+	{
+		s = argv[1];
+		i = 0;
+		while ({{1}})
+			i++;
+		first = 1;
+		while (i > 0)
+		{
+			end = i;
+			while ({{2}} && s[i - 1] != ' ' && s[i - 1] != '\t')
+				i--;
+			if ({{3}})
+				write(1, " ", 1);
+			write(1, {{4}}, {{5}});
+			first = 0;
+			{{6}};
+		}
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+@@ gap 1
+answer: s[i]
+accept: s[i] != '\0'
+accept: s[i] != 0
+wrong: s[i] != NULL => NULL is a pointer; s[i] is a char. Compare with '\0' - or just write s[i].
+wrong: s => s is the pointer to the string, it never changes: infinite loop. Look at the character: s[i].
+wrong: s[i] != "\0" => "\0" is a string (an address). A char is compared with '\0' in single quotes.
+hint: Move i forward until you reach the end of the string.
+Find the length of the string: advance until `s[i]` is the '\0' terminator.
+'\0' has the value 0, which is false, so `while (s[i])` stops exactly on it.
+
+After this loop, i == the length of the string: one past the last character.
+
+@@ gap 2
+answer: i > 0
+accept: 0 < i
+accept: i >= 1
+accept: i
+wrong: i >= 0 => When i == 0 the loop would still read s[i - 1] = s[-1], outside the string.
+wrong: s[i] => s[i] is the character AFTER the one we test, and at the end of the string it's '\0': the loop would never start.
+hint: The condition reads s[i - 1]. What must be true about i so that this doesn't read before the string?
+Guard before reading: the next part of the condition looks at `s[i - 1]`, and when
+i reaches 0 that would be `s[-1]` - outside the string.
+
+`&&` evaluates left to right and stops at the first false part, so `i > 0` must
+come FIRST. The walk left stops either at the beginning of the string or when the
+previous character is a space or tab. Either way, i is now the index of the first
+letter of the word.
+
+@@ gap 3
+answer: !first
+accept: first == 0
+accept: first != 1
+wrong: first => That prints the space before the FIRST word only - it must be the other way round.
+wrong: i > 0 => i > 0 is true for every word except the first word of the string: you'd get a space in front of the first word printed and none before the last one. Use the flag.
+hint: Words are separated by spaces, but no space goes before the first word you print.
+Separators go BETWEEN words. Printing a space before every word except the first
+one gives "c b a" with no leading or trailing space. The output is checked with
+`cat -e`, so an extra space before the `$` is a FAILURE.
+
+A flag like `first` is the usual way to do it. Printing the space AFTER each word
+would require knowing whether another word is coming - harder here.
+
+@@ gap 4
+answer: &s[i]
+accept: s + i
+accept: i + s
+accept: &(s[i])
+wrong: s[i] => s[i] is a char. write needs a POINTER to the first byte: &s[i] (or s + i).
+wrong: s => s points to the beginning of the whole string, not of the current word. Use &s[i].
+wrong: &s[end] => end is one past the last letter. The word starts at i.
+hint: write needs a POINTER to the first character to print.
+`write(fd, pointer, count)` prints `count` bytes starting at `pointer`.
+`&s[i]` is the address of character i: the start of the word.
+
+`&s[i]` and `s + i` are the same thing: `s[i]` is defined as `*(s + i)`, so taking
+its address gives back `s + i` (pointer arithmetic).
+
+@@ gap 5
+answer: end - i
+accept: -i + end
+wrong: end - i + 1 => Off by one: end is already one past the last letter, so the word is exactly end - i characters.
+wrong: i - end => i is smaller than end here: that length would be negative.
+wrong: end => That's a position, not a length: it would print the rest of the string from i.
+hint: end was saved before walking left. How many characters lie between i and end?
+`end` was saved before walking left, and it's a "one past" position: the word
+occupies indexes i, i + 1, ..., end - 1. That's `end - i` characters.
+
+    "Wingardium Leviosa"      i = 11, end = 18     =>   7 characters: "Leviosa"
+
+@@ gap 6
+answer: i--
+accept: --i
+accept: i -= 1
+accept: i = i - 1
+wrong: i++ => That goes forward again - back into the word we just printed: infinite loop.
+wrong: i -= 2 => Only one separator to skip (the subject guarantees exactly one space). i -= 2 would eat the last letter of the previous word.
+hint: i is at the first letter of the word, right after the space. Step over that space.
+Step over the separator in front of the word we just printed, so the next turn
+starts at the end of the previous word.
+
+After printing the first word of the string, i was 0 and becomes -1: `while (i > 0)`
+stops. (The subject guarantees exactly one space between words, so skipping one
+character is enough.)
+
+@@ outro
+Reverse-order printing without any memory:
+
+    i = length of s
+    while (i > 0)
+        end = i
+        walk i left to the start of the word
+        print s[i .. end - 1], with a space before it unless it's the first word
+        skip the separator
+
+What the grader checks:
+- no argument, or 2+ arguments => just "\n"
+- exactly one space between words, none at the start or the end
+- "\n" at the end in every case
+
+`write(1, &s[i], len)` - printing a slice of a string without copying it - is worth
+remembering: shorter than a putchar loop, and no malloc.

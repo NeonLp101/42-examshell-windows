@@ -1,0 +1,66 @@
+@@ intro
+Exactly like epur_str, but the separator is THREE spaces:
+
+    "See? It's easy"   =>   "See?   It's   easy"
+
+Skip blanks, stop at the end, write the separator only between words, print the word.
+
+@@ file expand_str.c
+#include <unistd.h>
+
+int	main(int argc, char **argv)
+{
+	char	*s;
+	int		printed;
+
+	if (argc == 2)
+	{
+		s = argv[1];
+		printed = 0;
+		while (*s)
+		{
+			while (*s == ' ' || *s == '\t')
+				s++;
+			if ({{1}})
+				break ;
+			if ({{2}})
+				{{3}};
+			while (*s && *s != ' ' && *s != '\t')
+				write(1, s++, 1);
+			printed = 1;
+		}
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+@@ gap 1
+answer: !*s
+accept: *s == '\0'
+accept: *s == 0
+wrong: *s => Reversed: that stops when a word IS coming.
+hint: After skipping blanks, is the string over?
+Trailing blanks lead to the '\0': stop before writing a separator.
+
+@@ gap 2
+answer: printed
+accept: printed == 1
+accept: printed != 0
+wrong: !printed => Reversed: the separator goes before every word EXCEPT the first.
+hint: Only between words.
+The first word gets no separator in front of it.
+
+@@ gap 3
+answer: write(1, "   ", 3)
+wrong: write(1, "   ", 1) => That writes one space. The separator is three spaces: count 3.
+wrong: write(1, " ", 3) => " " is only 2 bytes (space + '\0'): writing 3 prints garbage. Use "   " (three spaces).
+wrong: write(1, " ", 1) => That's epur_str's separator. expand_str uses THREE spaces.
+hint: Write the three-space separator in one call.
+A string literal with three spaces, and a count of 3. The count must match the number of
+characters you want - write doesn't stop at '\0'.
+
+@@ outro
+Remember:
+- same loop as epur_str, separator "   " (3 spaces)
+- write's count must match the literal: `write(1, "   ", 3)`
+- no separator before the first word or after the last

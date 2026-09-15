@@ -1,0 +1,7 @@
+{
+  "type": "function",
+  "expected_files": ["sort_list.c"],
+  "allowed_functions": [],
+  "attachments": ["list.h"],
+  "seeds": 15
+}

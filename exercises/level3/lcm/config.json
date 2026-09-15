@@ -1,0 +1,8 @@
+{
+  "type": "function",
+  "expected_files": [
+    "lcm.c"
+  ],
+  "allowed_functions": [],
+  "seeds": 10
+}

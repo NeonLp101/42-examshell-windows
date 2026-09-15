@@ -1,0 +1,91 @@
+@@ intro
+Same idea as ft_atoi, but in any base from 2 to 16: each new digit is added with
+`result = result * base + digit`.
+
+    "ff" in base 16:   15               15 * 16 + 15 = 255
+    "101" in base 2:   1    1*2+0 = 2    2*2+1 = 5
+
+Digits are '0'-'9' then 'a'-'f' (or 'A'-'F') for 10-15. A character that isn't a valid
+digit FOR THIS BASE stops the conversion.
+
+@@ file ft_atoi_base.c
+int	digit_value(char c)
+{
+	if (c >= '0' && c <= '9')
+		return ({{1}});
+	if (c >= 'a' && c <= 'f')
+		return ({{2}});
+	if (c >= 'A' && c <= 'F')
+		return (c - 'A' + 10);
+	return (-1);
+}
+
+int	ft_atoi_base(const char *str, int str_base)
+{
+	int	result;
+	int	sign;
+	int	d;
+
+	result = 0;
+	sign = 1;
+	if (*str == '-')
+	{
+		sign = -1;
+		str++;
+	}
+	while (*str)
+	{
+		d = digit_value(*str);
+		if ({{3}})
+			break ;
+		result = {{4}};
+		str++;
+	}
+	return (result * sign);
+}
+
+@@ gap 1
+answer: c - '0'
+accept: c - 48
+wrong: c => That's the character code ('7' is 55). The digit value is c - '0'.
+hint: The value of the digit character, 0 to 9.
+'0' to '9' are consecutive codes, so `c - '0'` gives 0 to 9.
+
+@@ gap 2
+answer: c - 'a' + 10
+accept: 10 + c - 'a'
+accept: c - 'a' + 10
+accept: c - 87
+wrong: c - 'a' => 'a' is worth 10 in bases above 10, not 0.
+wrong: c - '0' => Letters are not right after the digits in ASCII. 'a' is worth 10: c - 'a' + 10.
+hint: 'a' is worth 10, 'b' 11, ... 'f' 15.
+Distance from 'a', plus 10. Uppercase letters get the same values ('A' is 10 too).
+
+@@ gap 3
+answer: d < 0 || d >= str_base
+accept: d == -1 || d >= str_base
+accept: d >= str_base || d < 0
+accept: d < 0 || str_base <= d
+wrong: d < 0 => A digit must also be SMALLER than the base: '8' is not a digit in base 8.
+wrong: d > str_base => Off by one: in base 16 the digits go up to 15. d == base is already invalid.
+hint: Stop on a non-digit - or on a digit too big for this base.
+In base b the digits are 0 to b - 1. '2' is not a valid digit in base 2, 'a' is not in
+base 10.
+
+@@ gap 4
+answer: result * str_base + d
+accept: str_base * result + d
+accept: d + result * str_base
+wrong: result * 10 + d => That's base 10 only. Multiply by str_base.
+wrong: result + d => The previous digits must be shifted one place: result * str_base.
+hint: Shift the result one digit place in this base, then add the new digit.
+Same as atoi, with the base instead of 10:
+
+    "12fdb3" base 16:  1 => 1*16+2 = 18 => 18*16+15 = 303 => ...
+
+@@ outro
+Remember:
+- `result = result * base + digit`
+- digit values: '0'-'9' => 0-9, 'a'-'f' and 'A'-'F' => 10-15
+- stop on a character that isn't a valid digit for the base
+- '-' only counts as the very first character

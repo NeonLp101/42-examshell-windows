@@ -1,0 +1,161 @@
+@@ intro
+Rotate by one word: print every word except the first, then the first word at the
+end. The input can have several spaces/tabs between words, and blanks at the start
+or the end - but the output uses exactly one space between words.
+
+    "   Que la      lumiere"   =>   "la lumiere Que"
+
+Plan, in one pass over the string, without malloc:
+1. skip leading blanks, remember where the FIRST word starts and how long it is
+2. print all the following words, with one space between them
+3. print a space (only if something was printed), then the first word
+
+@@ file rostring.c
+#include <unistd.h>
+
+static int	is_blank(char c)
+{
+	return (c == ' ' || c == '\t');
+}
+
+int	main(int argc, char **argv)
+{
+	char	*s;
+	int		i;
+	int		start;
+	int		len;
+	int		printed;
+
+	if ({{1}})
+	{
+		s = argv[1];
+		i = 0;
+		while (is_blank(s[i]))
+			i++;
+		start = i;
+		while (s[i] && !is_blank(s[i]))
+			i++;
+		len = {{2}};
+		printed = 0;
+		while (s[i])
+		{
+			while (is_blank(s[i]))
+				i++;
+			if ({{3}})
+				break ;
+			if (printed)
+				write(1, " ", 1);
+			while (s[i] && !is_blank(s[i]))
+				write(1, {{4}}, 1);
+			printed = 1;
+		}
+		if ({{5}})
+			write(1, " ", 1);
+		write(1, {{6}}, len);
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+@@ gap 1
+answer: argc >= 2
+accept: argc > 1
+accept: 1 < argc
+accept: 2 <= argc
+wrong: argc == 2 => The subject only says "less than one argument => \n". With extra arguments you still use the first one (./rostring "first" "2" must print "first").
+wrong: argc >= 1 => argc is always at least 1 (the program name). With no argument, argv[1] is NULL => crash.
+wrong: argc > 0 => argc is always at least 1 (the program name). With no argument, argv[1] is NULL => crash.
+hint: argc also counts the program name. "At least one argument" means argc is at least ... ?
+`argc` counts the program name too: `./rostring "abc"` gives argc == 2.
+
+Read the subject carefully: "If there's less than one argument, the program displays
+\n". It does NOT say "exactly one": with extra arguments only the first one is used
+and the rest are ignored. So `argc >= 2`, not `argc == 2`. The grader tests
+`./rostring "first" "2" "11000000"`, and the expected output is "first".
+
+@@ gap 2
+answer: i - start
+accept: -start + i
+wrong: i => i is a position in the string. With leading blanks, the word starts at start, not at 0: len = i - start.
+wrong: i - start + 1 => Off by one: i is already one past the last letter of the word.
+wrong: start - i => start is smaller than i: that would be negative.
+hint: start is where the first word begins, i is right after its last letter.
+The first word spans indexes start ... i - 1, so its length is `i - start`.
+
+We don't print it now - we just remember WHERE it is (`start`) and HOW LONG it is
+(`len`), then print it at the very end with a single `write(1, s + start, len)`.
+Nothing to copy, no malloc.
+
+If the string is empty or only blanks, start == i and len == 0.
+
+@@ gap 3
+answer: !s[i]
+accept: s[i] == '\0'
+accept: s[i] == 0
+accept: '\0' == s[i]
+wrong: s[i] => That breaks when there IS a word. We stop when there is NO word left: !s[i].
+wrong: is_blank(s[i]) => The blank-skipping loop just ended, so s[i] is never a blank here. The question is whether we hit the end: !s[i].
+hint: The blanks were skipped. What if there's no word left after them?
+Trailing blanks: with "abc   ", after the first word this loop skips the 3 spaces
+and lands on '\0'. There's no word there, so we must stop BEFORE the separator
+logic - otherwise `printed` becomes 1 for a word that doesn't exist, and a stray
+space shows up: " abc" instead of "abc".
+
+`!s[i]` is true when s[i] is '\0' (value 0).
+
+@@ gap 4
+answer: &s[i++]
+accept: s + i++
+accept: &(s[i++])
+wrong: &s[++i] => Prefix increment moves i BEFORE taking the address: you'd skip the first letter of every word.
+wrong: s[i++] => write needs a POINTER, s[i++] is a char. Take its address: &s[i++].
+wrong: &s[i] => Right character, but i never moves: infinite loop printing the same letter.
+hint: Print the current character AND move i forward, in one expression.
+Postfix increment inside an expression: `i++` gives the CURRENT value of i, then
+increments it. So `&s[i++]` is the address of the current character, and i is
+already on the next one when the loop condition is checked again.
+
+Written in two lines, it's exactly:
+
+    write(1, &s[i], 1);
+    i++;
+
+(`&s[++i]` would increment first and skip the first letter of every word.)
+
+@@ gap 5
+answer: printed
+accept: printed == 1
+accept: printed != 0
+accept: printed && len
+wrong: len => len > 0 whenever there's a first word - but with a single word ("abc") no space may be printed. What matters is whether OTHER words were printed.
+wrong: !printed => Reversed: the space is only needed when other words WERE printed.
+wrong: s[i] => We're at the end of the string here: s[i] is always '\0'. Check whether something was printed.
+hint: The space in front of the first word is only needed if other words came before it.
+The space between "the other words" and the first word is only needed if other
+words were actually printed:
+
+    "Que la lumiere"    =>   "la lumiere" + " " + "Que"
+    "abc   "            =>   (nothing)    +     + "abc"      no space!
+
+@@ gap 6
+answer: s + start
+accept: &s[start]
+accept: start + s
+accept: &(s[start])
+wrong: s => s points at the beginning of the string, which may be blanks. The word starts at index start: s + start.
+wrong: s[start] => write needs a POINTER, s[start] is a char. Use s + start (or &s[start]).
+wrong: &s[i] => i is at the end of the string by now. The first word starts at start.
+hint: A pointer to where the first word begins.
+Finally print the first word: `len` characters, starting at index `start`.
+`s + start` is pointer arithmetic: the address `start` characters after the beginning
+of the string - the same as `&s[start]`.
+
+@@ outro
+The pattern: remember a word's position (start + length) instead of copying it, and
+print slices with `write(1, s + start, len)`.
+
+What the grader checks:
+- several spaces/tabs between words => exactly one space in the output
+- blanks at the start or the end of the string are ignored
+- only one word => printed as is, no extra space
+- no argument => "\n"; extra arguments => ignored

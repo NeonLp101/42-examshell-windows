@@ -1,0 +1,31 @@
+@@ question
+answer: '\0'
+accept: 0
+accept: \0
+What is in `buf[3]` after this call?
+
+    char buf[10];
+    ft_strcpy(buf, "abc");
+---
+"abc" is 3 characters, indexes 0 to 2, and the terminator is copied to index 3.
+
+@@ question
+match: text
+answer: s1
+accept: buf
+accept: dest
+accept: the destination
+accept: destination
+What does ft_strcpy return: s1 or s2?
+---
+Like the real strcpy it returns the destination, s1.
+
+@@ question
+answer: 12
+wrong: 11 => The '\0' is copied too and needs its own byte.
+How many bytes must `buf` have, at least, for this copy?
+
+    ft_strcpy(buf, "hello world");
+---
+"hello world" is 11 characters, and strcpy also copies the '\0': 12 bytes. strcpy never
+checks the size of the destination - a too small buffer silently overflows.

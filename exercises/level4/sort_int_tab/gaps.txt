@@ -1,0 +1,114 @@
+@@ intro
+Bubble sort - the simplest in-place sort (no malloc; no function is allowed at all):
+walk through the array comparing NEIGHBOURS, and swap them when they're in the
+wrong order.
+
+    [5, 1, 4, 2]
+     5 > 1 swap   =>  [1, 5, 4, 2]
+        5 > 4 swap   =>  [1, 4, 5, 2]
+           5 > 2 swap   =>  [1, 4, 2, 5]      the biggest value "bubbled" to the end
+
+One pass moves the largest remaining value to its final place. Repeat the pass
+`size` times and everything is sorted.
+
+`int *tab` points to the first element and `tab[j]` means `*(tab + j)`. Since you
+receive a pointer, your changes happen in the caller's array: that's "in place".
+
+@@ file sort_int_tab.c
+void	sort_int_tab(int *tab, unsigned int size)
+{
+	unsigned int	i;
+	unsigned int	j;
+	int				tmp;
+
+	i = 0;
+	while (i < size)
+	{
+		j = 0;
+		while ({{1}})
+		{
+			if ({{2}})
+			{
+				tmp = tab[j];
+				{{3}};
+				tab[j + 1] = {{4}};
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+@@ gap 1
+answer: j + 1 < size - i
+accept: j < size - i - 1
+accept: j < size - 1 - i
+accept: j + 1 < size
+accept: j < size - 1
+accept: j + i + 1 < size
+wrong: j < size => On the last turn j + 1 == size: tab[j + 1] reads (and swaps) one element past the end of the array.
+wrong: j <= size - 1 => On the last turn j + 1 == size: tab[j + 1] is one past the end of the array.
+wrong: j < i => j would stay below i: on the first pass (i == 0) nothing is compared at all.
+hint: Every comparison uses tab[j + 1], which must stay inside the array. (And after i passes, the last i values are already in place.)
+The inner loop compares `tab[j]` with `tab[j + 1]`, so the last valid j is the one
+where `j + 1` is still inside the array: `j + 1 < size`.
+
+The `- i` is an optimization: after pass number i, the i largest values already
+sit at the end, so there's no need to compare them again. (Without it, it still
+works - just slower.)
+
+Careful with `unsigned int`: it can never be negative. If size were 0, `size - 1`
+would wrap around to 4294967295 and the loop would read far outside the array.
+Here it's safe because we only get into this loop when i < size - but writing
+`j + 1 < size - i` avoids the question entirely.
+
+@@ gap 2
+answer: tab[j] > tab[j + 1]
+accept: tab[j + 1] < tab[j]
+accept: tab[j] >= tab[j + 1]
+wrong: tab[j] < tab[j + 1] => That sorts in DESCENDING order.
+wrong: tab[j] - tab[j + 1] > 0 => Subtracting ints can overflow (e.g. INT_MAX - INT_MIN) and flip the sign. Compare directly with >.
+wrong: tab[j] > tab[j - 1] => j starts at 0: tab[-1] is outside the array. The loop compares tab[j] with the NEXT element.
+hint: Ascending order: when are two neighbours in the WRONG order?
+Swap when the left value is bigger than the right one => ascending order.
+
+- `>` is enough: swapping two equal values changes nothing (duplicates are kept
+  either way), `>=` just does useless work.
+- Don't write `tab[j] - tab[j + 1] > 0`: with values like INT_MAX and INT_MIN the
+  subtraction overflows and gives the wrong sign. The grader tests exactly that.
+
+@@ gap 3
+answer: tab[j] = tab[j + 1]
+wrong: tab[j + 1] = tab[j] => Wrong direction: tab[j + 1] would be overwritten before its value is saved anywhere.
+wrong: tab[j] = tmp => tmp already IS tab[j]: nothing changes. Copy the right value into the left cell.
+wrong: tmp = tab[j + 1] => That overwrites tmp, the saved left value is lost. Copy the right value into tab[j].
+hint: The old tab[j] is safe in tmp. Now overwrite tab[j].
+The classic 3-step swap. You can't just write
+`tab[j] = tab[j + 1]; tab[j + 1] = tab[j];` - after the first assignment both
+cells hold the same value, and the original tab[j] is gone. So:
+
+    tmp = tab[j];            save the left value
+    tab[j] = tab[j + 1];     copy the right value into the left cell
+    tab[j + 1] = tmp;        put the saved value into the right cell
+
+@@ gap 4
+answer: tmp
+wrong: tab[j] => tab[j] was already overwritten with the right value. The original left value is saved in tmp.
+wrong: tab[j + 1] => That assigns the cell to itself. The value that must go here is the old left one, in tmp.
+hint: The value that used to be in tab[j].
+`tmp` holds the original left value, which now goes into the right cell. Swap done.
+
+@@ outro
+Bubble sort in one picture:
+
+    for i from 0 to size - 1               (size passes)
+        for j from 0 to size - 2 - i       (compare neighbours)
+            if tab[j] > tab[j + 1]: swap them
+
+It's O(n^2) comparisons - slow for millions of values, perfectly fine for the exam.
+
+Remember:
+- sort in place: modify tab directly, no malloc, return nothing
+- a swap needs a temporary variable
+- watch out for unsigned arithmetic (`size - 1` when size is 0)
+- compare with > or <, never by subtracting ints

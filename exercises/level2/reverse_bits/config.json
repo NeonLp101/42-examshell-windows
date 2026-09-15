@@ -1,0 +1,8 @@
+{
+  "type": "function",
+  "expected_files": [
+    "reverse_bits.c"
+  ],
+  "allowed_functions": [],
+  "seeds": 10
+}

@@ -1,0 +1,82 @@
+@@ intro
+Each letter is printed as many times as its position in the alphabet: 'a' once,
+'b' twice ... 'z' 26 times, same for uppercase. Everything else is printed once.
+
+The position comes from the ASCII table: letters are consecutive, so `c - 'a'` is 0 for
+'a', 1 for 'b', ... and `+ 1` gives the count.
+
+@@ file repeat_alpha.c
+#include <unistd.h>
+
+int	main(int argc, char **argv)
+{
+	char	*s;
+	int		n;
+
+	if (argc == 2)
+	{
+		s = argv[1];
+		while (*s)
+		{
+			n = 1;
+			if (*s >= 'a' && *s <= 'z')
+				n = {{1}};
+			else if ({{2}})
+				n = *s - 'A' + 1;
+			while ({{3}})
+				write(1, s, 1);
+			{{4}};
+		}
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+@@ gap 1
+answer: *s - 'a' + 1
+accept: 1 + *s - 'a'
+accept: *s - 96
+accept: (*s - 'a') + 1
+wrong: *s - 'a' => 'a' - 'a' is 0: 'a' would not be printed at all. Add 1.
+wrong: *s => *s is the ASCII code ('a' is 97): 97 copies instead of 1.
+hint: 'a' must give 1, 'b' 2, ... Use the distance from 'a'.
+`*s - 'a'` is the distance from 'a' (0 for 'a', 1 for 'b', ...), so `+ 1` gives the
+number of repetitions. This works because the letters are consecutive in ASCII.
+
+@@ gap 2
+answer: *s >= 'A' && *s <= 'Z'
+accept: 'A' <= *s && *s <= 'Z'
+accept: *s <= 'Z' && *s >= 'A'
+wrong: *s >= 'A' || *s <= 'Z' => With || this is true for EVERY character. Both conditions must hold: &&.
+wrong: *s >= 'A' && *s <= 'z' => Between 'Z' and 'a' there are other characters ([, \, ], ^, _, `). Stop at 'Z'.
+hint: Is the character an uppercase letter?
+The uppercase range is 'A' to 'Z'. Both bounds must be true at the same time => `&&`.
+
+Careful: 'Z' (90) and 'a' (97) are not neighbours - `[ \ ] ^ _ `` sit in between, so
+`*s <= 'z'` would count them as letters.
+
+@@ gap 3
+answer: n--
+accept: n-- > 0
+wrong: --n => --n decrements BEFORE the test: every letter is printed one time too few ('a' not at all).
+wrong: n => n never changes: infinite loop.
+wrong: n-- >= 0 => That runs n + 1 times.
+hint: Run the loop exactly n times, decrementing n.
+`while (n--)` tests n, THEN decrements it. With n = 3 the body runs for n = 3, 2, 1 and
+stops when the test sees 0: exactly 3 times.
+
+With `--n` the decrement happens first, so the body runs only n - 1 times.
+
+@@ gap 4
+answer: s++
+accept: ++s
+accept: s += 1
+accept: s = s + 1
+hint: Move to the next character of the string.
+Move the pointer to the next character. Without it: infinite loop on the first character.
+
+@@ outro
+Remember:
+- position of a letter: `c - 'a' + 1` (and `c - 'A' + 1` for uppercase)
+- `while (n--)` runs exactly n times
+- only letters are repeated; spaces, digits and punctuation are printed once

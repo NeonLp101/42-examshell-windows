@@ -1,0 +1,28 @@
+@@ question
+answer: 2
+How many characters after s1 does the returned pointer point?
+
+    char *s1 = "hello";
+    char *r = ft_strpbrk(s1, "lo");
+---
+The first character of "hello" found in "lo" is the 'l' at index 2 => s1 + 2 (the
+string "llo").
+
+@@ question
+match: text
+answer: NULL
+accept: null
+accept: 0
+wrong: 5 => strpbrk returns NULL when no character matches - not the end of the string.
+    ft_strpbrk("hello", "xyz")
+---
+No match: NULL.
+
+@@ question
+match: text
+answer: NULL
+accept: null
+accept: 0
+    ft_strpbrk("hello", "")
+---
+An empty set contains nothing: no match, NULL.

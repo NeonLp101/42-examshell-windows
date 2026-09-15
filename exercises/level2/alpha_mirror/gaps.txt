@@ -1,0 +1,77 @@
+@@ intro
+Each letter is replaced by its "mirror" in the alphabet: a <-> z, b <-> y, m <-> n.
+Case stays the same, other characters don't change.
+
+The mirror of a letter at position p (0 for 'a') is at position 25 - p, i.e.
+`'z' - (c - 'a')`: start from 'z' and walk back as far as c is from 'a'.
+
+@@ file alpha_mirror.c
+#include <unistd.h>
+
+int	main(int argc, char **argv)
+{
+	char	*s;
+	char	c;
+
+	if (argc == 2)
+	{
+		s = argv[1];
+		while (*s)
+		{
+			c = *s;
+			if (c >= 'a' && c <= 'z')
+				c = {{1}};
+			else if ({{2}})
+				c = {{3}};
+			write(1, &c, 1);
+			s++;
+		}
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+@@ gap 1
+answer: 'z' - (c - 'a')
+accept: 'a' + 'z' - c
+accept: 'z' + 'a' - c
+accept: 'z' - c + 'a'
+accept: 219 - c
+wrong: 'z' - c => That's a small number (e.g. 'z' - 'b' = 24), not a letter. Subtract the DISTANCE from 'a': 'z' - (c - 'a').
+wrong: 'a' - c => Negative. Mirror: start from 'z' and go back by (c - 'a').
+wrong: 'z' - (c - 'a') + 1 => Off by one: 'a' must become exactly 'z'.
+hint: 'a' -> 'z', 'b' -> 'y': go back from 'z' by the distance between c and 'a'.
+`c - 'a'` is how far c is from 'a' (0 for 'a', 1 for 'b', ...). The mirror is the same
+distance back from 'z':
+
+    'b' - 'a' = 1      'z' - 1 = 'y'
+    'm' - 'a' = 12     'z' - 12 = 'n'
+
+Rearranged, it's `'a' + 'z' - c`: the codes of a letter and its mirror always add up to
+'a' + 'z'.
+
+@@ gap 2
+answer: c >= 'A' && c <= 'Z'
+accept: 'A' <= c && c <= 'Z'
+accept: c <= 'Z' && c >= 'A'
+wrong: c >= 'A' || c <= 'Z' => With || this is true for every character. Both bounds: &&.
+hint: Is c an uppercase letter?
+The uppercase range, both bounds with `&&`. Uppercase letters get their own formula,
+based on 'A' and 'Z', so the case is kept.
+
+@@ gap 3
+answer: 'Z' - (c - 'A')
+accept: 'A' + 'Z' - c
+accept: 'Z' + 'A' - c
+accept: 'Z' - c + 'A'
+accept: 155 - c
+wrong: 'z' - (c - 'a') => That's the lowercase formula: 'A' would become garbage. Use 'A' and 'Z'.
+wrong: 'Z' - c => That's a small number, not a letter: 'Z' - (c - 'A').
+hint: Same idea as lowercase, with 'A' and 'Z'.
+Same mirror, for the uppercase alphabet: 'A' <-> 'Z', 'M' <-> 'N'.
+
+@@ outro
+Remember:
+- mirror of a letter: `'z' - (c - 'a')`, or `'a' + 'z' - c`
+- keep the case: separate formulas for 'a'-'z' and 'A'-'Z'
+- applying alpha_mirror twice gives back the original string

@@ -1,0 +1,6 @@
+{
+  "type": "function",
+  "expected_files": ["ft_list_foreach.c", "ft_list.h"],
+  "allowed_functions": [],
+  "seeds": 10
+}

@@ -1,0 +1,24 @@
+@@ question
+match: exact
+args: ["FOR PONY"]
+answer: PONY$
+    $> ./last_word "FOR PONY" | cat -e
+---
+The last word is after the last blank.
+
+@@ question
+match: exact
+args: ["  lorem,ipsum  "]
+answer: lorem,ipsum$
+wrong: $ => The trailing spaces are skipped first: the last WORD is lorem,ipsum.
+    $> ./last_word "  lorem,ipsum  " | cat -e
+---
+Trailing blanks are not a word: skip them, then take the word before.
+
+@@ question
+match: exact
+args: ["   "]
+answer: $
+    $> ./last_word "   " | cat -e
+---
+No word at all: only the newline.

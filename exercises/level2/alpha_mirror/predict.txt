@@ -1,0 +1,23 @@
+@@ question
+match: exact
+args: ["abc"]
+answer: zyx$
+    $> ./alpha_mirror "abc" | cat -e
+---
+a <-> z, b <-> y, c <-> x.
+
+@@ question
+match: exact
+args: ["My horse is Amazing."]
+answer: Nb slihv rh Znzarmt.$
+    $> ./alpha_mirror "My horse is Amazing." | cat -e
+---
+Every letter is mirrored with its case kept; the spaces and the dot don't change.
+
+@@ question
+match: exact
+args: ["mN"]
+answer: nM$
+    $> ./alpha_mirror "mN" | cat -e
+---
+m and n are in the middle of the alphabet: they mirror each other.

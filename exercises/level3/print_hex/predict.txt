@@ -1,0 +1,33 @@
+@@ question
+match: exact
+args: ["255"]
+answer: ff$
+    $> ./print_hex 255 | cat -e
+---
+255 = 15 * 16 + 15 => "ff".
+
+@@ question
+match: exact
+args: ["16"]
+answer: 10$
+wrong: 0$ => 16 has two hex digits: 1 * 16 + 0.
+    $> ./print_hex 16 | cat -e
+---
+16 in base 16 is "10".
+
+@@ question
+match: exact
+args: ["0"]
+answer: 0$
+    $> ./print_hex 0 | cat -e
+---
+0 is a single digit: the recursion isn't needed, "0" is printed.
+
+@@ question
+answer: 'c'
+accept: c
+What is the value of this expression?
+
+    "0123456789abcdef"[12]
+---
+Index 12 of the string: '0'-'9' take indexes 0-9, then 'a' 10, 'b' 11, 'c' 12.

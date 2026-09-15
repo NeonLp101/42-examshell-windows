@@ -1,0 +1,10 @@
+{
+  "type": "function",
+  "expected_files": [
+    "ft_putstr.c"
+  ],
+  "allowed_functions": [
+    "write"
+  ],
+  "seeds": 10
+}

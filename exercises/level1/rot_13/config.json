@@ -1,0 +1,36 @@
+{
+  "type": "program",
+  "expected_files": [
+    "rot_13.c"
+  ],
+  "allowed_functions": [
+    "write"
+  ],
+  "fixed_tests": [
+    [
+      "abc"
+    ],
+    [
+      "My horse is Amazing."
+    ],
+    [
+      "AkjhZ zLKIJz , 23y "
+    ],
+    [],
+    [
+      ""
+    ],
+    [
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    ],
+    [
+      "a",
+      "b"
+    ],
+    [
+      "@[`{"
+    ]
+  ],
+  "generator": "text",
+  "random_tests": 15
+}

@@ -1,0 +1,35 @@
+{
+  "type": "program",
+  "expected_files": [
+    "rstr_capitalizer.c"
+  ],
+  "allowed_functions": [
+    "write"
+  ],
+  "fixed_tests": [
+    [],
+    [
+      "a FiRSt LiTTlE TESt"
+    ],
+    [
+      "SecONd teST A LITtle BiT   Moar comPLEX",
+      "   But... This iS not THAT COMPLEX",
+      "     Okay, this is the last 1239809147801 but not    the least    t"
+    ],
+    [
+      "hello\tworld"
+    ],
+    [
+      "x"
+    ],
+    [
+      ""
+    ],
+    [
+      "ABC DEF",
+      "ghi"
+    ]
+  ],
+  "generator": "capitalizer",
+  "random_tests": 15
+}

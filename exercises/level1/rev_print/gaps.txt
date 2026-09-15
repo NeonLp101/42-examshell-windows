@@ -1,0 +1,68 @@
+@@ intro
+Find the end of the string, then walk BACKWARDS and print each character.
+
+The neat trick is `while (i--)`: it tests i, then decrements it, so inside the loop i
+goes from length - 1 down to 0 - exactly the valid indexes, in reverse.
+
+@@ file rev_print.c
+#include <unistd.h>
+
+int	main(int argc, char **argv)
+{
+	int	i;
+
+	if (argc == 2)
+	{
+		i = 0;
+		while ({{1}})
+			i++;
+		while ({{2}})
+			write(1, {{3}}, 1);
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+@@ gap 1
+answer: argv[1][i]
+accept: argv[1][i] != '\0'
+accept: argv[1][i] != 0
+wrong: argv[1] => argv[1] is the pointer, it never changes: infinite loop. Test the character.
+hint: Move i forward until the end of the string.
+After this loop, i is the length of the string: the index of the '\0'.
+
+@@ gap 2
+answer: i--
+accept: i-- > 0
+wrong: --i => --i decrements first: the loop stops when i becomes 0 without printing index 0 (the first character).
+wrong: i >= 0 => i is never decremented in this version: infinite loop. Decrement in the condition: i--.
+wrong: i > 0 => i never changes here: infinite loop. Decrement in the condition: i--.
+hint: Test i and decrement it in the same expression, so the body sees length-1 ... 0.
+`while (i--)` compares the OLD value of i with 0, then decrements. With "zaz" (i = 3):
+
+    test 3 -> body with i = 2
+    test 2 -> body with i = 1
+    test 1 -> body with i = 0
+    test 0 -> stop
+
+The body sees indexes 2, 1, 0: all the characters, in reverse.
+
+@@ gap 3
+answer: &argv[1][i]
+accept: argv[1] + i
+accept: &(argv[1][i])
+wrong: argv[1][i] => write needs the ADDRESS of the character: &argv[1][i].
+wrong: &argv[1][i - 1] => i-- already happened in the condition: i is already the right index.
+hint: The address of character i.
+`&argv[1][i]` (or `argv[1] + i`) is the address of character i - write prints one
+byte from there.
+
+@@ outro
+    i = length;
+    while (i--)
+        write(1, &s[i], 1);
+
+Remember:
+- `while (i--)` visits length-1 ... 0
+- `--i` in the condition would skip index 0
+- empty string: the loop never runs, only the newline is printed

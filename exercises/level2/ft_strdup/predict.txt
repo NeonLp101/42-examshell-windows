@@ -1,0 +1,38 @@
+@@ question
+answer: 6
+How many bytes does ft_strdup malloc here?
+
+    ft_strdup("hello")
+---
+5 characters + '\0' = 6.
+
+@@ question
+answer: 1
+How many bytes does ft_strdup malloc here?
+
+    ft_strdup("")
+---
+0 characters + '\0' = 1. The copy of an empty string is still a valid string.
+
+@@ question
+answer: 8
+wrong: 6 => sizeof of a POINTER doesn't care about the string: it's the size of the address.
+On a 64-bit machine, what does this print?
+
+    char *src = "hello";
+    printf("%d", (int)sizeof(src));
+---
+src is a char * - sizeof gives the size of the pointer itself (8 bytes on 64-bit), not
+the length of the string. Use a length loop (or strlen) instead.
+
+@@ question
+match: text
+answer: no
+accept: false
+wrong: yes => strdup allocates NEW memory: the copy lives at a different address.
+Is the returned pointer the same address as src? (yes/no)
+
+    char *copy = ft_strdup(src);
+---
+A duplicate is a separate block of memory with the same content. Modifying the copy
+doesn't change the original.

@@ -1,0 +1,24 @@
+@@ question
+answer: 255
+    ft_atoi_base("ff", 16)
+---
+15 * 16 + 15 = 255.
+
+@@ question
+answer: -5
+    ft_atoi_base("-101", 2)
+---
+101 in binary is 4 + 0 + 1 = 5, with the minus sign: -5.
+
+@@ question
+answer: 511
+    ft_atoi_base("777", 8)
+---
+7 * 64 + 7 * 8 + 7 = 448 + 56 + 7 = 511.
+
+@@ question
+answer: 5
+wrong: 12 => That's reading it in base 10. In base 3: 1 * 3 + 2 = 5.
+    ft_atoi_base("12", 3)
+---
+1 * 3 + 2 = 5.

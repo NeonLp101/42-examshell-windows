@@ -1,0 +1,25 @@
+@@ question
+match: exact
+args: ["rien", "cette phrase ne cache rien"]
+answer: rienct phas$
+wrong: rienct phase$ => The 'e' of "phrase" was already printed (from "rien").
+    $> ./union "rien" "cette phrase ne cache rien" | cat -e
+---
+First "rien", then only the new characters of the second string, in order: c, t, space,
+p, h, a, s.
+
+@@ question
+match: exact
+args: ["aab", "bca"]
+answer: abc$
+    $> ./union "aab" "bca" | cat -e
+---
+Duplicates inside the first string are removed too: "ab", then the new 'c'.
+
+@@ question
+match: exact
+args: ["rien"]
+answer: $
+    $> ./union "rien" | cat -e
+---
+One argument instead of 2: only the newline.

@@ -1,0 +1,23 @@
+@@ question
+match: exact
+args: ["Hello World 42!"]
+answer: hELLO wORLD 42!$
+    $> ./ulstr "Hello World 42!" | cat -e
+---
+Letters swap their case; digits, spaces and ! don't change.
+
+@@ question
+answer: 32
+What is the value of this expression?
+
+    'a' - 'A'
+---
+97 - 65 = 32: the distance between a lowercase letter and its uppercase version.
+
+@@ question
+match: exact
+args: [""]
+answer: $
+    $> ./ulstr "" | cat -e
+---
+One empty argument: just the newline.

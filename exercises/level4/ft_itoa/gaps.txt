@@ -1,0 +1,170 @@
+@@ intro
+Two steps, because a malloc'ed string can't grow afterwards:
+
+1. COUNT how many characters the result needs (the digits, plus '-' if negative),
+   so you can malloc exactly the right size.
+2. FILL the string from the END: `n % 10` gives the LAST digit of a number and
+   `n / 10` removes it, so the digits come out right to left.
+
+    ft_itoa(-1234):  len = 5
+    [ - ][ 1 ][ 2 ][ 3 ][ 4 ][\0]
+                          ^ the first digit found (4) is written here
+
+One trap: INT_MIN. -2147483648 is a valid int, but +2147483648 is not (INT_MAX
+is 2147483647), so turning it positive overflows. That's why the work is done on
+a `long` copy of the number.
+(long is 64 bits on the Linux exam machines; examshell adjusts that when grading on Windows.)
+
+@@ file ft_itoa.c
+#include <stdlib.h>
+
+static int	count_len(long n)
+{
+	int	len;
+
+	len = {{1}};
+	while (n)
+	{
+		n /= 10;
+		len++;
+	}
+	return (len);
+}
+
+char	*ft_itoa(int nbr)
+{
+	long	n;
+	int		len;
+	char	*res;
+
+	n = nbr;
+	len = count_len(n);
+	res = malloc({{2}});
+	if (!res)
+		return (NULL);
+	res[len] = {{3}};
+	if (n < 0)
+	{
+		res[0] = '-';
+		n = {{4}};
+	}
+	if (n == 0)
+		res[0] = '0';
+	while (n)
+	{
+		res[{{5}}] = {{6}};
+		n /= 10;
+	}
+	return (res);
+}
+
+@@ gap 1
+answer: (n <= 0)
+accept: n <= 0
+accept: n < 1
+wrong: 0 => Then 0 gets length 0 (the loop never runs for 0) and negatives have no room for the '-'.
+wrong: (n < 0) => Almost: that covers the '-' sign, but 0 also needs 1 character and the loop never runs for 0.
+hint: The loop only counts digits of non-zero numbers. What extra character do 0 and negative numbers need?
+In C a comparison IS a number: `(n <= 0)` is 1 when true and 0 when false.
+So the count starts at 1 for zero and negatives, and at 0 otherwise:
+
+- negative: 1 extra character for the '-' sign
+- zero: `while (n)` never runs for 0, but "0" still needs 1 character
+
+Then the loop adds one per digit, chopping digits off with `n /= 10` until
+nothing is left: 1234 => 123 => 12 => 1 => 0 is 4 turns = 4 digits.
+
+@@ gap 2
+answer: len + 1
+accept: sizeof(char) * (len + 1)
+accept: (len + 1) * sizeof(char)
+accept: 1 + len
+accept: sizeof(char) * len + 1
+wrong: len => No room for the '\0' at the end: res[len] would be written outside the allocated memory. (Tests may even pass by luck - it's still a bug.)
+hint: len characters... and what does every C string end with?
+`len` counts the visible characters. Every C string needs one more byte for the
+terminating '\0', so we allocate len + 1 bytes (indexes 0 to len).
+
+`sizeof(char)` is always 1 by definition, so `malloc(len + 1)` and
+`malloc(sizeof(char) * (len + 1))` are the same. Forgetting the + 1 is a classic:
+the program often *seems* to work, then crashes somewhere else later.
+
+@@ gap 3
+answer: '\0'
+accept: 0
+wrong: '0' => '0' (without backslash) is the digit zero, code 48. The terminator is '\0', code 0.
+wrong: "\0" => Double quotes make a string (a pointer). One character goes in single quotes: '\0'.
+wrong: NULL => NULL is a null POINTER. A char cell needs the null CHARACTER: '\0'.
+hint: Terminate the string.
+malloc gives you uninitialized memory: it contains garbage, not zeros. So we put the
+terminator ourselves, at the last allocated index. `res[len]` is the (len + 1)-th byte.
+
+`'\0'` and `0` are the same value; `'\0'` just makes it obvious you mean "end of
+string". Careful: `'0'` without the backslash is the DIGIT zero (value 48).
+
+@@ gap 4
+answer: -n
+accept: n * -1
+accept: -1 * n
+accept: 0 - n
+wrong: n => The '-' is written, but n is still negative: n % 10 would give negative digits like -4.
+wrong: -nbr => -nbr is computed in an int: for INT_MIN it overflows before being stored in n. Use -n (the long).
+hint: The '-' sign is stored. Make n positive so the digit loop works.
+Once the '-' is stored, we flip n to positive, so `n % 10` gives digits 0..9 (on a
+negative number `%` gives negative remainders, like -1234 % 10 == -4).
+
+This is exactly where INT_MIN breaks an int version: -(-2147483648) = 2147483648
+doesn't fit in an int (max 2147483647). That overflow is undefined behaviour - in
+practice n stays negative and you get garbage like "-./,),(-*,(". Since `n` is a
+long (a bigger type), the positive value fits. Note that `-nbr` would NOT fix it:
+it's computed in an int first, and only then stored in the long.
+
+@@ gap 5
+answer: --len
+wrong: len-- => Postfix: it uses the OLD len first, so the first digit would overwrite the '\0' at index len.
+wrong: len => len is the index of the '\0' - writing there destroys the terminator, and since len never changes, every digit lands in that same cell.
+wrong: len - 1 => Right index for the first digit, but len never changes: every digit would be written into the same cell.
+hint: len is currently the index of the '\0'. Move one step left BEFORE writing.
+Prefix vs postfix, the key detail of this line:
+
+- `--len` decrements FIRST, then gives the new value
+- `len--` gives the OLD value, THEN decrements
+
+len starts as the index of the '\0'. The last digit must go just before it, at
+len - 1. With `--len` the first write lands on len - 1, the next on len - 2, and
+so on. With `len--` the first digit would overwrite the '\0'.
+
+Using `len` as a cursor that moves from right to left saves a second index variable.
+
+@@ gap 6
+answer: n % 10 + '0'
+accept: '0' + n % 10
+accept: (n % 10) + '0'
+accept: '0' + (n % 10)
+accept: n % 10 + 48
+accept: 48 + n % 10
+wrong: n % 10 => That's the digit as a NUMBER (e.g. 7), not the CHARACTER '7' (code 55). Add '0'.
+wrong: n / 10 + '0' => n / 10 removes the last digit; the last digit itself is n % 10.
+wrong: n + '0' => Only works for one-digit numbers. Take the last digit first: n % 10.
+hint: n % 10 is a number from 0 to 9. How do you turn the number 7 into the character '7'?
+`n % 10` is the last digit as a NUMBER (0 to 9). A string holds CHARACTERS, whose
+codes are different: '0' is 48, '1' is 49, ... '9' is 57. The digit characters are
+consecutive, so:
+
+    digit + '0'     =>     7 + 48 = 55 = '7'
+
+Then `n /= 10` drops that digit, and the loop continues with the next one.
+
+@@ outro
+The digit pattern (you'll reuse it in putnbr, print_hex, atoi_base...):
+
+    last digit:            n % 10
+    remove last digit:     n / 10
+    digit => character:    digit + '0'
+
+ft_itoa checklist:
+- count first, then malloc(len + 1), then put the '\0'
+- 0 needs its own case: the digit loop never runs for it
+- negative: store '-', then make n positive in a type big enough for INT_MIN
+- write the digits from the end of the string towards the start
+- return the malloc'ed string: freeing it is the caller's job

@@ -1,0 +1,31 @@
+@@ question
+match: exact
+args: ["abc"]
+answer: nop$
+    $> ./rot_13 "abc" | cat -e
+---
+a + 13 = n, b + 13 = o, c + 13 = p.
+
+@@ question
+match: exact
+args: ["Hello, World!"]
+answer: Uryyb, Jbeyq!$
+    $> ./rot_13 "Hello, World!" | cat -e
+---
+Letters rotate (keeping their case), the comma, the space and the ! stay.
+
+@@ question
+match: exact
+args: ["z"]
+answer: m$
+    $> ./rot_13 "z" | cat -e
+---
+'z' is position 25: (25 + 13) % 26 = 12 => 'm'.
+
+@@ question
+match: text
+answer: exam
+accept: "exam"
+You run rot_13 on "exam", then rot_13 again on the result. What comes out?
+---
+13 + 13 = 26: two rotations bring every letter back to itself.

@@ -1,0 +1,57 @@
+@@ intro
+The length of a string is the number of characters BEFORE the '\0'. Count from 0,
+move forward until the terminator, return the count.
+
+@@ file ft_strlen.c
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = {{1}};
+	while ({{2}})
+		{{3}};
+	return ({{4}});
+}
+
+@@ gap 1
+answer: 0
+wrong: 1 => Off by one: "" (empty string) must return 0.
+hint: What must ft_strlen("") return?
+Start at 0: for the empty string the loop never runs and 0 is returned. `i` is both the
+index of the current character and the number of characters already counted.
+
+@@ gap 2
+answer: str[i]
+accept: str[i] != '\0'
+accept: str[i] != 0
+wrong: str => str is the pointer, it never changes here: infinite loop.
+wrong: str[i] != NULL => NULL is a pointer and str[i] a char. Compare with '\0' (or just write str[i]).
+wrong: str[i + 1] => Checks the NEXT character: "" would read past the end, and the count is off by one.
+hint: Continue while the current character is not the terminator.
+`str[i]` is false exactly when it's the '\0' (value 0), so the loop stops on the
+terminator - which is not counted.
+
+@@ gap 3
+answer: i++
+accept: ++i
+accept: i += 1
+accept: i = i + 1
+hint: Count this character and move on.
+One step: `i++`. As the loop body is a single statement, no braces are needed.
+
+@@ gap 4
+answer: i
+wrong: i + 1 => The '\0' is not part of the length: ft_strlen("abc") is 3.
+wrong: i - 1 => When the loop stops, i is exactly the number of characters before '\0'.
+hint: When the loop stops, i is on the '\0'. What is i then?
+The loop stops with i on the '\0', and that index is exactly the number of characters
+in front of it: for "abc", the '\0' is at index 3.
+
+@@ outro
+    i = 0;
+    while (str[i])
+        i++;
+    return (i);
+
+Remember: the length doesn't count the '\0', but the memory needed for a copy does
+(length + 1).

@@ -1,0 +1,70 @@
+@@ intro
+snake_case => lowerCamelCase: remove every underscore and put the letter after it in
+uppercase.
+
+    hello_world  =>  helloWorld
+
+When we meet '_', we skip it (move the pointer once more) and print the next letter
+converted to uppercase.
+
+@@ file snake_to_camel.c
+#include <unistd.h>
+
+int	main(int argc, char **argv)
+{
+	char	*s;
+	char	c;
+
+	if (argc == 2)
+	{
+		s = argv[1];
+		while (*s)
+		{
+			if ({{1}})
+			{
+				{{2}};
+				c = {{3}};
+				write(1, &c, 1);
+			}
+			else
+				write(1, s, 1);
+			s++;
+		}
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+@@ gap 1
+answer: *s == '_'
+accept: '_' == *s
+wrong: *s == "_" => "_" is a string (a pointer). Compare the character with '_' in single quotes.
+wrong: s == '_' => s is the pointer. Compare the character: *s == '_'.
+hint: Did we reach an underscore?
+An underscore means "a new word starts right after me".
+
+@@ gap 2
+answer: s++
+accept: ++s
+accept: s += 1
+wrong: s-- => Move FORWARD to the letter after the underscore.
+hint: Skip the underscore: move to the letter after it.
+The underscore itself is never printed: moving s one step forward makes *s the first
+letter of the next word. (The `s++` at the end of the loop then moves past that letter.)
+
+@@ gap 3
+answer: *s - 32
+accept: *s - ('a' - 'A')
+accept: *s - 'a' + 'A'
+accept: *s + 'A' - 'a'
+wrong: *s + 32 => Wrong direction: uppercase letters have the SMALLER codes.
+wrong: *s => The first letter of each following word must be UPPERCASE.
+hint: The letter after the underscore, in uppercase.
+snake_case letters are lowercase, so - 32 turns the first letter of each new word into
+its uppercase version: 'w' (119) - 32 = 'W' (87).
+
+@@ outro
+Remember:
+- '_' is never printed: skip it and uppercase the next letter
+- lowercase to uppercase: - 32
+- camel_to_snake is the exact opposite: uppercase => "_" + lowercase

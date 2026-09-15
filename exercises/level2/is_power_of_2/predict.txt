@@ -1,0 +1,27 @@
+@@ question
+answer: 0
+    is_power_of_2(0)
+---
+0 is not a power of 2 (and it's the case that breaks naive loops).
+
+@@ question
+answer: 1
+wrong: 0 => 1 = 2 to the power 0: it IS a power of 2.
+    is_power_of_2(1)
+---
+2^0 = 1.
+
+@@ question
+answer: 0
+    is_power_of_2(6)
+---
+6 => 3: odd and not 1.
+
+@@ question
+answer: 0
+What is the value of this expression?
+
+    8 & 7
+---
+8 = 1000, 7 = 0111: no bit in common => 0. That's the bit trick: n & (n - 1) == 0
+exactly for powers of 2.

@@ -1,0 +1,36 @@
+{
+  "type": "program",
+  "expected_files": [
+    "expand_str.c"
+  ],
+  "allowed_functions": [
+    "write"
+  ],
+  "fixed_tests": [
+    [
+      "See? It's easy to print the same thing"
+    ],
+    [
+      " this        time it      will     be    more complex  "
+    ],
+    [
+      "No S*** Sherlock...",
+      "nAw S*** ShErLaWQ..."
+    ],
+    [
+      ""
+    ],
+    [],
+    [
+      "   "
+    ],
+    [
+      "word"
+    ],
+    [
+      "\t\ta\t\tb\t"
+    ]
+  ],
+  "generator": "words_messy",
+  "random_tests": 15
+}

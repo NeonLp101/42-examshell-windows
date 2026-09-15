@@ -1,0 +1,6 @@
+{
+  "type": "function",
+  "expected_files": ["ft_split.c"],
+  "allowed_functions": ["malloc"],
+  "seeds": 15
+}

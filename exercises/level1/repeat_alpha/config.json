@@ -1,0 +1,36 @@
+{
+  "type": "program",
+  "expected_files": [
+    "repeat_alpha.c"
+  ],
+  "allowed_functions": [
+    "write"
+  ],
+  "fixed_tests": [
+    [
+      "abc"
+    ],
+    [
+      "Alex."
+    ],
+    [
+      "abacadaba 42!"
+    ],
+    [],
+    [
+      ""
+    ],
+    [
+      "zZ"
+    ],
+    [
+      "a",
+      "b"
+    ],
+    [
+      "Hello, World!"
+    ]
+  ],
+  "generator": "text",
+  "random_tests": 15
+}

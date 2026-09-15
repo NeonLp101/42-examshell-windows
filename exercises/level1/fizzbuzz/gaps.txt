@@ -1,0 +1,97 @@
+@@ intro
+Two things to learn here:
+
+1. The order of the tests. 15 is a multiple of 3 AND of 5, so the "fizzbuzz" test must
+   come FIRST - an if / else if chain stops at the first test that is true.
+2. Printing a number with `write` only (no printf allowed): turn each digit into a
+   character, and use recursion to print the digits in the right order.
+
+@@ file fizzbuzz.c
+#include <unistd.h>
+
+void	put_nbr(int n)
+{
+	char	c;
+
+	if (n >= 10)
+		{{1}};
+	c = {{2}};
+	write(1, &c, 1);
+}
+
+int	main(void)
+{
+	int	i;
+
+	i = 1;
+	while ({{3}})
+	{
+		if ({{4}})
+			write(1, "fizzbuzz", 8);
+		else if (i % 3 == 0)
+			write(1, "fizz", 4);
+		else if (i % 5 == 0)
+			write(1, "buzz", 4);
+		else
+			put_nbr(i);
+		write(1, "\n", 1);
+		i++;
+	}
+	return (0);
+}
+
+@@ gap 1
+answer: put_nbr(n / 10)
+wrong: put_nbr(n % 10) => n % 10 is the LAST digit. First print everything before it: n / 10.
+wrong: put_nbr(n - 10) => Subtracting 10 doesn't remove a digit (42 - 10 = 32). Divide: n / 10.
+hint: Before printing the last digit, print all the digits in front of it.
+Recursion prints the digits in the right order. For 42: put_nbr(42) first calls
+put_nbr(4), which prints '4', then back in put_nbr(42) we print '2'.
+
+    put_nbr(42)
+        put_nbr(4)     prints '4'
+    prints '2'
+
+`n / 10` removes the last digit (integer division: 42 / 10 == 4).
+
+@@ gap 2
+answer: n % 10 + '0'
+accept: '0' + n % 10
+accept: (n % 10) + '0'
+accept: n % 10 + 48
+wrong: n % 10 => That's the digit as a NUMBER (e.g. 2). The character '2' has the code 50: add '0'.
+wrong: n + '0' => Works only for one digit. Take the last digit first: n % 10.
+hint: n % 10 is a number from 0 to 9. How do you turn 7 into the character '7'?
+`n % 10` is the last digit as a number (0 to 9). To print it we need the CHARACTER:
+the digit characters are consecutive in the ASCII table ('0' = 48 ... '9' = 57), so
+`digit + '0'` is the right character.
+
+@@ gap 3
+answer: i <= 100
+accept: i < 101
+accept: 100 >= i
+wrong: i < 100 => 100 would never be printed - the subject goes up to 100 included (the last line is "buzz").
+hint: The numbers go from 1 to 100, both included.
+From 1 to 100 INCLUDED: `i <= 100`. With `i < 100` the last line (100, "buzz") is
+missing.
+
+@@ gap 4
+answer: i % 15 == 0
+accept: i % 3 == 0 && i % 5 == 0
+accept: i % 5 == 0 && i % 3 == 0
+accept: !(i % 15)
+wrong: i % 3 == 0 || i % 5 == 0 => That's "a multiple of 3 OR 5": 3 would print fizzbuzz. It must be both.
+wrong: i % 3 == 0 => That's the fizz test. The first test must catch multiples of 3 AND 5.
+hint: The first test must catch the numbers that are multiples of both 3 and 5.
+Multiples of both 3 and 5 are exactly the multiples of 15.
+
+Why first? An `if ... else if ... else if` chain runs only the FIRST branch whose test
+is true. If `i % 3 == 0` came first, 15 would print "fizz" and never reach the
+fizzbuzz test.
+
+@@ outro
+Remember:
+- `i % 3 == 0` means "i is a multiple of 3"
+- the most specific test (15) goes first in an else-if chain
+- numbers are printed digit by digit: recurse on `n / 10`, then write `n % 10 + '0'`
+- every number/word is followed by "\n"

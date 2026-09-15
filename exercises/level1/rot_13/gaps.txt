@@ -1,0 +1,79 @@
+@@ intro
+Every letter moves 13 places forward in the alphabet, wrapping around after 'z':
+'a' becomes 'n', 'n' becomes 'a'. Other characters don't change.
+
+The wrap-around trick: turn the letter into a position 0-25, add 13, take the rest of
+the division by 26 (`% 26`), and turn it back into a letter.
+
+    'x' - 'a' = 23      23 + 13 = 36      36 % 26 = 10      'a' + 10 = 'k'
+
+@@ file rot_13.c
+#include <unistd.h>
+
+int	main(int argc, char **argv)
+{
+	char	*s;
+	char	c;
+
+	if (argc == 2)
+	{
+		s = argv[1];
+		while (*s)
+		{
+			c = *s;
+			if (c >= 'a' && c <= 'z')
+				c = {{1}};
+			else if (c >= 'A' && c <= 'Z')
+				c = {{2}};
+			write(1, {{3}}, 1);
+			s++;
+		}
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+@@ gap 1
+answer: (c - 'a' + 13) % 26 + 'a'
+accept: 'a' + (c - 'a' + 13) % 26
+accept: c <= 'm' ? c + 13 : c - 13
+accept: (c - 97 + 13) % 26 + 97
+wrong: c + 13 => Works up to 'm', but 'n' + 13 goes past 'z'. You need the wrap-around: % 26.
+wrong: (c + 13) % 26 + 'a' => Subtract 'a' first: c is an ASCII code (97-122), not a position 0-25.
+wrong: (c - 'a' + 13) % 26 => That's a position 0-25, not a letter. Add 'a' back.
+hint: position = c - 'a'; add 13; wrap with % 26; turn back into a letter with + 'a'.
+Three steps in one expression:
+
+    c - 'a'          position in the alphabet, 0 to 25
+    ... + 13) % 26   move 13 forward, wrap around after 25
+    ... + 'a'        back to a character
+
+(Another valid way: letters up to 'm' get + 13, the others - 13.)
+
+@@ gap 2
+answer: (c - 'A' + 13) % 26 + 'A'
+accept: 'A' + (c - 'A' + 13) % 26
+accept: c <= 'M' ? c + 13 : c - 13
+wrong: (c - 'a' + 13) % 26 + 'a' => That's the lowercase formula: an uppercase letter would become lowercase garbage. Use 'A'.
+wrong: c + 13 => 'N' + 13 goes past 'Z'. Wrap around with % 26.
+hint: Same formula, with 'A' instead of 'a'.
+Same thing for uppercase, based on 'A'. Case is kept.
+
+@@ gap 3
+answer: &c
+wrong: c => write needs the ADDRESS of the byte: &c.
+wrong: s => s still points to the ORIGINAL character. The rotated one is in c.
+hint: Print the rotated character stored in the local variable c.
+We don't modify argv - the result is in the local variable `c`, and write needs its
+address.
+
+@@ outro
+The rotation formula, to reuse in rotone, alpha_mirror, ...:
+
+    (c - 'a' + shift) % 26 + 'a'
+
+Remember:
+- work on positions 0-25, not on ASCII codes
+- `% 26` wraps around after 'z'
+- lowercase and uppercase each with their own base
+- rot_13 twice gives back the original text

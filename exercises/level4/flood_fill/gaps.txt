@@ -1,0 +1,175 @@
+@@ intro
+A "zone" is a group of identical characters connected up, down, left or right.
+flood_fill has to paint that whole zone with 'F', starting from `begin`.
+
+The trick is recursion (a depth-first search on the grid):
+
+    paint the current cell
+    then do exactly the same thing for its 4 neighbours
+
+Every call first asks "am I still inside the map, and am I standing on the zone
+character?". If not, it stops right away. Painted cells become 'F', so they no
+longer match and are never visited twice - that is what makes the recursion end.
+
+The helper `fill` needs one parameter more than flood_fill: the zone character
+(`target`), because the starting cell is overwritten with 'F' as soon as it is painted.
+
+@@ file flood_fill.h
+#ifndef FLOOD_FILL_H
+# define FLOOD_FILL_H
+
+typedef struct s_point
+{
+	int	x;
+	int	y;
+}	t_point;
+
+void	flood_fill(char **tab, t_point size, t_point begin);
+
+#endif
+
+@@ file flood_fill.c
+#include "flood_fill.h"
+
+static void	fill(char **tab, t_point size, t_point cur, char target)
+{
+	if (cur.x < 0 || cur.y < 0 || {{1}} || cur.y >= size.y)
+		return ;
+	if ({{2}} != target)
+		return ;
+	tab[cur.y][cur.x] = {{3}};
+	fill(tab, size, {{4}}, target);
+	fill(tab, size, (t_point){cur.x + 1, cur.y}, target);
+	fill(tab, size, (t_point){cur.x, {{5}}}, target);
+	fill(tab, size, (t_point){cur.x, cur.y + 1}, target);
+}
+
+void	flood_fill(char **tab, t_point size, t_point begin)
+{
+	fill(tab, size, begin, {{6}});
+}
+
+@@ gap 1
+answer: cur.x >= size.x
+accept: size.x <= cur.x
+wrong: cur.x > size.x => Off by one: indexes go from 0 to size.x - 1, so x == size.x is already outside the row. (It may even pass tests by luck - the '\0' at the end of each row doesn't match - but it reads outside the map.)
+wrong: cur.x >= size.y => size.y is the height (number of rows). x is a column, compare it with the width.
+hint: Valid x indexes go from 0 to size.x - 1. Which test catches "too far right"?
+Bounds check. The valid columns are 0, 1, ..., size.x - 1, so x is outside the map
+when `cur.x < 0` or `cur.x >= size.x`. With `>` you would still accept
+x == size.x, one past the end of the row.
+
+Why this line must come BEFORE `tab[cur.y][cur.x]` is ever read: `||` is
+evaluated left to right and stops at the first true part ("short-circuit
+evaluation"). If the point is outside the map, the function returns before it
+touches the array, so it can never read out of bounds.
+
+@@ gap 2
+answer: tab[cur.y][cur.x]
+wrong: tab[cur.x][cur.y] => x and y are swapped. tab[row][column] - rows are counted by y, so it's tab[y][x].
+wrong: tab[cur.y, cur.x] => C has no [a, b] indexing. A char ** is indexed twice: tab[row][column].
+hint: tab is an array of rows (strings). Do you pick the row or the column first?
+`char **tab` is an array of strings: `tab[row]` is one line of the map, and
+`tab[row][col]` is one character of that line.
+
+Rows are counted by y and columns by x, so it's `tab[y][x]` - NOT `tab[x][y]`.
+This is the #1 flood_fill bug: on a square map it seems to work, on the 8x5 map
+of the subject it reads garbage or crashes. Same for the sizes: `size.x` is
+the width (number of columns), `size.y` the height (number of rows).
+
+If the cell is not the zone character (a wall, or a cell already painted 'F'),
+we are at the edge of the zone: stop.
+
+@@ gap 3
+answer: 'F'
+accept: 70
+wrong: "F" => Double quotes make a string (a char *, i.e. an address). One character needs single quotes: 'F'.
+wrong: F => Without quotes, F is a variable name. The character is written 'F'.
+hint: What does the subject say filled cells become? Mind the quote type.
+Paint the cell. Two details matter here:
+
+- Single quotes: `'F'` is one char (its code is 70). `"F"` is a string, a
+  `char *` pointer - it doesn't fit in a `char` cell, and -Werror refuses it.
+- The ORDER: we paint BEFORE the recursive calls. The neighbour we call next
+  will look back at this cell, see 'F' instead of `target`, and stop. If you
+  painted after the calls, two neighbours would keep calling each other forever
+  => infinite recursion => stack overflow.
+
+@@ gap 4
+answer: (t_point){cur.x - 1, cur.y}
+accept: (t_point){.x = cur.x - 1, .y = cur.y}
+accept: (t_point){.y = cur.y, .x = cur.x - 1}
+wrong: (t_point){cur.y, cur.x - 1} => The values are assigned in the order of the struct fields: x first, then y.
+wrong: {cur.x - 1, cur.y} => A bare {x, y} is only allowed when declaring a variable. Inside an expression you need the type in front: (t_point){x, y}.
+wrong: t_point{cur.x - 1, cur.y} => Close! The type goes in parentheses: (t_point){x, y}.
+wrong: (t_point)(cur.x - 1, cur.y) => That's a cast of a comma expression, not a struct. The values go in braces: (t_point){x, y}.
+hint: Build a t_point on the spot for the cell to the LEFT. Syntax: (type){x, y}
+This is a COMPOUND LITERAL (C99): `(type){ values }` creates a temporary,
+unnamed object of that type, right in the middle of an expression. The line
+does exactly the same as:
+
+    t_point	left;
+
+    left.x = cur.x - 1;
+    left.y = cur.y;
+    fill(tab, size, left, target);
+
+...in one line, which is why everybody uses it for flood_fill.
+
+- The values are assigned in the order the fields are declared in the struct:
+  `x` first, then `y`. You can also name them: `(t_point){.x = cur.x - 1, .y = cur.y}`.
+- It looks like a cast, but it is not one: a cast converts an existing value,
+  and you can't cast anything to a struct type. The `{...}` right after the
+  parentheses is what turns it into a literal.
+- A struct parameter is passed BY VALUE (it is copied), so every call gets its
+  own point and `cur` is never modified.
+
+Left is x - 1, right is x + 1; the next two lines do the same with y.
+
+@@ gap 5
+answer: cur.y - 1
+accept: -1 + cur.y
+wrong: cur.y + 1 => That's "down", and it's already the last call. This one is "up".
+wrong: cur.x - 1 => This slot is the y field of the new point. x stays cur.x, y moves by one.
+hint: This is the call going UP. y is the row number, and row 0 is the top line of the map.
+The four calls visit left (x - 1), right (x + 1), up (y - 1) and down (y + 1).
+
+y is a row index and row 0 is the first line printed, so y grows DOWNWARDS and
+"up" is y - 1. The order of the 4 calls doesn't change the result (the zone is
+filled either way), but all 4 directions must be there.
+
+There is no diagonal call like (x + 1, y + 1): the subject says the fill does
+not spread diagonally - two cells that only touch by a corner are not in the
+same zone.
+
+@@ gap 6
+answer: tab[begin.y][begin.x]
+wrong: target => target is a parameter of fill - flood_fill doesn't have it. Read the zone character from the map.
+wrong: tab[begin.x][begin.y] => x and y are swapped: tab[row][column] = tab[y][x].
+wrong: 'F' => 'F' is the paint, not the zone. Every cell of the zone would be "not 'F'" => nothing gets filled.
+hint: Which character is the zone made of? Read it from the map, at the starting point.
+The zone character is whatever sits at the starting point. We read it ONCE,
+before anything gets painted, and pass it down to every recursive call.
+
+Why a parameter instead of reading the map again inside fill? Because the very
+first thing fill does is overwrite the starting cell with 'F'. After that the
+original character would be lost - that's the whole reason `fill` exists as a
+helper with an extra `target` parameter.
+
+@@ outro
+What you just wrote is a depth-first search (DFS):
+
+- each call handles ONE cell and delegates the rest to its neighbours
+- the base cases (outside the map / not the zone character) stop the recursion
+- painting before recursing guarantees every cell is visited only once, so the
+  work is proportional to the size of the map
+
+Classic mistakes that get a FAILURE:
+- `tab[x][y]` instead of `tab[y][x]` (only works on square maps)
+- `>` instead of `>=` in the bounds check (off by one)
+- painting after the recursive calls (infinite recursion => crash)
+- adding diagonal neighbours
+- comparing with `tab[begin.y][begin.x]` after it was already painted
+
+Bonus: if the zone itself is made of 'F', `target` is 'F', painted cells still
+match and the recursion never ends. The exam never tests that - but now you know why.

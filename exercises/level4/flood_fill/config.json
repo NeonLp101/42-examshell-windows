@@ -1,0 +1,6 @@
+{
+  "type": "function",
+  "expected_files": ["*.c", "*.h"],
+  "allowed_functions": [],
+  "seeds": 15
+}

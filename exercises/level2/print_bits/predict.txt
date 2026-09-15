@@ -1,0 +1,36 @@
+@@ question
+match: exact
+answer: 00000010
+wrong: 10 => print_bits always prints all 8 bits, leading zeros included.
+wrong: 00000010$ => print_bits prints no newline.
+What does print_bits print? (no newline)
+
+    print_bits(2);
+---
+2 is bit 1 set: 00000010 - all 8 bits, leading zeros included.
+
+@@ question
+match: exact
+answer: 11111111
+What does print_bits print? (no newline)
+
+    print_bits(255);
+---
+255 is the largest byte: all bits set.
+
+@@ question
+answer: 1
+What is the value of this expression?
+
+    (42 >> 1) & 1
+---
+42 = 00101010. Shifting right by 1 gives 00010101, and & 1 keeps the last bit: 1.
+So bit 1 of 42 is set.
+
+@@ question
+answer: 128
+What is the value of this expression?
+
+    1 << 7
+---
+1 shifted 7 places left: 10000000 = 128 - a byte with only its leftmost bit set.

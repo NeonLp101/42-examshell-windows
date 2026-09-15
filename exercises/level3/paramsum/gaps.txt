@@ -1,0 +1,50 @@
+@@ intro
+Print the number of arguments. argc counts the program name too, so the answer is
+argc - 1.
+
+Two details: the number is printed with write only (put_nbr), and `argv` is not used -
+with -Wall -Wextra -Werror an unused parameter is a compilation error, unless you
+silence it with `(void)argv;`.
+
+@@ file paramsum.c
+#include <unistd.h>
+
+void	put_nbr(int n)
+{
+	char	c;
+
+	if (n >= 10)
+		put_nbr(n / 10);
+	c = n % 10 + '0';
+	write(1, &c, 1);
+}
+
+int	main(int argc, char **argv)
+{
+	{{1}};
+	put_nbr({{2}});
+	write(1, "\n", 1);
+	return (0);
+}
+
+@@ gap 1
+answer: (void)argv
+wrong: argv => A lone "argv;" is a statement with no effect: gcc -Wall refuses it too. Cast it to void: (void)argv.
+wrong: (void)argc => argc IS used below. The unused parameter is argv.
+hint: argv is never used - tell the compiler it's on purpose.
+-Wextra enables `-Wunused-parameter`, and -Werror turns it into an error. Casting the
+parameter to void "uses" it without doing anything - the usual way to say "I know this
+parameter is unused".
+
+@@ gap 2
+answer: argc - 1
+accept: -1 + argc
+wrong: argc => argc counts the program name: with no arguments, argc is 1.
+hint: argc includes the program name.
+`./paramsum 1 2 3` => argc == 4 => 3 arguments.
+
+@@ outro
+Remember:
+- number of arguments = argc - 1
+- no argument => "0\n"
+- unused parameters break -Werror: `(void)argv;`

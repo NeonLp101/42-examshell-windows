@@ -1,0 +1,45 @@
+@@ intro
+C passes arguments BY VALUE: a function receives copies. To modify the caller's
+variables, the function receives their ADDRESSES (`int *a`) and writes through them
+(`*a = ...`). The swap itself needs a temporary variable.
+
+    int x = 1, y = 2;
+    ft_swap(&x, &y);     // x == 2, y == 1
+
+@@ file ft_swap.c
+void	ft_swap(int *a, int *b)
+{
+	int	tmp;
+
+	tmp = {{1}};
+	{{2}} = *b;
+	*b = {{3}};
+}
+
+@@ gap 1
+answer: *a
+wrong: a => a is an address (int *), tmp is an int. Save the VALUE a points to: *a.
+wrong: &a => &a is the address of the pointer. Save the value: *a.
+wrong: *b => *b is not the problem - it's *a that gets overwritten on the next line. Save *a first.
+hint: Save the value that a points to.
+`*a` is the int stored at address a - the caller's x. We save it before it gets
+overwritten on the next line.
+
+@@ gap 2
+answer: *a
+wrong: a => That changes your local copy of the pointer, not the caller's int. Write through it: *a.
+hint: Put b's value into the int that a points to.
+Writing `*a = *b` stores b's value in the caller's variable. Writing `a = ...` would only
+change the local pointer - the caller would see nothing.
+
+@@ gap 3
+answer: tmp
+wrong: *a => *a was already overwritten with b's value. The old value of a is in tmp.
+hint: The old value of *a.
+The original value of *a was saved in tmp - it now goes into *b. Swap done.
+
+@@ outro
+Remember:
+- `int *a` = address of an int; `*a` = the int itself
+- to change a caller's variable, write through its address: `*a = ...`
+- a swap needs a temporary variable

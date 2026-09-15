@@ -1,0 +1,83 @@
+@@ intro
+Build an int array with every value from start to end INCLUDED, in either direction:
+
+    (1, 3)   => [1, 2, 3]          (0, -3)  => [0, -1, -2, -3]
+
+1. length = distance between start and end, + 1 (both ends are included)
+2. malloc length * sizeof(int) bytes
+3. fill: start + i going up, or start - i going down
+
+@@ file ft_range.c
+#include <stdlib.h>
+
+int	*ft_range(int start, int end)
+{
+	int	*tab;
+	int	len;
+	int	i;
+
+	len = end - start;
+	if (len < 0)
+		len = {{1}};
+	len++;
+	tab = malloc({{2}});
+	if (!tab)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		if (start <= end)
+			tab[i] = {{3}};
+		else
+			tab[i] = {{4}};
+		i++;
+	}
+	return (tab);
+}
+
+@@ gap 1
+answer: -len
+accept: start - end
+accept: len * -1
+accept: -1 * len
+wrong: 0 => A descending range still has elements: (0, -3) has 4. Take the absolute value.
+wrong: len => len is negative here: make it positive.
+hint: len is negative when end < start. Make it positive.
+The number of elements depends on the DISTANCE, whatever the direction: (0, -3) and
+(-3, 0) both have 4 values. `len++` then adds the end itself (both ends are included).
+
+@@ gap 2
+answer: sizeof(int) * len
+accept: len * sizeof(int)
+accept: sizeof(*tab) * len
+accept: len * sizeof(*tab)
+wrong: len => malloc counts BYTES: an int takes 4 of them. len bytes is 4 times too small.
+wrong: sizeof(int *) * len => The array holds ints, not pointers (8 bytes instead of 4: works, but twice too big).
+hint: malloc wants a number of BYTES, and each int is several bytes.
+`malloc(len)` would give len bytes, room for only len / 4 ints. Always multiply by the
+size of one element: `sizeof(int)`, or `sizeof(*tab)` ("the size of what tab points to").
+
+@@ gap 3
+answer: start + i
+accept: i + start
+accept: start++
+wrong: end - i => That fills from end down: it's ft_rrange. ft_range starts at start.
+wrong: i => Starts at 0, not at start.
+hint: Going up: the i-th value after start.
+Ascending: start, start + 1, start + 2, ...
+
+@@ gap 4
+answer: start - i
+accept: -i + start
+wrong: start-- => start changes on every turn, so the test `start <= end` above changes too: at some point it flips and the wrong branch is used.
+wrong: end + i => That fills from end up: it's ft_rrange. ft_range starts at start.
+wrong: start + i => end < start here: the values must go DOWN.
+hint: Going down: the i-th value below start.
+Descending: start, start - 1, start - 2, ... down to end.
+
+@@ outro
+Remember:
+- length = |end - start| + 1 (both ends included)
+- malloc(sizeof(int) * len) - malloc counts bytes
+- the range can go down: (0, -3) => 0, -1, -2, -3
+- ft_rrange is the same array in reverse order

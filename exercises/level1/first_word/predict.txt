@@ -1,0 +1,33 @@
+@@ question
+match: exact
+args: ["  lorem,ipsum  "]
+answer: lorem,ipsum$
+    $> ./first_word "  lorem,ipsum  " | cat -e
+---
+Leading spaces are skipped, and "lorem,ipsum" has no blank inside: the comma is
+part of the word. The trailing spaces are never printed.
+
+@@ question
+match: exact
+args: ["a", "b"]
+answer: $
+wrong: a$ => Two parameters: the subject wants only a newline.
+    $> ./first_word "a" "b" | cat -e
+---
+"If the number of parameters is not 1 ... simply display a newline."
+
+@@ question
+match: exact
+args: ["   "]
+answer: $
+    $> ./first_word "   " | cat -e
+---
+One parameter, but no word in it: only the newline.
+
+@@ question
+match: exact
+args: ["FOR PONY"]
+answer: FOR$
+    $> ./first_word "FOR PONY" | cat -e
+---
+The first word ends at the space.

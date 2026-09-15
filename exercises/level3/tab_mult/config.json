@@ -1,0 +1,29 @@
+{
+  "type": "program",
+  "expected_files": [
+    "tab_mult.c"
+  ],
+  "allowed_functions": [
+    "write"
+  ],
+  "fixed_tests": [
+    [
+      "9"
+    ],
+    [
+      "19"
+    ],
+    [],
+    [
+      "1"
+    ],
+    [
+      "238609294"
+    ],
+    [
+      "42"
+    ]
+  ],
+  "generator": "tab_mult",
+  "random_tests": 15
+}

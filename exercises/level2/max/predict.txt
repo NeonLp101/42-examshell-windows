@@ -1,0 +1,23 @@
+@@ question
+answer: -3
+    int tab[] = {-5, -3, -10};
+    max(tab, 3);
+---
+The biggest of three negative numbers is -3.
+
+@@ question
+answer: 0
+wrong: -3 => This buggy version starts with 0, and no element is bigger than 0.
+This buggy version starts with `result = 0`. What does it return?
+
+    int tab[] = {-5, -3, -10};
+    max(tab, 3);
+---
+No element is > 0, so result stays 0 - a value that isn't even in the array. That's why
+the start value must be tab[0].
+
+@@ question
+answer: 0
+    max(tab, 0);
+---
+Empty array: the subject says 0.

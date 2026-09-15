@@ -1,0 +1,72 @@
+@@ intro
+Count the nodes of a linked list: walk from the first node to NULL, adding one per node.
+The exam wants the struct in ft_list.h and the function in ft_list_size.c.
+
+    begin_list => [ ] => [ ] => [ ] => NULL        => 3
+
+@@ file ft_list.h
+#ifndef FT_LIST_H
+# define FT_LIST_H
+
+typedef struct s_list
+{
+	struct s_list	*next;
+	void			*data;
+}					t_list;
+
+int	ft_list_size(t_list *begin_list);
+
+#endif
+
+@@ file ft_list_size.c
+#include "ft_list.h"
+
+int	ft_list_size(t_list *begin_list)
+{
+	int	count;
+
+	count = {{1}};
+	while ({{2}})
+	{
+		count++;
+		begin_list = {{3}};
+	}
+	return (count);
+}
+
+@@ gap 1
+answer: 0
+wrong: 1 => An empty list (NULL) must return 0.
+hint: What must an empty list return?
+Start at 0: for an empty list (begin_list == NULL) the loop never runs.
+
+@@ gap 2
+answer: begin_list
+accept: begin_list != 0
+wrong: begin_list->next => That skips the last node and crashes on an empty list (NULL->next).
+wrong: begin_list != NULL => NULL isn't defined in this file: ft_list.h includes no standard header. Use just begin_list (or != 0).
+hint: Count every node, including the last one.
+A pointer is true while it's not NULL: the loop runs once per node and stops after the
+last one.
+
+@@ gap 3
+answer: begin_list->next
+accept: (*begin_list).next
+wrong: begin_list + 1 => Nodes are not next to each other in memory. Follow the link: begin_list->next.
+wrong: begin_list->data => data is the content. The link to the next node is next.
+hint: Move to the next node.
+Follow the `next` link. begin_list is a local copy, so moving it doesn't affect the
+caller.
+
+@@ outro
+The list walk again:
+
+    while (node)
+    {
+        count++;
+        node = node->next;
+    }
+
+A recursive version is a nice one-liner:
+
+    return (begin_list ? 1 + ft_list_size(begin_list->next) : 0);

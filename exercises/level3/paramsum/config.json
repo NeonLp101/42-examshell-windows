@@ -1,0 +1,33 @@
+{
+  "type": "program",
+  "expected_files": [
+    "paramsum.c"
+  ],
+  "allowed_functions": [
+    "write"
+  ],
+  "fixed_tests": [
+    [],
+    [
+      "1",
+      "2",
+      "3",
+      "5",
+      "7",
+      "24"
+    ],
+    [
+      "6",
+      "12",
+      "24"
+    ],
+    [
+      ""
+    ],
+    [
+      "a b c"
+    ]
+  ],
+  "generator": "paramsum",
+  "random_tests": 15
+}

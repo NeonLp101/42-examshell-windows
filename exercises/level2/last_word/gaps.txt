@@ -1,0 +1,80 @@
+@@ intro
+The last word is easiest to find from the END of the string:
+
+1. go to the end
+2. walk back over trailing blanks => `end` is just after the last letter
+3. walk back over the word => `start` is its first letter
+4. print from start to end
+
+Here positions are "one past" style: we always look at `s[index - 1]`, so indexes
+never go below 0.
+
+@@ file last_word.c
+#include <unistd.h>
+
+int	main(int argc, char **argv)
+{
+	char	*s;
+	int		end;
+	int		start;
+
+	if (argc == 2)
+	{
+		s = argv[1];
+		end = 0;
+		while ({{1}})
+			end++;
+		while (end > 0 && {{2}})
+			end--;
+		start = end;
+		while ({{3}} && s[start - 1] != ' ' && s[start - 1] != '\t')
+			start--;
+		write(1, s + start, {{4}});
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+@@ gap 1
+answer: s[end]
+accept: s[end] != '\0'
+accept: s[end] != 0
+hint: Go to the end of the string.
+After this loop, end is the length: the index of the '\0'.
+
+@@ gap 2
+answer: (s[end - 1] == ' ' || s[end - 1] == '\t')
+accept: (s[end - 1] == '\t' || s[end - 1] == ' ')
+wrong: s[end - 1] == ' ' || s[end - 1] == '\t' => Add parentheses: && binds tighter than ||, so the "end > 0" guard wouldn't protect the tab test (gcc -Wall refuses it).
+wrong: (s[end - 1] == ' ') => Tabs are blanks too.
+wrong: (s[end] == ' ' || s[end] == '\t') => s[end] is the '\0' at the start. Look at the character before: s[end - 1].
+hint: Walk back while the character before end is a space or a tab.
+Skip trailing blanks: "  lorem,ipsum  " has spaces after the last word.
+
+The parentheses matter: `a && b || c` means `(a && b) || c` - the `end > 0` guard would
+only protect b, and `s[end - 1]` could be read at end == 0.
+
+@@ gap 3
+answer: start > 0
+accept: 0 < start
+accept: start >= 1
+accept: start
+wrong: start >= 0 => At start == 0 the next test reads s[-1], before the string.
+hint: The loop reads s[start - 1]. What must be true about start first?
+Guard first, then read: `start > 0` makes sure `s[start - 1]` is inside the string. When
+the word is the very first thing in the string, the loop stops at start == 0.
+
+@@ gap 4
+answer: end - start
+accept: -start + end
+wrong: end => That's a position, not a length.
+wrong: end - start + 1 => end is already one past the last letter.
+hint: The word spans indexes start ... end - 1.
+The word occupies start to end - 1, that's `end - start` characters. If there is no word
+at all, start == end and nothing is printed.
+
+@@ outro
+Remember:
+- find the end, skip trailing blanks, then walk back over the word
+- guard before reading `s[i - 1]`: `i > 0 && ...`
+- `write(1, s + start, len)` prints a slice without copying

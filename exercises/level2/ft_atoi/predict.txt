@@ -1,0 +1,33 @@
+@@ question
+answer: -42
+    ft_atoi("  -42abc")
+---
+Whitespace skipped, sign read, digits until 'a'.
+
+@@ question
+answer: 0
+wrong: 5 => Only ONE sign is allowed: after the first '-', the next character is '-', not a digit.
+wrong: -5 => Only ONE sign is allowed: after the first '-', the next character is '-', not a digit.
+    ft_atoi("--5")
+---
+One optional sign only. After the first '-' comes another '-', which stops the reading:
+no digits => 0.
+
+@@ question
+answer: 17
+    ft_atoi("+17")
+---
+'+' is a valid sign too.
+
+@@ question
+answer: 7
+    ft_atoi("\n\t 7")
+---
+Newline and tab are whitespace (codes 10 and 9) and are skipped like spaces.
+
+@@ question
+answer: 0
+wrong: -5 => The space after '-' stops everything: the sign must be directly followed by the digits.
+    ft_atoi("- 5")
+---
+Whitespace is only skipped BEFORE the sign. After '-', the space is not a digit => 0.

@@ -1,0 +1,76 @@
+@@ intro
+Three arguments: a number, an operator, a number. Convert the numbers with atoi, look
+at the operator's first character, compute, print with printf.
+
+    $> ./do_op "123" "*" 456
+    56088
+
+The operator is a STRING ("*"), so its character is `argv[2][0]`.
+
+@@ file do_op.c
+#include <stdio.h>
+#include <stdlib.h>
+
+int	main(int argc, char **argv)
+{
+	int		a;
+	int		b;
+	char	op;
+
+	if ({{1}})
+	{
+		a = atoi(argv[1]);
+		b = {{2}};
+		op = {{3}};
+		if (op == '+')
+			printf("%d", a + b);
+		else if (op == '-')
+			printf("%d", a - b);
+		else if (op == '*')
+			printf("%d", a * b);
+		else if (op == '/')
+			printf("%d", a / b);
+		else if (op == '%')
+			{{4}};
+	}
+	printf("\n");
+	return (0);
+}
+
+@@ gap 1
+answer: argc == 4
+accept: 4 == argc
+wrong: argc == 3 => argc counts the program name: 3 arguments => argc == 4.
+hint: Three arguments, plus the program name.
+./do_op "1" "+" "2": argv[0] = "./do_op", argv[1] = "1", argv[2] = "+", argv[3] = "2".
+
+@@ gap 2
+answer: atoi(argv[3])
+wrong: atoi(argv[2]) => argv[2] is the operator. The second number is the third argument: argv[3].
+wrong: argv[3] => argv[3] is a string: convert it with atoi.
+hint: The second number is the third argument - and it's still a string.
+The numbers are arguments 1 and 3; the operator sits between them. `atoi` turns the
+text "456" into the int 456.
+
+@@ gap 3
+answer: argv[2][0]
+accept: *argv[2]
+wrong: argv[2] => argv[2] is a string (a char *); op is a char. Take its first character: argv[2][0].
+wrong: atoi(argv[2]) => "+" is not a number: atoi would return 0. Take the character: argv[2][0].
+hint: op is a char, argv[2] is a string.
+`argv[2]` is the string "+" (a pointer), `argv[2][0]` its first character '+'. Chars
+can be compared with `==` against character literals like '+'.
+
+@@ gap 4
+answer: printf("%d", a % b)
+wrong: printf("%d", a / b) => That's the division. % gives the remainder.
+wrong: printf("%d", b % a) => The order matters: a % b is the remainder of a divided by b.
+hint: The remainder of a divided by b.
+`%` is the remainder of the integer division. Note the sign rule in C: the remainder
+takes the sign of `a` - `-42 % 5` is -2.
+
+@@ outro
+Remember:
+- 3 arguments => argc == 4, otherwise only "\n"
+- numbers: atoi(argv[1]) and atoi(argv[3]); operator: argv[2][0]
+- in C, / truncates toward zero and % keeps the sign of the left number

@@ -1,0 +1,25 @@
+@@ question
+match: exact
+args: [" this        time it      will     be    more complex  . "]
+answer: this time it will be more complex .$
+    $> ./epur_str " this        time it      will     be    more complex  . " | cat -e
+---
+Every run of blanks becomes one space, leading and trailing blanks vanish. The lone "."
+is a word too.
+
+@@ question
+match: exact
+args: ["\t\ta\t\tb\t"]
+answer: a b$
+wrong: a	b$ => The output separator is always a SPACE, whatever blanks were in the input.
+    $> ./epur_str $'\t\ta\t\tb\t' | cat -e
+---
+Tabs are blanks: they're skipped, and the words are joined with a single space.
+
+@@ question
+match: exact
+args: ["No S*** Sherlock...", "nAw S*** ShErLaWQ..."]
+answer: $
+    $> ./epur_str "No S*** Sherlock..." "nAw S*** ShErLaWQ..." | cat -e
+---
+Two arguments: only the newline.

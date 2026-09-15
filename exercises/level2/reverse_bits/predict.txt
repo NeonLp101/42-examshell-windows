@@ -1,0 +1,18 @@
+@@ question
+answer: 128
+wrong: 1 => All 8 bits are reversed, zeros included: 00000001 becomes 10000000.
+    reverse_bits(1)
+---
+00000001 reversed is 10000000 = 128.
+
+@@ question
+answer: 100
+    reverse_bits(38)
+---
+38 = 00100110, reversed 01100100 = 64 + 32 + 4 = 100 (the subject's example).
+
+@@ question
+answer: 255
+    reverse_bits(255)
+---
+11111111 reads the same in both directions.

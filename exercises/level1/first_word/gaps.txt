@@ -1,0 +1,92 @@
+@@ intro
+A program gets its arguments in `argv`: `argv[0]` is the program name, `argv[1]` the
+first argument, and `argc` counts all of them (program name included).
+
+first_word skips the blanks at the start of argv[1], then prints characters until the
+next blank (or the end), then a newline. Printing one character at a time with
+`write(1, &c, 1)` is the basic tool of every level-1 program.
+
+@@ file first_word.c
+#include <unistd.h>
+
+int	main(int argc, char **argv)
+{
+	int	i;
+
+	i = 0;
+	if ({{1}})
+	{
+		while ({{2}})
+			i++;
+		while (argv[1][i] && argv[1][i] != ' ' && argv[1][i] != '\t')
+			{{3}};
+	}
+	{{4}};
+	return (0);
+}
+
+@@ gap 1
+answer: argc == 2
+accept: 2 == argc
+wrong: argc == 1 => argc counts the program name too: with one argument, argc is 2.
+wrong: argc >= 2 => With 2 or more arguments the subject wants only a newline ("if the number of parameters is not 1").
+wrong: argc > 1 => With 2 or more arguments the subject wants only a newline ("if the number of parameters is not 1").
+hint: argc also counts the program name. How much is argc with exactly one argument?
+`./first_word "FOR PONY"` gives argc == 2: argv[0] is "./first_word", argv[1] is "FOR PONY".
+
+"If the number of parameters is not 1 ... simply display a newline": so the word is
+only printed when argc is exactly 2. With `argc >= 2`, `./first_word "a" "b"` would
+print "a" instead of just "\n".
+
+@@ gap 2
+answer: argv[1][i] == ' ' || argv[1][i] == '\t'
+accept: argv[1][i] == '\t' || argv[1][i] == ' '
+wrong: argv[1][i] == ' ' => Tabs are blanks too: "delimited by spaces/tabs".
+wrong: argv[1][i] != ' ' && argv[1][i] != '\t' => That's the condition for being INSIDE a word. Here we skip the blanks BEFORE the word.
+hint: Skip every leading space AND tab.
+Skip the blanks at the beginning: while the current character is a space or a tab,
+move on. When the loop stops, i is on the first letter of the word (or on '\0' if
+the string has no word at all - then nothing gets printed).
+
+`argv[1][i]` is a char: argv[1] is the string, [i] one character of it.
+
+@@ gap 3
+answer: write(1, &argv[1][i++], 1)
+accept: write(1, argv[1] + i++, 1)
+accept: write(1, &(argv[1][i++]), 1)
+wrong: write(1, &argv[1][i], 1) => i never moves: the same letter is printed forever (infinite loop). Use i++ inside.
+wrong: write(1, argv[1][i++], 1) => write needs the ADDRESS of the character: &argv[1][i++].
+wrong: write(1, &argv[1][++i], 1) => ++i moves BEFORE taking the address: the first letter would be skipped.
+hint: Print the current character and move to the next one, in one expression.
+`write(fd, address, count)`: it needs a POINTER to the bytes to print, so we take
+the address of the character with `&`.
+
+`i++` gives the current value of i and increments it afterwards, so this prints
+character i and moves on - exactly what the loop needs.
+
+@@ gap 4
+answer: write(1, "\n", 1)
+wrong: write(1, '\n', 1) => write needs an address. "\n" (double quotes) is a string, i.e. a pointer; '\n' is just a char.
+wrong: write(1, "\n", 2) => "\n" is 2 bytes in memory ('\n' and the '\0' terminator): you would print an invisible '\0' too.
+hint: A newline is printed in every case - even when nothing else is.
+This line is OUTSIDE the if, so the newline is printed whatever happens: wrong
+number of arguments, no word, or after the word.
+
+`"\n"` is a string literal - a pointer to the bytes '\n' and '\0' - so it can be
+given to write. Count 1: only the '\n'.
+
+@@ outro
+The skeleton of almost every level-1 program:
+
+    if (argc == 2)
+    {
+        ... walk through argv[1], write(1, &c, 1) ...
+    }
+    write(1, "\n", 1);
+    return (0);
+
+Remember:
+- argc includes the program name: one argument => argc == 2
+- the newline is printed in every case
+- blanks = spaces AND tabs
+- write needs an address: `&str[i]` or `"text"`, never a plain char

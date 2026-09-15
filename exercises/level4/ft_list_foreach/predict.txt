@@ -1,0 +1,68 @@
+@@ question
+answer: [11, 12, 13]
+wrong: [1, 2, 3] => f receives a pointer to each int, so it can change the value stored in the list.
+A list holds pointers to three ints. `add_ten` does `*(int *)data += 10`.
+Type the list afterwards, like [1, 2, 3]:
+
+    list: [1, 2, 3]
+    ft_list_foreach(list, add_ten);
+---
+Each node's data is a POINTER to an int, and f receives that pointer, so it can
+modify the int in place. foreach calls it once per node.
+
+@@ question
+answer: 4
+How many times is f called?
+
+    list: ["a", "b", "c", "d"]
+    ft_list_foreach(list, print_str);
+---
+Once per node: 4 nodes => 4 calls.
+
+@@ question
+answer: 0
+wrong: 1 => With an empty list the loop condition is false right away: f is never called.
+How many times is f called?
+
+    ft_list_foreach(NULL, print_str);
+---
+`while (begin_list)` is false immediately for NULL, so nothing happens - and
+nothing crashes.
+
+@@ question
+answer: 2
+wrong: 3 => The loop stops as soon as the CURRENT node has no next - so the last node is never passed to f.
+Someone wrote the loop condition as `while (begin_list->next)`.
+How many times is f called?
+
+    list: ["a", "b", "c"]
+---
+With `begin_list->next` the loop stops when begin_list is the LAST node, before
+calling f on it: only "a" and "b" are processed. (And an empty list would crash.)
+
+@@ question
+answer: 16
+wrong: 8 => The struct has TWO pointers (next and data), 8 bytes each.
+On a 64-bit machine, what is `sizeof(t_list)`?
+
+    typedef struct s_list
+    {
+        struct s_list   *next;
+        void            *data;
+    }                   t_list;
+---
+Two pointers of 8 bytes each = 16. Note that the node doesn't contain the data
+itself, only a pointer to it.
+
+@@ question
+match: text
+answer: no
+accept: false
+wrong: yes => begin_list is a copy of the caller's pointer: moving the copy doesn't move the caller's variable.
+The function moves `begin_list` forward until it's NULL.
+After the call, is the caller's `list` pointer NULL? (yes/no)
+
+    ft_list_foreach(list, f);
+---
+Parameters are passed by value: `begin_list` is a local copy of `list`.
+Changing the copy inside the function doesn't touch the caller's variable.

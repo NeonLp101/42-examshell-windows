@@ -1,0 +1,50 @@
+@@ question
+answer: [-1, 0, 5, 5]
+wrong: [-1, 0, 5] => Doubles must be preserved: both 5s stay.
+Type the array afterwards, like [1, 2, 3]:
+
+    int tab[] = {5, -1, 5, 0};
+    sort_int_tab(tab, 4);
+---
+Ascending order, duplicates kept ("Doubles must be preserved").
+
+@@ question
+answer: [3, 2, 1, 4]
+wrong: [1, 2, 3, 4] => That's after ALL passes. One pass only moves the biggest value to the end.
+wrong: [3, 4, 2, 1] => A pass keeps going to the end: the 4 is swapped with every neighbour until it reaches the last cell.
+What does the array look like after only the FIRST pass (i = 0) of bubble sort?
+
+    int tab[] = {4, 3, 2, 1};
+---
+In one pass the 4 is swapped with each neighbour and "bubbles" all the way to the
+end: [3,4,2,1] => [3,2,4,1] => [3,2,1,4].
+
+@@ question
+answer: 4294967295
+wrong: -1 => An unsigned int can't be negative: 0 - 1 wraps around to the largest value, 4294967295.
+What is the value of `size - 1` here?
+
+    unsigned int size = 0;
+---
+Unsigned arithmetic wraps around: 0 - 1 gives UINT_MAX = 4294967295. A loop like
+`while (j < size - 1)` would then run (almost) forever and read far outside the
+array.
+
+@@ question
+answer: 3
+With size = 6, how many comparisons does the inner loop do during pass i = 2?
+
+    while (j + 1 < size - i)
+---
+size - i = 4, and `j + 1 < 4` is true for j = 0, 1, 2: 3 comparisons. Each pass
+compares one pair less, because the end of the array is already sorted.
+
+@@ question
+answer: 3
+wrong: 2 => Every swap of neighbours fixes exactly ONE out-of-order pair, and [3, 2, 1] has three of them.
+How many swaps does bubble sort make in total?
+
+    int tab[] = {3, 2, 1};
+---
+Each swap of two neighbours fixes exactly one "inversion" (a pair in the wrong
+order). [3, 2, 1] has 3 inversions: (3,2), (3,1), (2,1) => 3 swaps.

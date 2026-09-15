@@ -1,0 +1,70 @@
+@@ intro
+Three arguments: a string, a character to find, a character to put instead. Every
+occurrence is replaced.
+
+The tricky part is validation: the 2nd and 3rd arguments must be exactly ONE character.
+The subject's example `./search_and_replace "zaz" "art" "zul"` prints only a newline.
+"Exactly one character" means: character 0 exists, and character 1 is the '\0'.
+
+@@ file search_and_replace.c
+#include <unistd.h>
+
+int	main(int argc, char **argv)
+{
+	char	*s;
+
+	if (argc == 4 && argv[2][0] && {{1}} && argv[3][0] && !argv[3][1])
+	{
+		s = argv[1];
+		while (*s)
+		{
+			if ({{2}})
+				write(1, {{3}}, 1);
+			else
+				write(1, s, 1);
+			s++;
+		}
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+@@ gap 1
+answer: !argv[2][1]
+accept: argv[2][1] == '\0'
+accept: argv[2][1] == 0
+accept: !(argv[2][1])
+wrong: argv[2][1] => Reversed: that's true when there IS a second character. We want the second character to be '\0'.
+wrong: argv[2][1] != '\0' => Reversed: that's true when there IS a second character. We want the second character to be '\0'.
+hint: "exactly one character": the character right after the first one must be the terminator.
+A string of exactly one character looks like `['a', '\0']`: argv[2][0] is not '\0' AND
+argv[2][1] is '\0'. `!argv[2][1]` is true when argv[2][1] is 0.
+
+The order matters: `argv[2][0] &&` is checked first, so for an empty string "" we never
+read argv[2][1] (which would be past its end).
+
+@@ gap 2
+answer: *s == argv[2][0]
+accept: argv[2][0] == *s
+accept: *s == *argv[2]
+accept: *argv[2] == *s
+wrong: *s == argv[2] => argv[2] is a string (a pointer). Compare with its first character: argv[2][0].
+wrong: s == argv[2] => That compares two addresses. Compare the characters: *s == argv[2][0].
+hint: Is the current character the one to replace?
+`*s` is the current character, `argv[2][0]` the character to find. Both are chars, so
+they can be compared with ==.
+
+@@ gap 3
+answer: argv[3]
+accept: &argv[3][0]
+wrong: argv[3][0] => write needs an ADDRESS. argv[3] already points to the replacement character.
+wrong: s => s points to the original character - print the replacement instead.
+hint: write needs a pointer to the replacement character.
+argv[3] is a pointer to the replacement string, whose first byte is the replacement
+character - so `write(1, argv[3], 1)` prints exactly that character.
+
+@@ outro
+Remember:
+- exactly one character: `str[0] && !str[1]`
+- wrong argument count OR invalid arguments => just "\n"
+- if the character isn't found, the string is simply printed unchanged

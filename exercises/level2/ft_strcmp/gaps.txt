@@ -1,0 +1,60 @@
+@@ intro
+strcmp compares two strings character by character and returns:
+
+- 0 if they are equal
+- a negative number if s1 comes first ("abc" vs "abd": 'c' < 'd')
+- a positive number if s1 comes after
+
+Walk while the characters are equal and not at the end, then return the difference of
+the first two characters that differ (or of the two '\0').
+
+@@ file ft_strcmp.c
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while ({{1}})
+		i++;
+	return ({{2}});
+}
+
+@@ gap 1
+answer: s1[i] && s1[i] == s2[i]
+accept: s1[i] == s2[i] && s1[i]
+accept: s1[i] != '\0' && s1[i] == s2[i]
+accept: s1[i] && s2[i] && s1[i] == s2[i]
+accept: s1[i] == s2[i] && s1[i] != '\0'
+wrong: s1[i] == s2[i] => For two equal strings, the '\0's are equal too: the loop runs past the end of both strings.
+wrong: s1[i] && s2[i] => That never compares the characters: "abc" and "abd" would look equal.
+wrong: s1[i] != s2[i] => Reversed: we move on while they are EQUAL.
+hint: Move on while the characters are equal - but stop at the end of the strings.
+Two conditions: the characters are equal, and we're not at the end. Checking only s1
+is enough: if s1[i] is not '\0' and s2[i] == s1[i], then s2[i] is not '\0' either.
+
+@@ gap 2
+answer: (unsigned char)s1[i] - (unsigned char)s2[i]
+accept: s1[i] - s2[i]
+wrong: s2[i] - s1[i] => Reversed sign: s1 < s2 must give a NEGATIVE result.
+wrong: s1[i] == s2[i] => strcmp returns an ordering (negative / 0 / positive), not true/false.
+wrong: 0 => Only equal strings give 0. Return the difference of the first differing characters.
+hint: The difference between the first characters that are not equal.
+When the loop stops, either the characters differ or both are '\0'. Their difference
+has the right sign:
+
+    "abc" vs "abd":   'c' - 'd' = -1   => negative
+    "abc" vs "ab":    'c' - '\0' = 99  => positive
+    "abc" vs "abc":   '\0' - '\0' = 0
+
+The `(unsigned char)` casts make characters above 127 compare like the real strcmp.
+Only the SIGN of the result matters.
+
+@@ outro
+    while (s1[i] && s1[i] == s2[i])
+        i++;
+    return (s1[i] - s2[i]);
+
+Remember:
+- stop at the first difference OR at the end
+- a shorter string comes first ("ab" < "abc", because '\0' < 'c')
+- only the sign counts: -1, -42 and -100 all mean "s1 first"

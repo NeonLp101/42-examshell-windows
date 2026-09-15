@@ -1,0 +1,156 @@
+@@ intro
+The same idea as bubble sort, but on a linked list: compare each node with the next
+one, and if they're in the wrong order, swap their DATA.
+
+Swapping the data (two ints) is much simpler than swapping the nodes themselves,
+which would mean re-linking `next` pointers - and maybe changing the head.
+
+The subject's twist is `cmp`: you don't decide the order yourself. `cmp(a, b)`
+returns non-zero when a and b are in the right order, 0 otherwise - so the same
+function can sort ascending, descending, or any way the caller wants.
+
+This version goes back to the head after every swap, and stops when it walks the
+whole list without swapping anything.
+
+list.h is provided by the exam (you include it, but don't turn it in):
+
+    typedef struct s_list t_list;
+
+    struct s_list
+    {
+        int     data;
+        t_list  *next;
+    };
+
+@@ file sort_list.c
+#include "list.h"
+
+t_list	*sort_list(t_list *lst, int (*cmp)(int, int))
+{
+	t_list	*cur;
+	int		tmp;
+
+	cur = lst;
+	while ({{1}})
+	{
+		if ({{2}})
+		{
+			tmp = cur->data;
+			cur->data = {{3}};
+			cur->next->data = tmp;
+			cur = {{4}};
+		}
+		else
+			cur = {{5}};
+	}
+	return ({{6}});
+}
+
+@@ gap 1
+answer: cur && cur->next
+accept: cur != 0 && cur->next != 0
+accept: cur && cur->next != 0
+wrong: cur != NULL && cur->next != NULL => NULL isn't defined in this file: it only includes "list.h", and NULL comes from a standard header like <stddef.h> or <stdlib.h>. Use `cur && cur->next`.
+wrong: cur && cur->next != NULL => NULL isn't defined in this file: it only includes "list.h", and NULL comes from a standard header like <stddef.h> or <stdlib.h>. Use `cur && cur->next`.
+wrong: cur => For the last node cur->next is NULL, and cur->next->data crashes.
+wrong: cur->next => Works only if the list is never empty: with lst == NULL, NULL->next crashes. Check cur first.
+wrong: cur->next && cur => Right idea, wrong order: cur->next is evaluated BEFORE checking cur, so an empty list still crashes.
+hint: You compare cur with the node after it - both must exist.
+We compare a node with the next one, so we need a PAIR: `cur` and `cur->next`
+must both exist.
+
+Order matters: `cur && cur->next` checks cur first, and `&&` stops as soon as
+something is false - so `cur->next` is never evaluated on a NULL pointer (for
+example with an empty list).
+
+When cur is the last node (`cur->next == NULL`) there is no pair left, and since
+every swap sent us back to the head, reaching this point means the list is sorted.
+
+@@ gap 2
+answer: cmp(cur->data, cur->next->data) == 0
+accept: !cmp(cur->data, cur->next->data)
+accept: (*cmp)(cur->data, cur->next->data) == 0
+accept: !(*cmp)(cur->data, cur->next->data)
+accept: 0 == cmp(cur->data, cur->next->data)
+wrong: cmp(cur->data, cur->next->data) => That swaps pairs that are ALREADY in the right order (cmp returns non-zero for "in order") => it never ends.
+wrong: cur->data > cur->next->data => That ignores cmp: you'd always sort ascending, and descending sorts would fail. Ask cmp.
+wrong: cmp(cur, cur->next) == 0 => cmp takes two ints: pass the data, not the nodes.
+wrong: cmp(cur->next->data, cur->data) == 0 => Reversed arguments: that asks whether next comes before cur, so the list ends up sorted the wrong way round. Keep the list order: cmp(cur->data, cur->next->data).
+hint: cmp returns non-zero when (a, b) are in the RIGHT order. So when do we need to swap?
+Read the subject's contract carefully: cmp returns NON-ZERO when a and b are
+already in the right order. So we swap when it returns 0.
+
+With `ascending(a, b) { return (a <= b); }`:
+
+    cmp(1, 5) => 1     in order, keep
+    cmp(5, 1) => 0     wrong order, swap
+    cmp(3, 3) => 1     equal counts as in order, keep
+
+`int (*cmp)(int, int)` is a pointer to a function taking two ints and returning an
+int. You call it like a normal function: `cmp(x, y)` (or `(*cmp)(x, y)`).
+
+@@ gap 3
+answer: cur->next->data
+accept: (*cur->next).data
+accept: (*(*cur).next).data
+wrong: cur->next => cur->next is the node (a pointer). We swap the int stored in it: cur->next->data.
+wrong: tmp => tmp holds cur's own old value - that goes into the NEXT node, on the line below.
+hint: The value stored in the node after cur.
+`->` chains from left to right: `cur->next` is the next node (a pointer),
+`->data` is its value. Together with tmp, the three lines swap the two ints while
+the nodes themselves stay exactly where they are.
+
+@@ gap 4
+answer: lst
+wrong: cur->next => After a swap the smaller value may need to move further LEFT: a single forward walk isn't enough. Go back to the head: lst.
+wrong: cur => Staying on cur re-checks the same pair (now in order) and moves on - but the value that moved left can still be out of order with the node BEFORE cur, and that pair is never checked again. Restart from lst.
+wrong: NULL => NULL isn't even defined in this file (no standard header is included) - and cur = NULL would end the loop after the first swap, leaving the list unsorted.
+hint: A swap can break the order with the pair BEFORE cur. Where do you start checking again?
+After a swap, the smaller value moved one step left - it might need to move further
+left, and only a new walk from the start can do that. So we go back to the head.
+
+    [3, 2, 1]    swap 3,2  =>  [2, 3, 1]    restart
+                 2,3 ok, swap 3,1  =>  [2, 1, 3]    restart
+                 swap 2,1  =>  [1, 2, 3]    restart
+                 1,2 ok, 2,3 ok, end of list  =>  sorted
+
+It's not the fastest bubble sort, but it's short and obviously correct: the loop
+can only reach the end of the list when no pair is out of order.
+
+@@ gap 5
+answer: cur->next
+accept: (*cur).next
+wrong: cur + 1 => List nodes are not next to each other in memory. Follow the link: cur->next.
+wrong: lst => If you restart even when nothing was swapped, cur never gets past the first pair: infinite loop.
+wrong: cur->next->next => That skips a pair: (b, c) would never be compared.
+hint: This pair is fine. Move on to the next pair.
+This pair is in order: move to the next pair. Every loop turn either moves cur
+forward or fixes one out-of-order pair, so the loop always finishes.
+
+@@ gap 6
+answer: lst
+wrong: cur => cur is the last node when the loop ends. The first node - the head - is still lst.
+wrong: cur->next => The loop stops when cur->next is NULL: you'd return NULL. The head is still lst.
+hint: Which node is first now? Did any node actually move?
+We only swapped VALUES, never nodes, so the first node is still the same node:
+return `lst`.
+
+The function returns a `t_list *` because a solution that re-links nodes could end
+up with a different first node - it would then have to return the new head.
+
+@@ outro
+Bubble sort on a list:
+
+    cur = lst
+    while (cur && cur->next)
+        if (!cmp(cur->data, cur->next->data))
+            swap the two data, then cur = lst
+        else
+            cur = cur->next
+    return lst
+
+Remember:
+- cmp returns non-zero for "right order" => swap when it returns 0
+- swap the data (ints), not the nodes => the head never changes
+- `cur && cur->next`, in that order, protects against NULL
+- don't turn in list.h - the grader uses its own, you just #include "list.h"

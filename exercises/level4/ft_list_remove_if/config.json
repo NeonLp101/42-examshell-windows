@@ -1,0 +1,7 @@
+{
+  "type": "function",
+  "expected_files": ["ft_list_remove_if.c"],
+  "allowed_functions": ["free"],
+  "attachments": ["ft_list.h"],
+  "seeds": 15
+}

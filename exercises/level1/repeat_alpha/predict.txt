@@ -1,0 +1,24 @@
+@@ question
+match: exact
+args: ["abc"]
+answer: abbccc$
+    $> ./repeat_alpha "abc" | cat -e
+---
+a = 1, b = 2, c = 3 repetitions.
+
+@@ question
+match: exact
+args: ["Ab 1!"]
+answer: Abb 1!$
+wrong: Abb  11!$ => Only LETTERS are repeated. Spaces, digits and punctuation are printed once.
+    $> ./repeat_alpha "Ab 1!" | cat -e
+---
+Case doesn't change the count ('A' = 1 like 'a'), and non-letters are printed once.
+
+@@ question
+match: exact
+args: [""]
+answer: $
+    $> ./repeat_alpha "" | cat -e
+---
+One argument, empty: only the newline.

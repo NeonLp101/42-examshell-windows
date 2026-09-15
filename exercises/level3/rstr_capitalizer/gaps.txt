@@ -1,0 +1,78 @@
+@@ intro
+For each argument: every letter in lowercase, except the LAST character of each word,
+which is put in uppercase if it's a letter. Each argument is printed on its own line.
+
+"The last character of a word" = a character followed by a space, a tab or the end of
+the string. Careful: `"but..."` ends with '.', so no letter is capitalized there.
+
+@@ file rstr_capitalizer.c
+#include <unistd.h>
+
+int	main(int argc, char **argv)
+{
+	int		i;
+	int		j;
+	char	c;
+	char	next;
+
+	if (argc < 2)
+		write(1, "\n", 1);
+	i = 1;
+	while ({{1}})
+	{
+		j = 0;
+		while (argv[i][j])
+		{
+			c = argv[i][j];
+			next = argv[i][j + 1];
+			if (c >= 'A' && c <= 'Z')
+				c += 32;
+			if (c >= 'a' && c <= 'z' && {{2}})
+				c -= 32;
+			write(1, &c, 1);
+			j++;
+		}
+		{{3}};
+		i++;
+	}
+	return (0);
+}
+
+@@ gap 1
+answer: i < argc
+accept: argc > i
+accept: i <= argc - 1
+wrong: i <= argc => argv[argc] is NULL: reading argv[argc][j] crashes.
+wrong: i < argc - 1 => The last argument would never be printed.
+hint: Visit every argument, from argv[1] to the last one.
+The arguments are argv[1] ... argv[argc - 1]. (argv[argc] exists but is NULL.)
+
+@@ gap 2
+answer: (next == ' ' || next == '\t' || next == '\0')
+accept: (next == ' ' || next == '\t' || !next)
+accept: (next == '\0' || next == ' ' || next == '\t')
+accept: (!next || next == ' ' || next == '\t')
+accept: (next == ' ' || next == '\t' || next == 0)
+wrong: next == ' ' || next == '\t' || next == '\0' => Add parentheses: && binds tighter than ||, so the letter test would only apply to the first part (gcc -Wall refuses it).
+wrong: (next == ' ' || next == '\t') => The last word of the string is followed by '\0', not by a blank: its last letter would stay lowercase.
+wrong: (next == ' ') => Tabs separate words too, and so does the end of the string.
+hint: Is the next character a blank - or the end of the string?
+A character ends a word when what follows it is a space, a tab, or the '\0'. Everything
+is lowercased first, then this test uppercases the right letters.
+
+The parentheses matter: `a && b || c` means `(a && b) || c`, and a '.' followed by a
+space would pass the test.
+
+@@ gap 3
+answer: write(1, "\n", 1)
+wrong: write(1, '\n', 1) => write needs an address: "\n" in double quotes.
+hint: Each argument ends with a newline.
+Every argument is printed on its own line, so a newline follows each one - inside the
+argument loop.
+
+@@ outro
+Remember:
+- lowercase everything, then uppercase the last character of each word if it's a letter
+- end of word = followed by ' ', '\t' or '\0'
+- one line per argument; no argument => "\n"
+- str_capitalizer is the mirror: FIRST character of each word

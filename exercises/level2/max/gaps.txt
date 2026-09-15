@@ -1,0 +1,58 @@
+@@ intro
+Find the biggest number: start with the first element as the "best so far", then walk
+through the others and keep the bigger one each time.
+
+The subject has one special case: an empty array (len == 0) returns 0.
+
+@@ file max.c
+int	max(int *tab, unsigned int len)
+{
+	unsigned int	i;
+	int				result;
+
+	if ({{1}})
+		return (0);
+	result = {{2}};
+	i = 1;
+	while (i < len)
+	{
+		if ({{3}})
+			result = tab[i];
+		i++;
+	}
+	return (result);
+}
+
+@@ gap 1
+answer: len == 0
+accept: !len
+accept: 0 == len
+wrong: !tab => The subject's special case is the EMPTY array: len == 0.
+wrong: len < 0 => len is unsigned: it can never be negative. The empty case is len == 0.
+hint: "If the array is empty, the function returns 0."
+Empty array = zero elements. Without this test, `tab[0]` below would read an element
+that doesn't exist.
+
+@@ gap 2
+answer: tab[0]
+accept: *tab
+wrong: 0 => For an array of only negative numbers (e.g. -5, -3) the result would wrongly be 0.
+wrong: tab[len] => tab[len] is one past the last element. Start with the first one.
+hint: Start with a value that really is in the array.
+Starting with 0 is the classic bug: `max([-5, -3], 2)` would return 0, a number that is
+not even in the array. The first element is always a correct starting point.
+
+@@ gap 3
+answer: tab[i] > result
+accept: result < tab[i]
+accept: tab[i] >= result
+wrong: tab[i] < result => That keeps the SMALLER value: it's min, not max.
+wrong: tab[i] > tab[i - 1] => That compares neighbours, not the best so far: [5, 1, 2] would return 2.
+hint: Is this element bigger than the best so far?
+Compare each element with the best value found so far, not with its neighbour.
+
+@@ outro
+Remember:
+- empty array => 0 (check len before reading tab[0])
+- start with tab[0], never with 0
+- compare with the best so far

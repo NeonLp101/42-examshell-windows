@@ -1,0 +1,79 @@
+@@ intro
+Print the multiplication table of n, lines "1 x n = n" to "9 x n = 9n", using only write.
+Numbers are printed with put_nbr; the fixed text pieces with write.
+
+    $> ./tab_mult 9
+    1 x 9 = 9
+    ...
+    9 x 9 = 81
+
+@@ file tab_mult.c
+#include <unistd.h>
+
+void	put_nbr(int n)
+{
+	char	c;
+
+	if (n >= 10)
+		put_nbr(n / 10);
+	c = n % 10 + '0';
+	write(1, &c, 1);
+}
+
+int	main(int argc, char **argv)
+{
+	int		n;
+	int		i;
+	char	*s;
+
+	if (argc != 2)
+	{
+		write(1, "\n", 1);
+		return (0);
+	}
+	n = 0;
+	s = argv[1];
+	while (*s)
+		n = n * 10 + (*s++ - '0');
+	i = 1;
+	while ({{1}})
+	{
+		put_nbr(i);
+		write(1, {{2}}, 3);
+		put_nbr(n);
+		write(1, " = ", 3);
+		put_nbr({{3}});
+		write(1, "\n", 1);
+		i++;
+	}
+	return (0);
+}
+
+@@ gap 1
+answer: i <= 9
+accept: i < 10
+accept: 9 >= i
+wrong: i < 9 => The table goes up to 9 x n included.
+hint: From 1 x n to 9 x n.
+Nine lines: i = 1 ... 9.
+
+@@ gap 2
+answer: " x "
+wrong: "x" => "x" is 2 bytes (x and '\0'): writing 3 prints garbage. The separator is " x " with spaces.
+wrong: ' x ' => Single quotes are for ONE character. A text of 3 characters needs double quotes.
+hint: The text between the two numbers - 3 characters.
+Space, x, space: exactly 3 characters, matching write's count of 3.
+
+@@ gap 3
+answer: i * n
+accept: n * i
+wrong: i + n => It's a multiplication table: i * n.
+wrong: n => That's n again. The result is i * n.
+hint: The result of the multiplication.
+The subject guarantees n * 9 fits in an int, so i * n never overflows.
+
+@@ outro
+Remember:
+- 9 lines: "i x n = i*n"
+- write's count must match the text: `write(1, " x ", 3)`
+- no parameter => "\n"

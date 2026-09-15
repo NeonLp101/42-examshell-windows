@@ -1,0 +1,74 @@
+@@ intro
+strdup makes a NEW copy of a string on the heap: measure it, malloc length + 1 bytes
+(the + 1 is for the '\0'), copy, return the new pointer. The caller must free it.
+
+This version copies backwards with `while (len--)` - it visits len-1 ... 0.
+
+@@ file ft_strdup.c
+#include <stdlib.h>
+
+char	*ft_strdup(char *src)
+{
+	char	*dup;
+	int		len;
+
+	len = 0;
+	while (src[len])
+		len++;
+	dup = malloc({{1}});
+	if ({{2}})
+		return (NULL);
+	dup[len] = {{3}};
+	while (len--)
+		{{4}};
+	return (dup);
+}
+
+@@ gap 1
+answer: len + 1
+accept: sizeof(char) * (len + 1)
+accept: (len + 1) * sizeof(char)
+accept: 1 + len
+wrong: len => No room for the '\0' written at dup[len]. (It may even pass tests by luck - it's still a heap overflow.)
+wrong: sizeof(src) => sizeof(src) is the size of the POINTER (8), not of the string.
+wrong: sizeof(char *) * (len + 1) => It works, but allocates 8 times too much: the copy is an array of chars, not of pointers.
+hint: The characters, plus the terminator.
+`len` characters + 1 byte for '\0'. sizeof(char) is always 1, so `malloc(len + 1)` is
+enough.
+
+Classic trap: `sizeof(src)` is the size of the pointer variable (8 bytes), not the
+length of the string it points to.
+
+@@ gap 2
+answer: !dup
+accept: dup == NULL
+accept: dup == 0
+accept: NULL == dup
+wrong: dup => Reversed: that returns NULL when malloc SUCCEEDED.
+hint: malloc returns NULL when it fails.
+malloc can fail (no memory left) and then returns NULL. Writing into NULL would crash,
+so we return NULL right away, like the real strdup.
+
+@@ gap 3
+answer: '\0'
+accept: 0
+wrong: '0' => '0' is the digit zero (48). The terminator is '\0'.
+wrong: NULL => NULL is a pointer. A char cell needs the null character: '\0'.
+hint: Terminate the copy.
+malloc'ed memory is not initialized, so the terminator must be written explicitly, at
+index len - the last allocated byte.
+
+@@ gap 4
+answer: dup[len] = src[len]
+wrong: src[len] = dup[len] => Wrong direction: that overwrites the source with garbage.
+wrong: dup[len] = src[len + 1] => Off by one: after len-- in the condition, len is already the right index.
+hint: Copy one character from src into dup (len is already the right index).
+`while (len--)` tests len, then decrements it: inside the body len goes from
+length - 1 down to 0, so every character is copied - backwards, which doesn't matter.
+
+@@ outro
+Remember:
+- malloc(len + 1), never sizeof(pointer)
+- check malloc's result
+- write the '\0'
+- the caller owns (and frees) the result

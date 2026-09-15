@@ -1,0 +1,57 @@
+@@ intro
+Powers of 2: 1, 2, 4, 8, 16, ... A power of 2 can be divided by 2 again and again until
+it becomes exactly 1. Any other number reaches an odd number bigger than 1 on the way.
+
+    40 => 20 => 10 => 5    (odd, not 1 => not a power of 2)
+    32 => 16 => 8 => 4 => 2 => 1   => power of 2
+
+The one special case is 0: it's not a power of 2, and 0 / 2 = 0 forever.
+
+@@ file is_power_of_2.c
+int	is_power_of_2(unsigned int n)
+{
+	if ({{1}})
+		return (0);
+	while ({{2}})
+		n /= 2;
+	return ({{3}});
+}
+
+@@ gap 1
+answer: n == 0
+accept: !n
+accept: 0 == n
+wrong: n == 1 => 1 IS a power of 2 (2 to the power 0). The special case is 0.
+hint: Which number would make the loop run forever?
+0 is even (0 % 2 == 0) and 0 / 2 is still 0: without this test the loop never ends.
+And 0 is not a power of 2 anyway.
+
+@@ gap 2
+answer: n % 2 == 0
+accept: !(n % 2)
+accept: (n & 1) == 0
+accept: !(n & 1)
+accept: n % 2 != 1
+wrong: n % 2 => Reversed: that's true for ODD numbers. Keep dividing while n is even.
+wrong: n > 1 => Then 6 => 3 => 1 would look like a power of 2. Only divide while n is EVEN.
+hint: Divide by 2 as long as n is even.
+While n is even, dividing by 2 doesn't lose anything. When the loop stops, n is odd.
+
+@@ gap 3
+answer: n == 1
+accept: 1 == n
+wrong: 1 => After the loop n is odd, but not necessarily 1 (e.g. 6 => 3). Check it.
+wrong: n => n is odd here, so it's never 0: that would return non-zero for every number.
+hint: After removing all the factors 2, what must be left for a power of 2?
+A power of 2 is only made of 2s: after dividing them all out, 1 is left. Anything else
+(3, 5, 7...) means another prime factor was there.
+
+@@ outro
+The loop version is fine for the exam. The famous one-liner uses bits:
+
+    return (n != 0 && (n & (n - 1)) == 0);
+
+A power of 2 has exactly one bit set (8 = 1000), and n - 1 flips it and sets all the bits
+below (7 = 0111), so n & (n - 1) is 0 only for powers of 2.
+
+Remember: 0 => 0, 1 => 1.

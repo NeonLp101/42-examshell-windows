@@ -1,0 +1,21 @@
+@@ question
+answer: 20
+    swap_bits(65)
+---
+65 = 0100 0001 => 0001 0100 = 20 (the subject's example).
+
+@@ question
+answer: 15
+What is the value of this expression?
+
+    0xF0 >> 4
+---
+0xF0 = 11110000; shifted right by 4: 00001111 = 15.
+
+@@ question
+answer: 1
+What is the value of this expression?
+
+    65 & 0x0F
+---
+65 = 0100 0001, the mask keeps the low half: 0001 = 1.

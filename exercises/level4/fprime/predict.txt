@@ -1,0 +1,69 @@
+@@ question
+match: exact
+args: ["42"]
+answer: 2*3*7$
+    $> ./fprime 42 | cat -e
+---
+Trial division: 2 divides 42 (n = 21), 2 doesn't divide 21 so try 3 (n = 7),
+then 4, 5, 6 don't divide 7, and 7 does (n = 1). The `*` only goes BETWEEN
+factors, so there's no star before the `$`.
+
+@@ question
+match: exact
+args: ["1"]
+answer: 1$
+wrong: $ => 1 is a special case: the subject's examples show that `./fprime 1` prints 1.
+    $> ./fprime 1 | cat -e
+---
+1 has no prime factors - the `while (n > 1)` loop never runs - but the subject's
+example says it prints "1". That's why solutions need a separate `if (n == 1)`.
+
+@@ question
+match: exact
+args: []
+answer: $
+    $> ./fprime | cat -e
+---
+No parameter => only the newline. `cat -e` shows it as a single `$`.
+Forgetting to print "\n" in this case is one of the most common FAILUREs.
+
+@@ question
+match: exact
+args: ["42", "21"]
+answer: $
+wrong: 2*3*7$ => The subject says: if the number of parameters is not 1, just display a newline. Here there are 2.
+    $> ./fprime 42 21 | cat -e
+---
+Two parameters => argc == 3, not 2 => only a newline. The second argument is not
+ignored like in some other exercises: "if the number of parameters is not 1,
+simply display a newline".
+
+@@ question
+match: exact
+args: ["97"]
+answer: 97$
+    $> ./fprime 97 | cat -e
+---
+97 is prime: the loop tries 2, 3, 4, ... 96 without success, and then 97 divides
+itself. A prime prints as itself, no star.
+
+@@ question
+match: exact
+args: ["16"]
+answer: 2*2*2*2$
+wrong: 2$ => A factor must be printed as many times as it divides n: 16 = 2*2*2*2.
+wrong: 2*4*8$ => Only PRIME factors are printed: 16 = 2*2*2*2.
+    $> ./fprime 16 | cat -e
+---
+Repeated factors: after dividing by 2 the loop stays on 2, because it may divide
+again: 16 => 8 => 4 => 2 => 1. Four times.
+
+@@ question
+match: exact
+args: ["60"]
+answer: 2*2*3*5$
+wrong: 2*3*5$ => 60 = 2*2*3*5: the 2 divides twice (60 => 30 => 15).
+    $> ./fprime 60 | cat -e
+---
+60 => 30 (2) => 15 (2 again) => 5 (3) => 1 (5). Factors are printed in ascending
+order automatically, because the loop tries factors from small to big.

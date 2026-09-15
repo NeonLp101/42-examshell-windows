@@ -1,0 +1,45 @@
+#include <unistd.h>
+
+static void	put_nbr(long long n)
+{
+	char	c;
+
+	if (n < 0)
+	{
+		write(1, "-", 1);
+		n = -n;
+	}
+	if (n >= 10)
+		put_nbr(n / 10);
+	c = '0' + n % 10;
+	write(1, &c, 1);
+}
+
+int	main(int argc, char **argv)
+{
+	long long	n;
+	int			i;
+	char		*s;
+
+	if (argc != 2)
+	{
+		write(1, "\n", 1);
+		return (0);
+	}
+	n = 0;
+	s = argv[1];
+	while (*s >= '0' && *s <= '9')
+		n = n * 10 + (*s++ - '0');
+	i = 1;
+	while (i <= 9)
+	{
+		put_nbr(i);
+		write(1, " x ", 3);
+		put_nbr(n);
+		write(1, " = ", 3);
+		put_nbr(i * n);
+		write(1, "\n", 1);
+		i++;
+	}
+	return (0);
+}

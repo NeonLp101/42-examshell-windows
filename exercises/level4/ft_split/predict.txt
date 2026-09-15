@@ -1,0 +1,62 @@
+@@ question
+answer: {"hello", "world", NULL}
+wrong: {"", "hello", "", "world", "", NULL} => Consecutive separators never create empty words: separators are skipped, only real words are stored.
+wrong: {"hello", "world"} => Don't forget the NULL at the end: that's how the caller knows where the array stops.
+Type the returned array like this: {"a", "b", NULL}
+
+    ft_split("  hello   world  ")
+---
+Separators are skipped, whatever their number, so there are no empty strings in
+the result. And the array always ends with a NULL pointer.
+
+@@ question
+answer: {NULL}
+accept: { NULL }
+wrong: NULL => ft_split still returns a real array (malloc of 1 pointer) whose only element is NULL - not a NULL pointer.
+wrong: {""} => No word means no string at all - not an empty string. The array holds only the NULL terminator.
+    ft_split("")
+---
+count_words returns 0, so we malloc 0 + 1 = 1 slot, and that slot is the NULL
+terminator. The caller's `while (res[i])` loop simply runs 0 times.
+
+@@ question
+answer: {NULL}
+accept: { NULL }
+wrong: {"\t", "\n", NULL} => Tabs and newlines are separators too, just like spaces.
+    ft_split(" \t \n ")
+---
+The subject defines words as delimited by "spaces/tabs/new lines". This string
+contains only separators, so there are no words.
+
+@@ question
+answer: {"one", "two", "three", NULL}
+wrong: {"one\ttwo\nthree", NULL} => \t (tab) and \n (newline) are separators, not part of a word.
+    ft_split("one\ttwo\nthree")
+---
+In a C string literal `\t` is one tab character and `\n` one newline character -
+both separators. So there are three words.
+
+@@ question
+answer: {"a,b;c", "d", NULL}
+wrong: {"a", "b", "c", "d", NULL} => Only spaces, tabs and newlines separate words. Commas and semicolons are normal characters.
+    ft_split("a,b;c d")
+---
+Punctuation is not a separator in ft_split: "a,b;c" is one word.
+
+@@ question
+answer: 4
+wrong: 3 => One more: the array needs a slot for the final NULL.
+How many `char *` slots must the first malloc hold?
+
+    ft_split("a b c")
+---
+3 words + 1 slot for the NULL terminator = 4, i.e. `malloc(sizeof(char *) * 4)`.
+
+@@ question
+answer: 6
+wrong: 5 => One more: the '\0' at the end of the word.
+How many bytes must be allocated for the word "hello"?
+
+    ft_split("hello world")
+---
+5 characters + 1 for the '\0' terminator = 6, i.e. `malloc(len + 1)`.

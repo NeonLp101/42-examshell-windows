@@ -1,0 +1,172 @@
+@@ intro
+Removing a node from a linked list has one tricky part: the pointer that pointed
+TO that node must be changed so that it skips it.
+
+    before:   ... => [A] => [B] => [C] => ...        (remove B)
+    after:    ... => [A] =========> [C] => ...
+
+"The pointer that points to the node" is either A's `next` field or - if B is the
+first node - the caller's head pointer. To be able to CHANGE that pointer, the
+function receives its ADDRESS: `t_list **begin_list`.
+
+This version is recursive: look at the first node of the list, deal with it,
+then call yourself on the rest of the list.
+
+ft_list.h is provided by the exam (you don't turn it in):
+
+    typedef struct s_list
+    {
+        struct s_list   *next;
+        void            *data;
+    }                   t_list;
+
+@@ file ft_list_remove_if.c
+#include <stdlib.h>
+#include "ft_list.h"
+
+void	ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)())
+{
+	t_list	*cur;
+
+	if (begin_list == NULL || {{1}} == NULL)
+		return ;
+	cur = *begin_list;
+	if ({{2}} == 0)
+	{
+		{{3}} = cur->next;
+		{{4}};
+		ft_list_remove_if({{5}}, data_ref, cmp);
+	}
+	else
+		ft_list_remove_if({{6}}, data_ref, cmp);
+}
+
+@@ gap 1
+answer: *begin_list
+accept: (*begin_list)
+wrong: begin_list->next => begin_list is a t_list ** (an address of a pointer), it has no fields. Dereference it once: *begin_list.
+wrong: cur => cur isn't set yet at this point. The first node is *begin_list.
+wrong: **begin_list => **begin_list is the node itself (a struct), it can't be compared with NULL. The pointer to it is *begin_list.
+hint: begin_list is the ADDRESS of the head pointer. What do you check to know whether the list itself is empty?
+Two different NULLs:
+
+- `begin_list == NULL`: no address was given at all (defensive check)
+- `*begin_list == NULL`: the address is valid, but the list is empty
+
+The second one is the BASE CASE of the recursion: we reached the end of the list,
+nothing is left to check.
+
+Order matters: `||` stops at the first true condition, so if begin_list is NULL
+we never evaluate `*begin_list` (dereferencing NULL would crash).
+
+@@ gap 2
+answer: cmp(cur->data, data_ref)
+accept: (*cmp)(cur->data, data_ref)
+accept: cmp(data_ref, cur->data)
+accept: (*cmp)(data_ref, cur->data)
+wrong: cur->data == data_ref => == compares ADDRESSES. Two strings with the same content can live at different addresses - use cmp.
+wrong: cur->data => That tests if the data pointer is NULL. Compare the contents with cmp(cur->data, data_ref).
+wrong: cmp(cur, data_ref) => cmp compares DATA: pass cur->data, not the node.
+wrong: strcmp(cur->data, data_ref) => strcmp is not allowed (only free), and the data may not even be strings. Use the cmp you were given.
+hint: Compare this node's data with data_ref using the function you were given - not with ==.
+`cmp` works like strcmp: it returns 0 when both are "equal". Use it instead of
+`cur->data == data_ref`: == compares the ADDRESSES, and two different strings with
+the same content live at different addresses. (The grader tests exactly that.)
+
+About `int (*cmp)()`: in C before C23, empty parentheses mean "parameters not
+specified", so you may call it with two `void *`. (C23 changed `()` to mean "no
+parameters", which is why examshell compiles with -std=gnu17, like the exam.)
+
+@@ gap 3
+answer: *begin_list
+accept: (*begin_list)
+wrong: cur => cur is just a local variable: changing it doesn't change the list. Write through the address: *begin_list.
+wrong: begin_list => That only changes your local copy of the address. You must change the pointer it points to: *begin_list.
+wrong: cur->next => That changes a field of the node you're removing - the list itself still points to cur.
+hint: Unlink cur: make the pointer that pointed to cur point to the node after it.
+This is the unlink step - and the reason for the double pointer.
+
+`begin_list` holds the address of "the pointer that points to cur": the caller's
+head pointer on the first call, some node's `next` field later on. Writing through
+it (`*begin_list = ...`) changes THAT pointer inside the real list, so the list now
+skips cur.
+
+With a plain `t_list *begin_list` you could only change your local copy, and
+removing the first node would be impossible.
+
+@@ gap 4
+answer: free(cur)
+wrong: free(*begin_list) => *begin_list now points to the NEXT node (you just changed it). The node to free is cur.
+wrong: free(cur->data) => The data belongs to the caller - free only the node itself.
+wrong: free(begin_list) => begin_list is the address of a pointer inside the list (or of the caller's head variable), never something you malloc'ed. Free the node: cur.
+hint: The node is unlinked. Give its memory back.
+The node is no longer in the list, so release its memory.
+
+The order of the steps is important:
+
+    cur = *begin_list;           keep a pointer to the node
+    *begin_list = cur->next;     unlink it (reads cur->next while cur still exists)
+    free(cur);                   only now destroy it
+
+Freeing before reading `cur->next` would be a "use after free". And we free only
+the node, never `cur->data`: the data belongs to whoever created the list.
+
+@@ gap 5
+answer: begin_list
+wrong: &cur->next => cur was just freed: reading cur->next now is a use-after-free. And *begin_list already points to the next node.
+wrong: *begin_list => The function needs the ADDRESS of the link (t_list **), *begin_list is the node pointer (t_list *).
+wrong: cur->next => cur was just freed, and the function needs a t_list **. Recurse on the same begin_list.
+hint: After unlinking, *begin_list already points to the node that came after cur. Which link must be checked next?
+We removed cur, and `*begin_list` now points to the node that followed it - a node
+that hasn't been checked yet! So we recurse on the SAME begin_list.
+
+That's what handles consecutive matches like ["a", "a", "b"] with "a": after
+removing the first "a", the second one becomes the node at *begin_list and is
+checked by the next call.
+
+@@ gap 6
+answer: &cur->next
+accept: &(cur->next)
+accept: &(*begin_list)->next
+accept: &((*begin_list)->next)
+wrong: cur->next => The function needs a t_list ** (an ADDRESS of a pointer). cur->next is a t_list *: take its address with &.
+wrong: &cur => &cur is the address of your local variable cur, not of a link inside the list. You want the address of cur's next field.
+wrong: begin_list => Same address again => the same node is checked forever (infinite recursion). Move on to cur's next field.
+hint: cur stays. Recurse on the rest of the list - by passing the ADDRESS of the pointer that leads to it.
+cur stays in the list, so we move on: the rest of the list starts at `cur->next`.
+But the function takes a `t_list **`, so we pass the ADDRESS of that field:
+`&cur->next`.
+
+Precedence: `->` binds tighter than `&`, so `&cur->next` means `&(cur->next)`:
+"the address of cur's next field".
+
+The payoff: if the next call removes that node, it writes `*begin_list = ...`,
+which directly updates `cur->next`. No `prev` pointer needed.
+
+@@ outro
+What makes this solution short is the double pointer:
+
+    t_list **p     the address of a link in the chain
+    *p             the link itself (a t_list *): the head, or some node's next
+    **p            the node the link points to
+
+Removing the node at `*p` is always the same 3 lines, whether it's the first
+node or not:
+
+    tmp = *p;
+    *p = tmp->next;
+    free(tmp);
+
+The same idea works without recursion:
+
+    while (*begin_list)
+    {
+        cur = *begin_list;
+        if (cmp(cur->data, data_ref) == 0)
+        {
+            *begin_list = cur->next;
+            free(cur);
+        }
+        else
+            begin_list = &cur->next;
+    }

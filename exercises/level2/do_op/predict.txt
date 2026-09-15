@@ -1,0 +1,35 @@
+@@ question
+match: exact
+args: ["1", "+", "-43"]
+answer: -42$
+    $> ./do_op "1" "+" "-43" | cat -e
+---
+1 + (-43) = -42.
+
+@@ question
+match: exact
+args: ["-42", "%", "5"]
+answer: -2$
+wrong: 3$ => In C the remainder keeps the sign of the left number: -42 % 5 is -2.
+wrong: 2$ => In C the remainder keeps the sign of the left number: -42 % 5 is -2.
+    $> ./do_op "-42" "%" "5" | cat -e
+---
+C truncates the division toward zero (-42 / 5 = -8), and -8 * 5 + (-2) = -42, so the
+remainder is -2.
+
+@@ question
+match: exact
+args: ["7", "/", "2"]
+answer: 3$
+wrong: 3.5$ => Integer division: the decimals are dropped.
+    $> ./do_op "7" "/" "2" | cat -e
+---
+ints only: 7 / 2 == 3.
+
+@@ question
+match: exact
+args: ["1", "+"]
+answer: $
+    $> ./do_op "1" "+" | cat -e
+---
+Only 2 arguments: just the newline.

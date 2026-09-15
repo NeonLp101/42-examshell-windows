@@ -1,0 +1,6 @@
+{
+  "type": "function",
+  "expected_files": ["sort_int_tab.c"],
+  "allowed_functions": [],
+  "seeds": 15
+}

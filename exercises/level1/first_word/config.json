@@ -1,0 +1,42 @@
+{
+  "type": "program",
+  "expected_files": [
+    "first_word.c"
+  ],
+  "allowed_functions": [
+    "write"
+  ],
+  "fixed_tests": [
+    [
+      "FOR PONY"
+    ],
+    [
+      "this        ...    is sparta, then again, maybe    not"
+    ],
+    [
+      "   "
+    ],
+    [
+      "a",
+      "b"
+    ],
+    [
+      "  lorem,ipsum  "
+    ],
+    [],
+    [
+      ""
+    ],
+    [
+      "\t\thello\tworld"
+    ],
+    [
+      "single"
+    ],
+    [
+      "x"
+    ]
+  ],
+  "generator": "words_messy",
+  "random_tests": 15
+}

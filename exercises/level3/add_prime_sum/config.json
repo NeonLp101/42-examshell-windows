@@ -1,0 +1,43 @@
+{
+  "type": "program",
+  "expected_files": [
+    "add_prime_sum.c"
+  ],
+  "allowed_functions": [
+    "write",
+    "exit"
+  ],
+  "fixed_tests": [
+    [
+      "5"
+    ],
+    [
+      "7"
+    ],
+    [],
+    [
+      "1"
+    ],
+    [
+      "2"
+    ],
+    [
+      "0"
+    ],
+    [
+      "-5"
+    ],
+    [
+      "100"
+    ],
+    [
+      "5",
+      "6"
+    ],
+    [
+      "abc"
+    ]
+  ],
+  "generator": "add_prime_sum",
+  "random_tests": 15
+}

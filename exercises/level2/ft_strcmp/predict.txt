@@ -1,0 +1,42 @@
+@@ question
+match: text
+answer: negative
+accept: -1
+accept: < 0
+Is the result negative, zero or positive?
+
+    ft_strcmp("abc", "abd")
+---
+First difference: 'c' (99) - 'd' (100) = -1 => negative.
+
+@@ question
+match: text
+answer: positive
+accept: > 0
+accept: 99
+Is the result negative, zero or positive?
+
+    ft_strcmp("abc", "ab")
+---
+At index 2: 'c' (99) - '\0' (0) = 99 => positive. The longer string comes after.
+
+@@ question
+match: text
+answer: negative
+accept: -32
+accept: < 0
+Is the result negative, zero or positive?
+
+    ft_strcmp("A", "a")
+---
+'A' is 65, 'a' is 97: 65 - 97 = -32. Uppercase letters come BEFORE lowercase ones.
+
+@@ question
+match: text
+answer: zero
+accept: 0
+Is the result negative, zero or positive?
+
+    ft_strcmp("", "")
+---
+Both start with '\0': equal => 0.

@@ -1,0 +1,21 @@
+@@ question
+answer: 0
+    ft_list_size(NULL)
+---
+Empty list: the loop never runs.
+
+@@ question
+answer: 2
+wrong: 3 => With `->next` in the condition, the loop stops ON the last node without counting it.
+This buggy version uses `while (begin_list->next)`. What does it return for a list of 3
+nodes?
+---
+It counts a node only if it has a successor: the last node is never counted => 2.
+(And with NULL it would crash.)
+
+@@ question
+answer: 3
+    list: [a] -> [b] -> [c] -> NULL
+    ft_list_size(list)
+---
+Three nodes.

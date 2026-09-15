@@ -1,0 +1,33 @@
+{
+  "type": "program",
+  "expected_files": [
+    "ulstr.c"
+  ],
+  "allowed_functions": [
+    "write"
+  ],
+  "fixed_tests": [
+    [
+      "L'eSPrit nE peUt plUs pRogResSer s'Il staGne et sI peRsIsTent VAnIte et auto-justification."
+    ],
+    [
+      "S'enTOuRer dE sECreT eSt uN sIGnE De mAnQuE De coNNaiSSanCe.  "
+    ],
+    [
+      "3:21 Ba  tOut  moUn ki Ka di KE m'en Ka fe fot"
+    ],
+    [],
+    [
+      ""
+    ],
+    [
+      "a",
+      "b"
+    ],
+    [
+      "@[`{"
+    ]
+  ],
+  "generator": "text",
+  "random_tests": 15
+}

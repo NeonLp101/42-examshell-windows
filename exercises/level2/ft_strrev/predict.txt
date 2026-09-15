@@ -1,0 +1,30 @@
+@@ question
+answer: "cba"
+accept: cba
+Type the string after the call:
+
+    char s[] = "abc";
+    ft_strrev(s);
+---
+Swap index 0 and 2 ('a' <-> 'c'); the middle 'b' stays.
+
+@@ question
+answer: "abcd"
+accept: abcd
+wrong: "dcba" => That's the correct result - but this loop runs to the end and swaps every pair twice.
+This buggy loop uses `while (i < len)`. What is the string afterwards?
+
+    char s[] = "abcd";
+    ft_strrev(s);
+---
+i = 0 and 1 reverse the string, then i = 2 and 3 swap the same pairs again: back to
+"abcd". That's why the loop must stop at the middle.
+
+@@ question
+answer: ""
+Type the string after the call:
+
+    char s[] = "";
+    ft_strrev(s);
+---
+len is 0: the loop never runs.

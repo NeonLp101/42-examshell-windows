@@ -1,0 +1,70 @@
+@@ intro
+For each argument: every letter in lowercase, except the FIRST character of each word,
+which is put in uppercase if it's a letter. One line per argument.
+
+"The first character of a word" = the first character of the string, or a character
+right after a space or a tab. `"__second"` starts with '_', so nothing is capitalized.
+
+@@ file str_capitalizer.c
+#include <unistd.h>
+
+int	main(int argc, char **argv)
+{
+	int		i;
+	int		j;
+	char	c;
+
+	if (argc < 2)
+		write(1, "\n", 1);
+	i = 1;
+	while (i < argc)
+	{
+		j = 0;
+		while (argv[i][j])
+		{
+			c = argv[i][j];
+			if (c >= 'A' && c <= 'Z')
+				c = {{1}};
+			if (c >= 'a' && c <= 'z' && {{2}})
+				c -= 32;
+			write(1, &c, 1);
+			j++;
+		}
+		{{3}};
+		i++;
+	}
+	return (0);
+}
+
+@@ gap 1
+answer: c + 32
+accept: c - 'A' + 'a'
+accept: c + ('a' - 'A')
+wrong: c - 32 => Uppercase to lowercase goes UP by 32.
+hint: First, put every uppercase letter in lowercase.
+Lowercasing everything first means the next test only has to decide which letters go
+back up.
+
+@@ gap 2
+answer: (j == 0 || argv[i][j - 1] == ' ' || argv[i][j - 1] == '\t')
+accept: (!j || argv[i][j - 1] == ' ' || argv[i][j - 1] == '\t')
+accept: (j == 0 || argv[i][j - 1] == '\t' || argv[i][j - 1] == ' ')
+wrong: (argv[i][j - 1] == ' ' || argv[i][j - 1] == '\t') => For j == 0 that reads argv[i][-1], before the string - and the first word wouldn't be capitalized reliably.
+wrong: j == 0 || argv[i][j - 1] == ' ' || argv[i][j - 1] == '\t' => Add parentheses: && binds tighter than || (gcc -Wall refuses it).
+wrong: (argv[i][j + 1] == ' ' || argv[i][j + 1] == '\t') => That's the END of a word (rstr_capitalizer). Look at the PREVIOUS character.
+hint: Is this the first character of the string, or does it come right after a blank?
+A word starts at index 0, or after a space/tab. `j == 0` must come first: `||` stops
+there, so `argv[i][j - 1]` is never read at j == 0.
+
+@@ gap 3
+answer: write(1, "\n", 1)
+wrong: write(1, '\n', 1) => write needs an address: "\n".
+hint: Each argument ends with a newline.
+One line per argument.
+
+@@ outro
+Remember:
+- lowercase everything, then uppercase the first character of each word if it's a letter
+- start of word = index 0, or after ' ' / '\t'
+- test `j == 0` before reading `s[j - 1]`
+- one line per argument; no argument => "\n"

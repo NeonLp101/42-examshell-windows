@@ -1,0 +1,67 @@
+@@ intro
+Every letter becomes the next one, 'z' wraps around to 'a' (and 'Z' to 'A'). Other
+characters don't change.
+
+Same pattern as rot_13, with a shift of 1: position 0-25, + 1, % 26, back to a letter.
+
+@@ file rotone.c
+#include <unistd.h>
+
+int	main(int argc, char **argv)
+{
+	char	*s;
+	char	c;
+
+	if (argc == 2)
+	{
+		s = argv[1];
+		while ({{1}})
+		{
+			c = *s;
+			if (c >= 'a' && c <= 'z')
+				c = {{2}};
+			else if (c >= 'A' && c <= 'Z')
+				c = {{3}};
+			write(1, &c, 1);
+			s++;
+		}
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+@@ gap 1
+answer: *s
+accept: *s != '\0'
+accept: *s != 0
+wrong: s => s is the pointer: never NULL here. Test the character *s.
+hint: Loop while the current character is not the terminator.
+`*s` is the current character; the loop stops on the '\0'.
+
+@@ gap 2
+answer: (c - 'a' + 1) % 26 + 'a'
+accept: 'a' + (c - 'a' + 1) % 26
+accept: c == 'z' ? 'a' : c + 1
+accept: (c - 'a' + 1) % 26 + 97
+wrong: c + 1 => 'z' + 1 is '{', not 'a'. Handle the wrap-around.
+wrong: (c + 1) % 26 + 'a' => Subtract 'a' first: c is an ASCII code, not a position.
+hint: Next letter, with 'z' wrapping around to 'a'.
+`(c - 'a' + 1) % 26 + 'a'`: for 'z', (25 + 1) % 26 is 0, which is 'a'. For every other
+letter it's simply c + 1.
+
+The simpler `c == 'z' ? 'a' : c + 1` works just as well.
+
+@@ gap 3
+answer: (c - 'A' + 1) % 26 + 'A'
+accept: 'A' + (c - 'A' + 1) % 26
+accept: c == 'Z' ? 'A' : c + 1
+wrong: c + 1 => 'Z' + 1 is '[', not 'A'. Handle the wrap-around.
+wrong: (c - 'a' + 1) % 26 + 'a' => That's the lowercase formula - use 'A' for uppercase letters.
+hint: Same for uppercase, with 'Z' wrapping to 'A'.
+Same formula based on 'A'. Case never changes.
+
+@@ outro
+Remember:
+- shift by one with wrap-around: `(c - 'a' + 1) % 26 + 'a'`
+- 'z' -> 'a' and 'Z' -> 'A' are the edge cases the grader checks
+- non-letters are printed unchanged

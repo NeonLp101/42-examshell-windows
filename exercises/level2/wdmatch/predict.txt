@@ -1,0 +1,26 @@
+@@ question
+match: exact
+args: ["faya", "fgvvfdxcacpolhyghbreda"]
+answer: faya$
+    $> ./wdmatch "faya" "fgvvfdxcacpolhyghbreda" | cat -e
+---
+f, a, y, a can all be found in order in the second string.
+
+@@ question
+match: exact
+args: ["faya", "fgvvfdxcacpolhyghbred"]
+answer: $
+wrong: faya$ => The last 'a' is missing: the second string ends with "bred".
+    $> ./wdmatch "faya" "fgvvfdxcacpolhyghbred" | cat -e
+---
+After the 'y' there's no 'a' left in the second string: no match, only the newline.
+
+@@ question
+match: exact
+args: ["abc", "cba"]
+answer: $
+wrong: abc$ => The characters are there, but not in the right ORDER.
+    $> ./wdmatch "abc" "cba" | cat -e
+---
+'a' is found at the end of "cba", and nothing comes after it for 'b' and 'c'. Order
+matters.

@@ -1,0 +1,24 @@
+@@ question
+match: exact
+args: ["helloWorld"]
+answer: hello_world$
+    $> ./camel_to_snake "helloWorld" | cat -e
+---
+W starts a new word: "_w".
+
+@@ question
+match: exact
+args: ["hereIsACamelCaseWord"]
+answer: here_is_a_camel_case_word$
+wrong: here_is_acamel_case_word$ => "A" is a one-letter word: it gets its own underscore.
+    $> ./camel_to_snake "hereIsACamelCaseWord" | cat -e
+---
+Every uppercase letter gets an underscore, even "A" followed directly by "C": "_a_camel".
+
+@@ question
+match: exact
+args: []
+answer: $
+    $> ./camel_to_snake | cat -e
+---
+No argument: just the newline.

@@ -1,0 +1,73 @@
+@@ intro
+Is s1 "hidden" in s2, i.e. can its characters be found in s2 in the same order? That's
+the subsequence test from wdmatch, with a different output: "1\n" or "0\n".
+
+This version walks both strings with pointers: s2 always moves, s1 moves only on a match.
+
+@@ file hidenp.c
+#include <unistd.h>
+
+int	main(int argc, char **argv)
+{
+	char	*s1;
+	char	*s2;
+
+	if (argc == 3)
+	{
+		s1 = argv[1];
+		s2 = argv[2];
+		while ({{1}})
+		{
+			if ({{2}})
+				s1++;
+			{{3}};
+		}
+		if ({{4}})
+			write(1, "1\n", 2);
+		else
+			write(1, "0\n", 2);
+	}
+	else
+		write(1, "\n", 1);
+	return (0);
+}
+
+@@ gap 1
+answer: *s1 && *s2
+accept: *s2 && *s1
+accept: *s2
+accept: *s2 != '\0'
+wrong: *s1 => If s1 is not hidden, s2 runs out first: the loop would read past the end of s2.
+hint: Loop while there is still something to read in s2 (and something left to find).
+The walk stops at the end of s2. Also stopping when s1 is complete is just a shortcut.
+
+@@ gap 2
+answer: *s1 == *s2
+accept: *s2 == *s1
+wrong: s1 == s2 => That compares two addresses. Compare the characters.
+hint: Is the current character of s2 the next one we need?
+`*s1` is the next character of s1 still to be found.
+
+@@ gap 3
+answer: s2++
+accept: ++s2
+accept: s2 += 1
+wrong: s1++ => s1 only moves on a match (above). s2 moves every turn.
+hint: Move forward in s2 - on every turn.
+Whether it matched or not, we move on in s2.
+
+@@ gap 4
+answer: !*s1
+accept: *s1 == '\0'
+accept: *s1 == 0
+wrong: *s1 => Reversed: *s1 is not '\0' when a character was NOT found.
+hint: Were all the characters of s1 found?
+If s1 reached its '\0', every character was found in order. An empty s1 is already at its
+'\0': "the empty string is hidden in any string".
+
+@@ outro
+Remember:
+- subsequence test: s2 always moves, s1 only on a match
+- hidden <=> s1 reached its '\0'
+- the empty string is hidden everywhere => "1"
+- wrong argument count => "\n" (not "0")

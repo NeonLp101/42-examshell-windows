@@ -1,0 +1,32 @@
+@@ question
+answer: 2
+What is x afterwards?
+
+    int x = 1;
+    int y = 2;
+    ft_swap(&x, &y);
+---
+The values are exchanged: x == 2, y == 1.
+
+@@ question
+answer: 1
+wrong: 2 => swap receives COPIES of x and y: exchanging the copies doesn't change x.
+This swap takes ints, not pointers. What is x afterwards?
+
+    void swap(int a, int b) { int t = a; a = b; b = t; }
+
+    int x = 1;
+    int y = 2;
+    swap(x, y);
+---
+Arguments are passed by value: a and b are copies. The copies are swapped, then thrown
+away when the function returns. That's why ft_swap takes addresses.
+
+@@ question
+answer: 5
+What is x afterwards?
+
+    int x = 5;
+    ft_swap(&x, &x);
+---
+tmp = 5, *a = *b (5 = 5), *b = tmp (5). Swapping a variable with itself changes nothing.

@@ -1,0 +1,25 @@
+@@ question
+answer: 2
+    ft_strcspn("hello", "l")
+---
+'h' and 'e' are not in "l", 'l' is: 2 characters before it.
+
+@@ question
+answer: 5
+    ft_strcspn("hello", "xyz")
+---
+No character of "hello" is rejected: the whole length.
+
+@@ question
+answer: 0
+wrong: 1 => 'o' is in the reject set... but 'h' is too! The very first character already matches.
+    ft_strcspn("hello", "oh")
+---
+The first character, 'h', is in "oh": 0 characters before it.
+
+@@ question
+answer: 5
+wrong: 0 => An empty reject set rejects nothing: the whole string counts.
+    ft_strcspn("hello", "")
+---
+Nothing to reject: the inner loop never runs, and the result is the full length.

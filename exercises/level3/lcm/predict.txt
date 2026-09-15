@@ -1,0 +1,24 @@
+@@ question
+answer: 12
+    lcm(4, 6)
+---
+12 is the first number divisible by both 4 and 6.
+
+@@ question
+answer: 0
+    lcm(0, 5)
+---
+"If at least one integer is null, LCM is equal to 0."
+
+@@ question
+answer: 21
+    lcm(7, 3)
+---
+7 and 3 have no common factor: their LCM is their product, 21.
+
+@@ question
+answer: 36
+wrong: 216 => 12 * 18 is a common multiple, but not the lowest.
+    lcm(12, 18)
+---
+36 = 12 * 3 = 18 * 2. The product 216 is a common multiple, but not the smallest.

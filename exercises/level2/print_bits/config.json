@@ -1,0 +1,10 @@
+{
+  "type": "function",
+  "expected_files": [
+    "print_bits.c"
+  ],
+  "allowed_functions": [
+    "write"
+  ],
+  "seeds": 10
+}

@@ -1,0 +1,32 @@
+{
+  "type": "program",
+  "expected_files": [
+    "snake_to_camel.c"
+  ],
+  "allowed_functions": [
+    "malloc",
+    "free",
+    "realloc",
+    "write"
+  ],
+  "fixed_tests": [
+    [
+      "here_is_a_snake_case_word"
+    ],
+    [
+      "hello_world"
+    ],
+    [],
+    [
+      "word"
+    ],
+    [
+      "a_b"
+    ],
+    [
+      "i_love_c"
+    ]
+  ],
+  "generator": "snake",
+  "random_tests": 15
+}

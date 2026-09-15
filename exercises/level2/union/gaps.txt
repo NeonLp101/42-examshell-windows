@@ -1,0 +1,80 @@
+@@ intro
+Print every character of both strings, in order, but each character only the first time
+it appears.
+
+The trick is a lookup table: an array with one cell per possible character value (256),
+marking which characters were already printed. The character itself is the index:
+`seen['a']` is `seen[97]`.
+
+@@ file union.c
+#include <unistd.h>
+
+int	main(int argc, char **argv)
+{
+	int				seen[256];
+	int				i;
+	int				j;
+	unsigned char	c;
+
+	if (argc == 3)
+	{
+		i = 0;
+		while (i < 256)
+			{{1}};
+		i = 1;
+		while (i <= 2)
+		{
+			j = 0;
+			while (argv[i][j])
+			{
+				c = (unsigned char)argv[i][j];
+				if ({{2}})
+				{
+					{{3}};
+					write(1, &argv[i][j], 1);
+				}
+				j++;
+			}
+			i++;
+		}
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+@@ gap 1
+answer: seen[i++] = 0
+wrong: seen[i] = 0 => i never changes: infinite loop. Increment it in the same statement: seen[i++] = 0.
+wrong: seen[i++] = 1 => Mark everything as "already printed" and nothing gets printed.
+hint: Clear every cell of the table, moving i forward each time.
+A local array is not initialized: its cells contain garbage. We set all 256 cells to 0
+("not printed yet") before starting.
+
+@@ gap 2
+answer: !seen[c]
+accept: seen[c] == 0
+wrong: seen[c] => Reversed: that prints only characters that were ALREADY printed.
+wrong: !seen[j] => The table is indexed by the CHARACTER value (c), not by its position.
+hint: Has this character been printed already?
+The character code `c` is used directly as the index. `(unsigned char)` makes sure
+characters above 127 give an index 128-255 instead of a negative one.
+
+@@ gap 3
+answer: seen[c] = 1
+accept: seen[c]++
+accept: seen[c] += 1
+wrong: seen[i] = 1 => i is the argument number. Mark the CHARACTER: seen[c] = 1.
+wrong: seen[j] = 1 => j is a position in the string. Mark the CHARACTER: seen[c] = 1.
+hint: Remember that this character has now been printed.
+Mark it, so any later occurrence - in the same string or in the other one - is skipped.
+
+@@ outro
+The lookup table is a pattern you'll reuse (wdmatch, inter, ...):
+
+    int seen[256] = all zeros
+    if (!seen[(unsigned char)c]) { seen[(unsigned char)c] = 1; print c; }
+
+Remember:
+- index the table with the character value, cast to unsigned char
+- initialize the table: local arrays start with garbage
+- both strings share the same table

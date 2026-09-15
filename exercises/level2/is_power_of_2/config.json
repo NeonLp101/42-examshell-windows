@@ -1,0 +1,8 @@
+{
+  "type": "function",
+  "expected_files": [
+    "is_power_of_2.c"
+  ],
+  "allowed_functions": [],
+  "seeds": 10
+}

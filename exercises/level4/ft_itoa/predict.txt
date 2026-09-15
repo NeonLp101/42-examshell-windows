@@ -1,0 +1,68 @@
+@@ question
+answer: "-2147483648"
+accept: -2147483648
+Type the returned string:
+
+    ft_itoa(-2147483648)
+---
+INT_MIN is a valid int, so ft_itoa must handle it. It's the value that breaks
+solutions doing `nbr = -nbr` on an int: +2147483648 doesn't fit in an int.
+
+@@ question
+answer: "0"
+accept: 0
+wrong: "" => 0 is written as the digit "0". Careful: a `while (n)` digit loop never runs for 0 - it needs its own case.
+    ft_itoa(0)
+---
+The digit loop `while (n)` does nothing for 0, so without a special case you'd get
+an empty string. 0 needs 1 digit.
+
+@@ question
+answer: 5
+wrong: 4 => Don't forget the '\0' terminator.
+wrong: 3 => The '-' sign and the '\0' need a byte each too.
+How many bytes must the malloc in ft_itoa allocate?
+
+    ft_itoa(-123)
+---
+'-' + 3 digits + '\0' = 5 bytes.
+
+@@ question
+answer: 2
+wrong: 1 => "0" is 1 character, plus the '\0' terminator.
+How many bytes must the malloc allocate?
+
+    ft_itoa(0)
+---
+1 digit + '\0' = 2 bytes.
+
+@@ question
+answer: -4
+wrong: 4 => In C the remainder takes the sign of the left operand: -1234 % 10 is -4.
+What is the value of this C expression?
+
+    -1234 % 10
+---
+In C (since C99) `%` keeps the sign of the dividend: -1234 % 10 == -4. That's why
+ft_itoa stores the '-' first and then makes n positive - otherwise `n % 10 + '0'`
+would produce characters BELOW '0'.
+
+@@ question
+answer: 55
+accept: '7'
+What int value does this expression have?
+
+    '0' + 7
+---
+'0' has the ASCII code 48, so '0' + 7 = 55, which is the code of the character
+'7'. That's how a digit (0 to 9) becomes a character.
+
+@@ question
+answer: 123
+wrong: 123.4 => Integer division drops the decimals: 1234 / 10 == 123.
+What is the value of this C expression?
+
+    1234 / 10
+---
+Dividing two ints truncates: the result is 123, not 123.4. That's exactly what
+removes the last digit in `n /= 10`.

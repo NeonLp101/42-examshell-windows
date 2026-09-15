@@ -1,0 +1,148 @@
+@@ intro
+A linked list is a chain of nodes. Each node holds some data and a pointer to
+the next node; the last node's `next` is NULL:
+
+    begin_list => [data|next] => [data|next] => [data|next] => NULL
+
+The list doesn't know what the data is: it's a `void *`, a pointer to anything.
+That's why the caller also gives you a function `f` - f knows what to do with
+the data, the list only knows how to walk.
+
+ft_list_foreach walks the chain from the first node to NULL and calls f on each
+node's data. The exam wants two files: the struct in ft_list.h and the function
+in ft_list_foreach.c.
+
+@@ file ft_list.h
+#ifndef FT_LIST_H
+# define FT_LIST_H
+
+typedef struct s_list
+{
+	{{1}}	*next;
+	void			*data;
+}	t_list;
+
+#endif
+
+@@ file ft_list_foreach.c
+#include "ft_list.h"
+
+void	ft_list_foreach(t_list *begin_list, void {{2}})
+{
+	while ({{3}})
+	{
+		{{4}};
+		begin_list = {{5}};
+	}
+}
+
+@@ gap 1
+answer: struct s_list
+wrong: t_list => t_list doesn't exist yet at this point: the typedef name is only created at the end, after the closing brace.
+wrong: s_list => In C (unlike C++) a struct tag alone is not a type name. You must write the keyword: struct s_list.
+wrong: struct t_list => t_list is the typedef alias, not the struct tag. The tag is the name right after the struct keyword: s_list.
+hint: Inside its own definition the struct can't use the name t_list yet. Which name DOES already exist?
+Why `struct s_list *next` and not `t_list *next`?
+
+`typedef struct s_list { ... } t_list;` does two things: it defines the type
+`struct s_list`, and at the very end it creates the alias `t_list` for it. While
+the compiler reads the fields, the alias doesn't exist yet - but the tag
+`s_list` does, because it was written before the `{`.
+
+In C the tag alone is not a type name, so you need the keyword: `struct s_list`.
+
+A struct can contain a POINTER to its own type (a pointer always has the same
+size, 8 bytes), but never itself by value - that struct would be infinitely big.
+
+@@ gap 2
+answer: (*f)(void *)
+accept: (*f)(void *data)
+wrong: *f(void *) => Without parentheses this declares a function f returning a void *. You need a POINTER to a function: (*f)(void *).
+wrong: (*f)() => That compiles in old C (empty parentheses = parameters not specified), but it's not the subject's prototype: f takes a void *.
+wrong: f => f alone would be a void parameter. It has to be a pointer to a function: (*f)(void *).
+hint: f is a POINTER to a function that takes a void * and returns void. The parentheses matter.
+Function pointer syntax - read it from the name outwards:
+
+    void (*f)(void *)
+          (*f)             f is a pointer ...
+              (void *)     ... to a function taking a void * ...
+    void                   ... and returning void
+
+The parentheses around `*f` are essential: `void *f(void *)` declares a function
+named f that RETURNS a `void *` - something completely different.
+
+Passing a function as a parameter is how C does "callbacks": ft_list_foreach
+doesn't know what f does (print, modify, free...), it just calls it.
+
+@@ gap 3
+answer: begin_list
+accept: begin_list != 0
+wrong: begin_list != NULL => NULL isn't defined in this file: it only includes "ft_list.h", and NULL comes from a standard header like <stddef.h> or <stdlib.h>. Use just `begin_list` (or `!= 0`).
+wrong: NULL != begin_list => NULL isn't defined in this file: it only includes "ft_list.h", and NULL comes from a standard header like <stddef.h> or <stdlib.h>. Use just `begin_list` (or `!= 0`).
+wrong: begin_list->next => That skips the last node (its next is NULL) and crashes on an empty list (NULL->next).
+wrong: begin_list->data => The loop must stop at the end of the chain, not when some data is NULL. Test the node pointer itself.
+wrong: *begin_list => begin_list points to a struct; *begin_list is the whole struct, which can't be used as a condition. Test the pointer.
+hint: The loop must run for every node - including the last one - and stop at the end of the chain.
+A pointer used as a condition is true when it's not NULL, so `while (begin_list)`
+means `while (begin_list != NULL)`. (You couldn't even write NULL here: this file
+includes no standard header, and NULL is defined in <stddef.h>, <stdlib.h>...)
+
+- It stops right after the last node (whose `next` is NULL).
+- It also handles an empty list: if begin_list is NULL, the loop never runs.
+
+A common mistake is `while (begin_list->next)`: it skips the last node AND
+crashes on an empty list, because NULL->next is a segfault.
+
+@@ gap 4
+answer: (*f)(begin_list->data)
+accept: f(begin_list->data)
+accept: (*f)((*begin_list).data)
+accept: f((*begin_list).data)
+wrong: f(begin_list) => f expects the node's DATA, not the node itself.
+wrong: (*f)(begin_list) => f expects the node's DATA, not the node itself.
+wrong: *f(begin_list->data) => Precedence: that calls f, then dereferences what it returns. Put the * in parentheses: (*f)(...).
+wrong: f(begin_list.data) => begin_list is a pointer: use -> (or (*begin_list).data), not a dot.
+hint: Call the function f with the data of the current node (not the node itself).
+Calling through a function pointer: `(*f)(x)` dereferences the pointer to get the
+function, then calls it. C also lets you write just `f(x)` - both are identical;
+the subject uses the `(*f)` form.
+
+`begin_list->data` is shorthand for `(*begin_list).data`: follow the pointer to the
+node, then take its `data` field. The dot is for a struct, the arrow for a
+POINTER to a struct.
+
+We pass the data, not the node, because f works on `void *` data and knows
+nothing about lists.
+
+@@ gap 5
+answer: begin_list->next
+accept: (*begin_list).next
+wrong: begin_list + 1 => Nodes are not next to each other in memory (each one was malloc'ed separately). Follow the link: begin_list->next.
+wrong: begin_list++ => Nodes are not next to each other in memory (each one was malloc'ed separately). Follow the link: begin_list->next.
+wrong: begin_list->data => data is the content of the node, not the link to the next node.
+hint: Move to the following node.
+Advance to the next node. Without this line: infinite loop on the first node.
+
+`begin_list + 1` would NOT work: that's the address right after this node, but
+list nodes are scattered in memory. The only way to find the next one is the
+`next` pointer stored inside the node.
+
+Is it OK to modify `begin_list`? Yes: parameters are passed by value in C, so
+`begin_list` is a local COPY of the caller's pointer. Moving the copy doesn't
+move the caller's list head. (That's also why functions that must change the
+head, like ft_list_remove_if, take a `t_list **`.)
+
+@@ outro
+The list traversal loop - you'll write it in every list exercise:
+
+    while (node)
+    {
+        ... use node->data ...
+        node = node->next;
+    }
+
+Syntax recap:
+- `ptr->field` is the same as `(*ptr).field`
+- `struct s_list *next` inside the struct, because `t_list` doesn't exist yet there
+- `void (*f)(void *)` declares a function pointer; call it with `(*f)(x)` or `f(x)`
+- `void *` is a pointer to "anything": the list stays generic, f knows the real type

@@ -1,0 +1,26 @@
+@@ question
+match: exact
+args: ["abc"]
+answer: bcd$
+    $> ./rotone "abc" | cat -e
+---
+Each letter becomes the next one.
+
+@@ question
+match: exact
+args: ["zZ"]
+answer: aA$
+wrong: {[$ => 'z' + 1 is '{' in ASCII - rotone wraps around to 'a' (and 'Z' to 'A').
+    $> ./rotone "zZ" | cat -e
+---
+The wrap-around: 'z' -> 'a', 'Z' -> 'A'.
+
+@@ question
+match: exact
+args: ["AkjhZ zLKIJz , 23y "]
+answer: BlkiA aMLJKa , 23z $
+wrong: BlkiA aMLJKa , 23z$ => The trailing space of the input is printed too - before the $.
+    $> ./rotone "AkjhZ zLKIJz , 23y " | cat -e
+---
+Digits, commas and spaces are unchanged - including the space at the end, which `cat -e`
+makes visible before the `$`.

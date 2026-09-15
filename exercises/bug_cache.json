@@ -1,0 +1,2177 @@
+{
+ "c363d40261fd4e1633e0": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/25: ./first_word \"FOR PONY\"\n  expected: FOR$\n  yours   : $"
+ },
+ "aa66c650e0fd306e3e47": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 4/25: ./first_word \"a\" \"b\"\n  expected: $\n  yours   : a$"
+ },
+ "d26fe5624a842bceaebf": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 4/25: ./first_word \"a\" \"b\"\n  expected: $\n  yours   : a$"
+ },
+ "152edbada99e6232c0d8": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 8/25: ./first_word $'\\t\\thello\\tworld'\n  expected: hello$\n  yours   : $"
+ },
+ "2bae1984e6261b5f9d34": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/25: ./first_word \"FOR PONY\"\n  expected: FOR$\n  yours   : $"
+ },
+ "5cba1e2666096f98d179": {
+  "passed": false,
+  "reason": "Timeout",
+  "details": "  Test 1/25: ./first_word \"FOR PONY\"\n  your code ran for more than 5s (infinite loop?)"
+ },
+ "c018a4f09365c5dc4764": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "d75d3dac298707d13f07": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/25: ./first_word \"FOR PONY\"\n  expected: FOR$\n  yours   : OR $"
+ },
+ "e3247af78870ce7554ec": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "ad50f2056631cbde3489": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/25: ./first_word \"FOR PONY\"\n  expected: FOR$\n  yours   : FOR$\n            ^@"
+ },
+ "02c3af64b06578abfd46": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/1: ./fizzbuzz\n  first difference at output line 13:\n  expected: 13$\n  yours   : 33$"
+ },
+ "d656d351c49456a3a4a3": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/1: ./fizzbuzz\n  first difference at output line 13:\n  expected: 13$\n  yours   : 33$"
+ },
+ "7088bbeaf71e53944337": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/1: ./fizzbuzz\n  first difference at output line 1:\n  expected: 1$\n  yours   : ^A$"
+ },
+ "3e3b016317c987e1bb17": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/1: ./fizzbuzz\n  first difference at output line 11:\n  expected: 11$\n  yours   : 1;$"
+ },
+ "05034162ba8cff4a7b0b": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/1: ./fizzbuzz\n  first difference at output line 100:\n  expected: buzz$\n  yours   : <no more output>"
+ },
+ "8cebdc4692f1122f53f9": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/1: ./fizzbuzz\n  first difference at output line 3:\n  expected: fizz$\n  yours   : fizzbuzz$"
+ },
+ "698c7d7b89aa46443e07": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/1: ./fizzbuzz\n  first difference at output line 3:\n  expected: fizz$\n  yours   : fizzbuzz$"
+ },
+ "9c6c1d90f8889484b750": {
+  "passed": false,
+  "reason": "Timeout",
+  "details": "  Test 1/11: fixed edge cases\n  your code ran for more than 5s (infinite loop?)"
+ },
+ "888b158106af4ed4a6fb": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "1357fcb6be7ccdad59c2": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "d7cb1ab4080d3c7340f9": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "eae3808692a24709c187": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 2:\n  expected: ft_putstr(\"a\") -> [a]$\n  yours   : ft_putstr(\"a\") -> [\\x90]$"
+ },
+ "4c4b3d87da5016b3cb49": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "468b6b4037a0010605a4": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 2:\n  expected: ft_putstr(\"a\") -> [a]$\n  yours   : ft_putstr(\"a\") -> [abcdefghijklmnopqrstuvwxyz{|}~^?\\x80\\x81\\x82\\x83\\x84\\x85\\x86\\x87\\x88\\x89\\x8a\\x8b\\x8c\\x8d\\x8e\\x8f\\x90\\x91\\x92\\x93\\x94\\x95\\x96\\x97\\x98\\x99\\x9a\\... (+405 chars)"
+ },
+ "5025d80dd20b4318d63d": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_strcpy(dest, \"\") -> dest = \"\", returns dest$\n  yours   : ft_strcpy(dest, \"\") -> dest = \"\", returns dest !! wrote past the '\\0'$"
+ },
+ "87203aefac11512b269b": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 2:\n  expected: ft_strcpy(dest, \"a\") -> dest = \"a\", returns dest$\n  yours   : ft_strcpy(dest, \"a\") -> dest = \"X\", returns dest$"
+ },
+ "5e615909adc67d7e186a": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_strcpy(dest, \"\") -> dest = \"\", returns dest$\n  yours   : ft_strcpy(dest, \"\") -> dest = \"X\", returns dest !! wrote past the '\\0'$"
+ },
+ "a6fe8ca989d697c703c8": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_strcpy(dest, \"\") -> dest = \"\", returns dest$\n  yours   : ft_strcpy(dest, \"\") -> dest = \"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\",... (+14 chars)"
+ },
+ "2d2906c984181be9b055": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_strcpy(dest, \"\") -> dest = \"\", returns dest$\n  yours   : ft_strcpy(dest, \"\") -> dest = \"\", returns something else (must return s1)$"
+ },
+ "71681cf4131b0691def6": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 2:\n  expected: ft_strcpy(dest, \"a\") -> dest = \"a\", returns dest$\n  yours   : ft_strcpy(dest, \"a\") -> dest = \"a\", returns something else (must return s1)$"
+ },
+ "c8222733a85269820c82": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_strlen(\"\") = 0$\n  yours   : ft_strlen(\"\") = 6$"
+ },
+ "f9c4b70188efd8dcdd1a": {
+  "passed": false,
+  "reason": "Timeout",
+  "details": "  Test 1/11: fixed edge cases\n  your code ran for more than 5s (infinite loop?)"
+ },
+ "2e5e2e470956b3ac97ed": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "f648e642527e1aa56ac2": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_strlen(\"\") = 0$\n  yours   : ft_strlen(\"\") = 5$"
+ },
+ "a238272fd9d209b1750f": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_strlen(\"\") = 0$\n  yours   : ft_strlen(\"\") = 1$"
+ },
+ "53cc0053ab58d4c2c373": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_strlen(\"\") = 0$\n  yours   : ft_strlen(\"\") = -1$"
+ },
+ "cd7b42d8b4a1efa4ddf2": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "94cbf4d162bdb7a06a2d": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "26f8f952211a4b71ff51": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_swap(&a, &b) with a = 1, b = 2 -> a = 2, b = 1$\n  yours   : ft_swap(&a, &b) with a = 1, b = 2 -> a = 2, b = 2$"
+ },
+ "0588f64d90d3a7b5ff9a": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "b9107a71d348e596c351": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "c4bfd8b5968158ab0c39": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/23: ./repeat_alpha \"abc\"\n  expected: abbccc$\n  yours   : bcc$"
+ },
+ "aef0c9dacb2cfbb2c8a6": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/23: ./repeat_alpha \"abc\"\n  expected: abbccc$\n  yours   : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb... (+135 chars)"
+ },
+ "c7632472203564cec133": {
+  "passed": false,
+  "reason": "Timeout",
+  "details": "  Test 2/23: ./repeat_alpha \"Alex.\"\n  your code ran for more than 5s (infinite loop?)"
+ },
+ "e56e2ea467c61c3d749b": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 11/23: ./repeat_alpha \"mjkvW[(iYJ,Pj.\"\n  expected: mmmmmmmmmmmmmjjjjjjjjjjkkkkkkkkkkkvvvvvvvvvvvvvvvvvvvvvvWWWWWWWWWWWWWWWWWWWWWWW[(iiiiiiiiiYYYYYYYYYYYYYYYYYYYYYYYYYJJJJJJJJJJ,PPPPPPPPPPPPPPPPjjjjjjjjjj.$\n  yours   : mmmmmmmmmmmmmjjjjjjjjjjkkkkkkkkkkkvvvvvvvvvvvvvvvvvvvvvvWWWWWWWWWWWWWWWWWWWWWWW[[[[[[[[[[[[[[[[[[[[[[[[[[[(iiiiiiiiiYYYYYYYYYYYYYYYYYYYYYYYYYJJJJJJJJJJ,PPPPPPPP... (+20 chars)"
+ },
+ "aaabbba728eccb656541": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/23: ./repeat_alpha \"abc\"\n  expected: abbccc$\n  yours   : bcc$"
+ },
+ "ba5468c856d439eb499b": {
+  "passed": false,
+  "reason": "Timeout",
+  "details": "  Test 1/23: ./repeat_alpha \"abc\"\n  your code ran for more than 5s (infinite loop?)"
+ },
+ "a6d953b8c1d25ef7ffab": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/23: ./repeat_alpha \"abc\"\n  expected: abbccc$\n  yours   : aabbbcccc$"
+ },
+ "5e865720b17062012497": {
+  "passed": false,
+  "reason": "Timeout",
+  "details": "  Test 1/23: ./rev_print \"zaz\"\n  your code ran for more than 5s (infinite loop?)"
+ },
+ "bc5383827d4feb79dab5": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/23: ./rev_print \"zaz\"\n  expected: zaz$\n  yours   : za$"
+ },
+ "e29835854608513edf5d": {
+  "passed": false,
+  "reason": "Timeout",
+  "details": "  Test 1/23: ./rev_print \"zaz\"\n  your code ran for more than 5s (infinite loop?)"
+ },
+ "512756c08b1ba4421801": {
+  "passed": false,
+  "reason": "Timeout",
+  "details": "  Test 1/23: ./rev_print \"zaz\"\n  your code ran for more than 5s (infinite loop?)"
+ },
+ "993076fe2441fdb3ef48": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "0572acf31a41d9b9698b": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/23: ./rev_print \"zaz\"\n  expected: zaz$\n  yours   : az^\\$"
+ },
+ "f7996e2991b78c7ee6a8": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 2/23: ./rot_13 \"My horse is Amazing.\"\n  expected: Zl ubefr vf Nznmvat.$\n  yours   : Z\\x86 u|^?\\x80r v\\x80 Nzn\\x87v{t.$"
+ },
+ "d4c99d44029219199060": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/23: ./rot_13 \"abc\"\n  expected: nop$\n  yours   : ghi$"
+ },
+ "e861adb62449bd0b36b2": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/23: ./rot_13 \"abc\"\n  expected: nop$\n  yours   : ^M^N^O$"
+ },
+ "b5403d47fa9d0b7e3b6e": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 3/23: ./rot_13 \"AkjhZ zLKIJz , 23y \"\n  expected: NxwuM mYXVWm , 23l $\n  yours   : Nxwug mYXVWm , 23l $"
+ },
+ "0045771a7d0dc30a1776": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 3/23: ./rot_13 \"AkjhZ zLKIJz , 23y \"\n  expected: NxwuM mYXVWm , 23l $\n  yours   : Nxwug mYXVWm , 23l $"
+ },
+ "59374deb816904d38bbc": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "934383e45fc0732bef86": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/23: ./rot_13 \"abc\"\n  expected: nop$\n  yours   : abc$"
+ },
+ "b9302d7f2c2b286b720a": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/23: ./rotone \"abc\"\n  Segmentation fault (access violation)\n  expected: bcd$\n  yours   : bcd^@^?^A^@^@Q^A\\xb4p^?^A^@^@^@^@^@^@^@^@^@^@\\x98\\xc2\\xf6f/E^@^@@\\xf3\\xb5p^?^A^@^@Q^A\\xb4p^?^A^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@... (+205 chars)"
+ },
+ "63d1b9bdddabf4ce2edc": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 3/23: ./rotone \"AkjhZ zLKIJz , 23y \"\n  expected: BlkiA aMLJKa , 23z $\n  yours   : BlkiA {MLJK{ , 23z $"
+ },
+ "32ecbef7e70487fcbdcc": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/23: ./rotone \"abc\"\n  expected: bcd$\n  yours   : uvw$"
+ },
+ "1e1afa0238a69b8eaf28": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 3/23: ./rotone \"AkjhZ zLKIJz , 23y \"\n  expected: BlkiA aMLJKa , 23z $\n  yours   : Blki[ aMLJKa , 23z $"
+ },
+ "6ecb3071399abb6df3cb": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 3/23: ./rotone \"AkjhZ zLKIJz , 23y \"\n  expected: BlkiA aMLJKa , 23z $\n  yours   : \\lki[ aMLJKa , 23z $"
+ },
+ "e0e80ba3b929b3d1e99e": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/27: ./search_and_replace \"Papache est un sabre\" \"a\" \"o\"\n  expected: Popoche est un sobre$\n  yours   : $"
+ },
+ "354ddd2cc8edf580e759": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/27: ./search_and_replace \"Papache est un sabre\" \"a\" \"o\"\n  expected: Popoche est un sobre$\n  yours   : $"
+ },
+ "2744978226b79cedcd32": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "201e2d20557bc8a6b343": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/27: ./search_and_replace \"Papache est un sabre\" \"a\" \"o\"\n  expected: Popoche est un sobre$\n  yours   : Papache est un sabre$"
+ },
+ "f745ffd4dcef42b47585": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "2f8b4357f49656ac70e0": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/27: ./search_and_replace \"Papache est un sabre\" \"a\" \"o\"\n  expected: Popoche est un sobre$\n  yours   : Papache est un sabre$"
+ },
+ "a4310d943633ed3d21ff": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/22: ./ulstr \"L'eSPrit nE peUt plUs pRogResSer s'Il staGne et sI peRsIsTent VAnIte et auto-justification.\"\n  expected: l'EspRIT Ne PEuT PLuS PrOGrESsER S'iL STAgNE ET Si PErSiStENT vaNiTE ET AUTO-JUSTIFICATION.$\n  yours   : ,^GE30RIT^@N%^@PE5T^@PL5S^@P2OG2ES3ER^@S^G)L^@STA'NE^@ET^@S)^@PE2S)S4ENT^@6!N)TE^@ET^@AUTO^MJUSTIFICATION^N$"
+ },
+ "b111a647d52c7d84303e": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 7/22: ./ulstr \"@[`{\"\n  expected: @[`{$\n  yours   : @[`[$"
+ },
+ "cbb88dbcc764c55dd886": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/22: ./ulstr \"L'eSPrit nE peUt plUs pRogResSer s'Il staGne et sI peRsIsTent VAnIte et auto-justification.\"\n  expected: l'EspRIT Ne PEuT PLuS PrOGrESsER S'iL STAgNE ET Si PErSiStENT vaNiTE ET AUTO-JUSTIFICATION.$\n  yours   : l'\\x85sp\\x92\\x89\\x94 \\x8ee \\x90\\x85u\\x94 \\x90\\x8cu\\x93 \\x90r\\x8f\\x87r\\x85\\x93s\\x85\\x92 \\x93'i\\x8c \\x93\\x94\\x81g\\x8e\\x85 \\x85\\x94 \\x93i \\x90\\x85r\\x93i\\x93t\\x85\\x... (+103 chars)"
+ },
+ "84aac0bd72b4e3c32d06": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/22: ./ulstr \"L'eSPrit nE peUt plUs pRogResSer s'Il staGne et sI peRsIsTent VAnIte et auto-justification.\"\n  expected: l'EspRIT Ne PEuT PLuS PrOGrESsER S'iL STAgNE ET Si PErSiStENT vaNiTE ET AUTO-JUSTIFICATION.$\n  yours   : l'^Dsp^Q^H^S ^Me ^O^Du^S ^O^Ku^R ^Or^N^Fr^D^Rs^D^Q ^R'i^K ^R^S^@g^M^D ^D^S ^Ri ^O^Dr^Ri^Rt^D^M^S va^Mi^S^D ^D^S ^@^T^S^N-^I^T^R^S^H^E^H^B^@^S^H^N^M.$"
+ },
+ "6b9bafec72243d4c3cdc": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/22: ./ulstr \"L'eSPrit nE peUt plUs pRogResSer s'Il staGne et sI peRsIsTent VAnIte et auto-justification.\"\n  expected: l'EspRIT Ne PEuT PLuS PrOGrESsER S'iL STAgNE ET Si PErSiStENT vaNiTE ET AUTO-JUSTIFICATION.$\n  yours   : ,'E30RIT N% PE5T PL5S P2OG2ES3ER S')L STA'NE ET S) PE2S)S4ENT 6!N)TE ET AUTO-JUSTIFICATION.$"
+ },
+ "b85e6f5ca0b27424c2d3": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/22: ./alpha_mirror \"abc\"\n  expected: zyx$\n  yours   : ^Y^X^W$"
+ },
+ "d14d29bff43e5b337ba8": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/22: ./alpha_mirror \"abc\"\n  expected: zyx$\n  yours   : ^@\\xff\\xfe$"
+ },
+ "0eed44c1cc981100b479": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/22: ./alpha_mirror \"abc\"\n  expected: zyx$\n  yours   : {zy$"
+ },
+ "0341267b0a9d0b8bf30a": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 2/22: ./alpha_mirror \"My horse is Amazing.\"\n  expected: Nb slihv rh Znzarmt.$\n  yours   : Nb{slihv{rh{Znzarmtm$"
+ },
+ "1faf50534642ee39a473": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 2/22: ./alpha_mirror \"My horse is Amazing.\"\n  expected: Nb slihv rh Znzarmt.$\n  yours   : \\x8eb slihv rh \\x9anzarmt.$"
+ },
+ "47ec9fcde1488b6844d3": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 2/22: ./alpha_mirror \"My horse is Amazing.\"\n  expected: Nb slihv rh Znzarmt.$\n  yours   : ^Mb slihv rh ^Ynzarmt.$"
+ },
+ "eb355d97864bd8bfabf7": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/21: ./camel_to_snake \"hereIsACamelCaseWord\"\n  expected: here_is_a_camel_case_word$\n  yours   : _\\x88_\\x85_\\x92_\\x85I_\\x93AC_\\x81_\\x8d_\\x85_\\x8cC_\\x81_\\x93_\\x85W_\\x8f_\\x92_\\x84$"
+ },
+ "1fdd01135d0dad479ed5": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/21: ./camel_to_snake \"hereIsACamelCaseWord\"\n  expected: here_is_a_camel_case_word$\n  yours   : _\\x88_\\x85_\\x92_\\x85_i_\\x93_a_c_\\x81_\\x8d_\\x85_\\x8c_c_\\x81_\\x93_\\x85_w_\\x8f_\\x92_\\x84$"
+ },
+ "719c7ee0e770a6edf440": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "1cba3ff4ecc57d47996a": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/21: ./camel_to_snake \"hereIsACamelCaseWord\"\n  expected: here_is_a_camel_case_word$\n  yours   : here_)s_!_#amel_#ase_7ord$"
+ },
+ "909176c54175885948e6": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/27: ./do_op \"123\" \"*\" \"456\"\n  expected: 56088$\n  yours   : $"
+ },
+ "b5cdc6889e0cc32f0616": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/27: ./do_op \"123\" \"*\" \"456\"\n  expected: 56088$\n  yours   : 0$"
+ },
+ "2f9db47c8d482f8a4be6": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "0fe1dc33d8068c81be78": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "cb70af3d3f9eb9d48c08": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/27: ./do_op \"123\" \"*\" \"456\"\n  expected: 56088$\n  yours   : $"
+ },
+ "348f78dc811a700bccab": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 5/27: ./do_op \"42\" \"%\" \"5\"\n  expected: 2$\n  yours   : 8$"
+ },
+ "f8e442eaa8b074710d38": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 5/27: ./do_op \"42\" \"%\" \"5\"\n  expected: 2$\n  yours   : 5$"
+ },
+ "c68e7c908c3fd55ae8b2": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 7:\n  expected: ft_atoi(\"\\t\\n\\v\\f\\r 99\") = 99$\n  yours   : ft_atoi(\"\\t\\n\\v\\f\\r 99\") = 0$"
+ },
+ "e1c3579850dba775c8d1": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 7:\n  expected: ft_atoi(\"\\t\\n\\v\\f\\r 99\") = 99$\n  yours   : ft_atoi(\"\\t\\n\\v\\f\\r 99\") = 0$"
+ },
+ "d87be536d419fc62b40c": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "6bb5c91420779ecc9e26": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 3:\n  expected: ft_atoi(\"+17\") = 17$\n  yours   : ft_atoi(\"+17\") = 0$"
+ },
+ "4368ea8d6a0754365ceb": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 2:\n  expected: ft_atoi(\"-42\") = -42$\n  yours   : ft_atoi(\"-42\") = 0$"
+ },
+ "a58f113f605f9c873304": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "63f4aba15ba47b4d052e": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "10b13690826edcacdbea": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_atoi(\"42\") = 42$\n  yours   : ft_atoi(\"42\") = 6$"
+ },
+ "6c665f1ce886b898b453": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_strcmp(\"\", \"\") is zero$\n  yours   : ft_strcmp(\"\", \"\") is negative$"
+ },
+ "38145cd5fc1ccce3c977": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 5:\n  expected: ft_strcmp(\"abc\", \"abd\") is negative$\n  yours   : ft_strcmp(\"abc\", \"abd\") is zero$"
+ },
+ "7605aa039a01efdba8bc": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 2:\n  expected: ft_strcmp(\"a\", \"\") is positive$\n  yours   : ft_strcmp(\"a\", \"\") is zero$"
+ },
+ "de1f768521745552a600": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 2:\n  expected: ft_strcmp(\"a\", \"\") is positive$\n  yours   : ft_strcmp(\"a\", \"\") is negative$"
+ },
+ "ca228f12934ae2955e13": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_strcmp(\"\", \"\") is zero$\n  yours   : ft_strcmp(\"\", \"\") is positive$"
+ },
+ "6fde1b9a1b9aee46147d": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 2:\n  expected: ft_strcmp(\"a\", \"\") is positive$\n  yours   : ft_strcmp(\"a\", \"\") is zero$"
+ },
+ "15cea0b9ccb64eeb8144": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_strcspn(\"hello\", \"l\") = 2$\n  yours   : ft_strcspn(\"hello\", \"l\") = 0$"
+ },
+ "e705e1845df291078df5": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_strcspn(\"hello\", \"l\") = 2$\n  yours   : ft_strcspn(\"hello\", \"l\") = 0$"
+ },
+ "c46068c16e8d5cb51da2": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_strcspn(\"hello\", \"l\") = 2$\n  yours   : ft_strcspn(\"hello\", \"l\") = 0$"
+ },
+ "500658900cb0acd2fdcd": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_strcspn(\"hello\", \"l\") = 2$\n  yours   : ft_strcspn(\"hello\", \"l\") = 0$"
+ },
+ "44588afabaa11a8fc49c": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_strcspn(\"hello\", \"l\") = 2$\n  yours   : ft_strcspn(\"hello\", \"l\") = 3$"
+ },
+ "72aad18f35fd5b1c9a7f": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 2:\n  expected: ft_strcspn(\"hello\", \"\") = 5$\n  yours   : ft_strcspn(\"hello\", \"\") = 0$"
+ },
+ "e77570fbf6d6d3254787": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 4/11: random tests, seed 3\n  Heap corruption (double free / invalid free / buffer overflow?)\n  first difference at output line 7:\n  expected: <no more output>\n  yours   : <no more output>"
+ },
+ "8d23e194b622b1cf8dac": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 2/11: random tests, seed 1\n  Heap corruption (double free / invalid free / buffer overflow?)\n  first difference at output line 3:\n  expected: ft_strdup(\". 3df!\") = \". 3df!\"$\n  yours   : <no more output>"
+ },
+ "1cc64b0398ab29fef02d": {
+  "passed": true,
+  "reason": "Success",
+  "details": ""
+ },
+ "521d4f7dc3b3f306efe4": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_strdup(\"\") = \"\"$\n  yours   : ft_strdup(\"\") = NULL$"
+ },
+ "3cbe398968ee21f9e1d4": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_strdup(\"\") = \"\"$\n  yours   : ft_strdup(\"\") = \"0^A\\xa5`\\xcf^A\"$"
+ },
+ "93a9a5a486f7432a0aaf": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "9d65dbf2a58c2ee67670": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 2:\n  expected: ft_strdup(\"a\") = \"a\"$\n  yours   : ft_strdup(\"a\") = \"P\"$"
+ },
+ "32af2d1666a3b1c1aa38": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 2:\n  expected: ft_strdup(\"a\") = \"a\"$\n  yours   : ft_strdup(\"a\") = \"\"$"
+ },
+ "a18755a34d4bbeb43634": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_strpbrk(\"hello\", \"l\") = s1 + 2 (\"llo\")$\n  yours   : ft_strpbrk(\"hello\", \"l\") = s1 + 0 (\"hello\")$"
+ },
+ "a562863ae97dc48a2236": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_strpbrk(\"hello\", \"l\") = s1 + 2 (\"llo\")$\n  yours   : ft_strpbrk(\"hello\", \"l\") = s1 + 0 (\"hello\")$"
+ },
+ "8cf71c8383e6dbd51aa4": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_strpbrk(\"hello\", \"l\") = s1 + 2 (\"llo\")$\n  yours   : ft_strpbrk(\"hello\", \"l\") = NULL$"
+ },
+ "b96aa48e75b4eeca5b54": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "2638ca568d6efce85bbb": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_strpbrk(\"hello\", \"l\") = s1 + 2 (\"llo\")$\n  yours   : ft_strpbrk(\"hello\", \"l\") = a pointer outside of s1$"
+ },
+ "6554d6d10e7e9b567384": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "0722b912e0ac79480c67": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "439892b73ba9c8e93d48": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 2:\n  expected: ft_strpbrk(\"hello\", \"xyz\") = NULL$\n  yours   : ft_strpbrk(\"hello\", \"xyz\") = s1 + 5 (\"\")$"
+ },
+ "e7d4a164f4635a2480d4": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 3:\n  expected: ft_strrev(\"ab\") -> \"ba\", returns str$\n  yours   : ft_strrev(\"ab\") -> \"ab\", returns str$"
+ },
+ "6b056b1c871f984746b7": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_strrev(\"\") -> \"\", returns str$\n  yours   : ft_strrev(\"\") -> \"^_^A[^E{^B\", returns str$"
+ },
+ "fb8446d234c1faddedd8": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 3:\n  expected: ft_strrev(\"ab\") -> \"ba\", returns str$\n  yours   : ft_strrev(\"ab\") -> \"\", returns str$"
+ },
+ "b60262d730de21d564ad": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 3:\n  expected: ft_strrev(\"ab\") -> \"ba\", returns str$\n  yours   : ft_strrev(\"ab\") -> \"\", returns str$"
+ },
+ "a864506511b200646816": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 2:\n  expected: ft_strrev(\"a\") -> \"a\", returns str$\n  yours   : ft_strrev(\"a\") -> \"a\", returns something else (must return its parameter)$"
+ },
+ "b1acfd5f1a608f2830da": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_strspn(\"hello\", \"hel\") = 4$\n  yours   : ft_strspn(\"hello\", \"hel\") = 5$"
+ },
+ "7ca03753002e83bba26a": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_strspn(\"hello\", \"hel\") = 4$\n  yours   : ft_strspn(\"hello\", \"hel\") = 5$"
+ },
+ "8733cbf8124e98dbaf0e": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_strspn(\"hello\", \"hel\") = 4$\n  yours   : ft_strspn(\"hello\", \"hel\") = 0$"
+ },
+ "e45d284250ef2244faef": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_strspn(\"hello\", \"hel\") = 4$\n  yours   : ft_strspn(\"hello\", \"hel\") = 0$"
+ },
+ "cdabe9f0919038b99c20": {
+  "passed": false,
+  "reason": "Timeout",
+  "details": "  Test 1/11: fixed edge cases\n  your code ran for more than 5s (infinite loop?)"
+ },
+ "f42df0ddc23da93acf82": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 2:\n  expected: is_power_of_2(1) = 1$\n  yours   : is_power_of_2(1) = 0$"
+ },
+ "464997b5103417dcfde5": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 4:\n  expected: is_power_of_2(3) = 0$\n  yours   : is_power_of_2(3) = 1$"
+ },
+ "9a776cef8704fd533b2d": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 4:\n  expected: is_power_of_2(3) = 0$\n  yours   : is_power_of_2(3) = 1$"
+ },
+ "b77594ef194b5da9a407": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 4:\n  expected: is_power_of_2(3) = 0$\n  yours   : is_power_of_2(3) = 3$"
+ },
+ "ffadb2bb0b20f5232730": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "149c98f319c1e3f5a4a1": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 9/24: ./last_word $'hello\\tworld\\t'\n  expected: world$\n  yours   : $"
+ },
+ "bc8ccb12e4ccae04435e": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 5/24: ./last_word \"  lorem,ipsum  \"\n  expected: lorem,ipsum$\n  yours   : $"
+ },
+ "e64b87890b7d06e55fd2": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 3/24: ./last_word \"   \"\n  expected: $\n  yours   : ^\\$"
+ },
+ "a975f0ad290899998dab": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/24: ./last_word \"FOR PONY\"\n  expected: PONY$\n  yours   : PONY^@^@^@^@$"
+ },
+ "a74d115bc4c08fe1a783": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/24: ./last_word \"FOR PONY\"\n  expected: PONY$\n  yours   : PONY^@$"
+ },
+ "079212f67193f909c5c2": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: max([], 0) = 0$\n  yours   : max([], 0) = 42$"
+ },
+ "3df5b89c5eb052b22c86": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "c4b52af47e7f4889be82": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 2:\n  expected: max([42], 1) = 42$\n  yours   : max([42], 1) = 0$"
+ },
+ "a9501f94730880f599a9": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 3:\n  expected: max([1, 5, 3], 3) = 5$\n  yours   : max([1, 5, 3], 3) = 42$"
+ },
+ "5f87a9f7a61f322be251": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 3:\n  expected: max([1, 5, 3], 3) = 5$\n  yours   : max([1, 5, 3], 3) = 1$"
+ },
+ "e01e8636b7c95727193a": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 2/11: random tests, seed 1\n  first difference at output line 1:\n  expected: max([-1329622919, -4, -30, -700, -371, 865, 743489795, 116, 640, 1242087365, -322, 965644423, -463, -1408313372, -1403935040, 474, 1660371752, 967, 2039602457, ... (+89 chars)\n  yours   : max([-1329622919, -4, -30, -700, -371, 865, 743489795, 116, 640, 1242087365, -322, 965644423, -463, -1408313372, -1403935040, 474, 1660371752, 967, 2039602457, ... (+89 chars)"
+ },
+ "5332ef3ff5d52afe0bbd": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: print_bits(0) -> [00000000]$\n  yours   : print_bits(0) -> [000000000]$"
+ },
+ "fbd17e79e7824ebdba68": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: print_bits(0) -> [00000000]$\n  yours   : print_bits(0) -> [0]$"
+ },
+ "e72ad78425969d5176b6": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: print_bits(0) -> [00000000]$\n  yours   : print_bits(0) -> [^@^@^@^@^@^@^@^@]$"
+ },
+ "723277fc7c146e264c0f": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 3:\n  expected: print_bits(2) -> [00000010]$\n  yours   : print_bits(2) -> [00000012]$"
+ },
+ "f1853802e61ae18aa753": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 2:\n  expected: print_bits(1) -> [00000001]$\n  yours   : print_bits(1) -> [11111111]$"
+ },
+ "2a64e7c0d0ceb24125d7": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 2:\n  expected: reverse_bits(1) = 128$\n  yours   : reverse_bits(1) = 0$"
+ },
+ "26d04862cbc043415325": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 4:\n  expected: reverse_bits(38) = 100$\n  yours   : reverse_bits(38) = 244$"
+ },
+ "0dae075d3912e76f2e06": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 2:\n  expected: reverse_bits(1) = 128$\n  yours   : reverse_bits(1) = 1$"
+ },
+ "98c0d111cc5bba5cbec3": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 3:\n  expected: reverse_bits(2) = 64$\n  yours   : reverse_bits(2) = 0$"
+ },
+ "2950a48b623a4e6f6dc9": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "5d53259cc8ce78ebd725": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "58cb78ce536a3475f770": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "e407bc20c2a4f90d6808": {
+  "passed": false,
+  "reason": "Timeout",
+  "details": "  Test 1/21: ./snake_to_camel \"here_is_a_snake_case_word\"\n  your code ran for more than 5s (infinite loop?)"
+ },
+ "05aa1a2ef799a21fada0": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/21: ./snake_to_camel \"here_is_a_snake_case_word\"\n  expected: hereIsASnakeCaseWord$\n  yours   : here\\x89s\\x81\\x93nake\\x83ase\\x97ord$"
+ },
+ "39b832534a3440713dc9": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/21: ./snake_to_camel \"here_is_a_snake_case_word\"\n  expected: hereIsASnakeCaseWord$\n  yours   : hereisasnakecaseword$"
+ },
+ "ca736391319ffaf0c496": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 4:\n  expected: swap_bits(38) = 98$\n  yours   : swap_bits(38) = 96$"
+ },
+ "99424cb5a29992bedfbe": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 4:\n  expected: swap_bits(38) = 98$\n  yours   : swap_bits(38) = 96$"
+ },
+ "7622a9a2463e902038a0": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 2:\n  expected: swap_bits(1) = 16$\n  yours   : swap_bits(1) = 0$"
+ },
+ "11cc59e9cf13870bd36a": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 2:\n  expected: swap_bits(1) = 16$\n  yours   : swap_bits(1) = 0$"
+ },
+ "783a7b79bcd81b44dbf4": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 2:\n  expected: swap_bits(1) = 16$\n  yours   : swap_bits(1) = 1$"
+ },
+ "12a58f56275e2e04702e": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 2:\n  expected: swap_bits(1) = 16$\n  yours   : swap_bits(1) = 1$"
+ },
+ "e7f392f69445a9562202": {
+  "passed": false,
+  "reason": "Timeout",
+  "details": "  Test 1/24: ./union \"zpadinton\" \"paqefwtdjetyiytjneytjoeyjnejeyj\"\n  your code ran for more than 5s (infinite loop?)"
+ },
+ "38b4523fcf66b72ee1da": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/24: ./union \"zpadinton\" \"paqefwtdjetyiytjneytjoeyjnejeyj\"\n  expected: zpadintoqefwjy$\n  yours   : $"
+ },
+ "25fb01ffebd32000b4b7": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/24: ./union \"zpadinton\" \"paqefwtdjetyiytjneytjoeyjnejeyj\"\n  expected: zpadintoqefwjy$\n  yours   : $"
+ },
+ "f4004a7b2ca12d6d6ee6": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/24: ./union \"zpadinton\" \"paqefwtdjetyiytjneytjoeyjnejeyj\"\n  expected: zpadintoqefwjy$\n  yours   : zpadintonpaqefwtdjetyiytjneytjoeyjnejeyj$"
+ },
+ "a5690af870448329ff44": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/24: ./union \"zpadinton\" \"paqefwtdjetyiytjneytjoeyjnejeyj\"\n  expected: zpadintoqefwjy$\n  yours   : zpadintonpaqefwtdjetyiytjneytjoeyjnejeyj$"
+ },
+ "67f66834d27e9b91c898": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/24: ./union \"zpadinton\" \"paqefwtdjetyiytjneytjoeyjnejeyj\"\n  expected: zpadintoqefwjy$\n  yours   : zpadintonpaqefwtdjetyiytjneytjoeyjnejeyj$"
+ },
+ "faeabe1abb6a45cf3758": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 2/24: ./wdmatch \"faya\" \"fgvvfdxcacpolhyghbred\"\n  expected: $\n  yours   : faya$"
+ },
+ "2957a1010abc6e5ae8e0": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/24: ./wdmatch \"faya\" \"fgvvfdxcacpolhyghbreda\"\n  expected: faya$\n  yours   : $"
+ },
+ "d0eb9033f728787426a0": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/24: ./wdmatch \"faya\" \"fgvvfdxcacpolhyghbreda\"\n  expected: faya$\n  yours   : $"
+ },
+ "461b9e6268e7d06a8d67": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/24: ./wdmatch \"faya\" \"fgvvfdxcacpolhyghbreda\"\n  expected: faya$\n  yours   : $"
+ },
+ "8648a114c98a3dac9de4": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 2/24: ./wdmatch \"faya\" \"fgvvfdxcacpolhyghbred\"\n  expected: $\n  yours   : faya$"
+ },
+ "5522e63bbe38e3ae9567": {
+  "passed": true,
+  "reason": "Success",
+  "details": ""
+ },
+ "88b213260f0af58dfc84": {
+  "passed": true,
+  "reason": "Success",
+  "details": ""
+ },
+ "f3d407d074e646ed8fe5": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/25: ./add_prime_sum \"5\"\n  expected: 10$\n  yours   : 0$"
+ },
+ "7f44a14803e3690544d5": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/25: ./add_prime_sum \"5\"\n  expected: 10$\n  yours   : 14$"
+ },
+ "33e20289288cc6b17777": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/25: ./add_prime_sum \"5\"\n  expected: 10$\n  yours   : 14$"
+ },
+ "444b765ebcf73c83b8c8": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/25: ./add_prime_sum \"5\"\n  expected: 10$\n  yours   : 9$"
+ },
+ "a44053f39ea69d6292c7": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/25: ./add_prime_sum \"5\"\n  expected: 10$\n  yours   : 3$"
+ },
+ "db7da133f1cf57f62c05": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/25: ./add_prime_sum \"5\"\n  expected: 10$\n  yours   : 3$"
+ },
+ "8bb532e6deeb81ecaa81": {
+  "passed": false,
+  "reason": "Timeout",
+  "details": "  Test 8/23: ./epur_str $'\\t\\ta\\t\\tb\\t'\n  your code ran for more than 5s (infinite loop?)"
+ },
+ "48e82912adbaacb36e3d": {
+  "passed": false,
+  "reason": "Timeout",
+  "details": "  Test 1/23: ./epur_str \"See? It's easy to print the same thing\"\n  your code ran for more than 5s (infinite loop?)"
+ },
+ "efc7e747b43d9c88140b": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/23: ./epur_str \"See? It's easy to print the same thing\"\n  expected: See? It's easy to print the same thing$\n  yours   : $"
+ },
+ "2721a9fe28e287135a42": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/23: ./epur_str \"See? It's easy to print the same thing\"\n  expected: See? It's easy to print the same thing$\n  yours   :  See?It'seasytoprintthesamething$"
+ },
+ "a1388682c36841f6af36": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "492ce90ab847c56a7cd3": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/23: ./expand_str \"See? It's easy to print the same thing\"\n  expected: See?   It's   easy   to   print   the   same   thing$\n  yours   : $"
+ },
+ "664b5074cd81b070ae61": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/23: ./expand_str \"See? It's easy to print the same thing\"\n  expected: See?   It's   easy   to   print   the   same   thing$\n  yours   :    See?It'seasytoprintthesamething$"
+ },
+ "3372807e1ba655553d78": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/23: ./expand_str \"See? It's easy to print the same thing\"\n  expected: See?   It's   easy   to   print   the   same   thing$\n  yours   : See? It's easy to print the same thing$"
+ },
+ "51706eb1544cf702ee2d": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/23: ./expand_str \"See? It's easy to print the same thing\"\n  expected: See?   It's   easy   to   print   the   same   thing$\n  yours   : See? ^@$\n            It's ^@$\n            easy ^@$\n            to ^@$\n            print ^@$\n            the ^@$\n            same ^@$\n            thing$"
+ },
+ "bdc65e37dd598d0f2841": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/23: ./expand_str \"See? It's easy to print the same thing\"\n  expected: See?   It's   easy   to   print   the   same   thing$\n  yours   : See? It's easy to print the same thing$"
+ },
+ "b837ad75e2b2006f71d3": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 2:\n  expected: ft_atoi_base(\"42\", 10) = 42$\n  yours   : ft_atoi_base(\"42\", 10) = 0$"
+ },
+ "39b833d2e004a0d0a03c": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 4:\n  expected: ft_atoi_base(\"ff\", 16) = 255$\n  yours   : ft_atoi_base(\"ff\", 16) = 85$"
+ },
+ "db6b9924a73d0cc99290": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 4:\n  expected: ft_atoi_base(\"ff\", 16) = 255$\n  yours   : ft_atoi_base(\"ff\", 16) = 0$"
+ },
+ "c7547203d0f6fb317c06": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 15:\n  expected: ft_atoi_base(\"9a\", 10) = 9$\n  yours   : ft_atoi_base(\"9a\", 10) = 100$"
+ },
+ "2f0ef3d8228189ff16bb": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 15:\n  expected: ft_atoi_base(\"9a\", 10) = 9$\n  yours   : ft_atoi_base(\"9a\", 10) = 100$"
+ },
+ "bdf344b3cb449568730d": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 4:\n  expected: ft_atoi_base(\"ff\", 16) = 255$\n  yours   : ft_atoi_base(\"ff\", 16) = 165$"
+ },
+ "22b2fea39488122981a4": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 2:\n  expected: ft_atoi_base(\"42\", 10) = 42$\n  yours   : ft_atoi_base(\"42\", 10) = 6$"
+ },
+ "6c75f997c3c77e5cbc6d": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_list_size(list of 0 nodes) = 0$\n  yours   : ft_list_size(list of 0 nodes) = 1$"
+ },
+ "04243d88fa1894be9883": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/11: fixed edge cases\n  Segmentation fault (access violation)\n  first difference at output line 1:\n  expected: ft_list_size(list of 0 nodes) = 0$\n  yours   : ft_list_size(list of 0 nodes) = "
+ },
+ "e89916fdc12759b82a89": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "b495c5b8b84ba861e2dc": {
+  "passed": false,
+  "reason": "Timeout",
+  "details": "  Test 1/11: fixed edge cases\n  your code ran for more than 5s (infinite loop?)"
+ },
+ "24742d753548f47acddd": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 3:\n  expected: ft_list_size(list of 2 nodes) = 2$\n  yours   : ft_list_size(list of 2 nodes) = 1$"
+ },
+ "0fa8b00294a7f5283aa6": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 4:\n  expected: ft_range(0, -3) = [0, -1, -2, -3]$\n  yours   : ft_range(0, -3) = [0, 665, 1301283152, 665]$"
+ },
+ "020b5dfd61bbaf47520a": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 4:\n  expected: ft_range(0, -3) = [0, -1, -2, -3]$\n  yours   : ft_range(0, -3) = NULL$"
+ },
+ "254c9ccffcc2cb89139a": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 6/11: random tests, seed 5\n  Heap corruption (double free / invalid free / buffer overflow?)\n  first difference at output line 7:\n  expected: <no more output>\n  yours   : <no more output>"
+ },
+ "aa0a43506f0826a7fe36": {
+  "passed": true,
+  "reason": "Success",
+  "details": ""
+ },
+ "d06c8cca9e4f3ada3e56": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_range(1, 3) = [1, 2, 3]$\n  yours   : ft_range(1, 3) = [3, 2, 1]$"
+ },
+ "f345cd2125788eeebc02": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_range(1, 3) = [1, 2, 3]$\n  yours   : ft_range(1, 3) = [0, 1, 2]$"
+ },
+ "f19546d3df0b44a24ee9": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 4:\n  expected: ft_range(0, -3) = [0, -1, -2, -3]$\n  yours   : ft_range(0, -3) = [0, -1, -2, 0]$"
+ },
+ "0c2bf7e83a2ed66ce292": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 4:\n  expected: ft_range(0, -3) = [0, -1, -2, -3]$\n  yours   : ft_range(0, -3) = [-3, -2, -1, 0]$"
+ },
+ "e35e689f21cdfcf10b66": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 4:\n  expected: ft_range(0, -3) = [0, -1, -2, -3]$\n  yours   : ft_range(0, -3) = [0, 1, 2, 3]$"
+ },
+ "484f9b6c48695177141d": {
+  "passed": true,
+  "reason": "Success",
+  "details": ""
+ },
+ "10a932260c8feaf257bf": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 4/11: random tests, seed 3\n  Heap corruption (double free / invalid free / buffer overflow?)\n  first difference at output line 4:\n  expected: ft_rrange(-70, -99) = [-99, -98, -97, -96, -95, -94, -93, -92, -91, -90, -89, -88, -87, -86, -85, -84, -83, -82, -81, -80, -79, -78, -77, -76, -75, -74, -73, -7... (+13 chars)\n  yours   : ft_rrange(-70, -99) = "
+ },
+ "834e56a1c07c0bc00537": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_rrange(1, 3) = [3, 2, 1]$\n  yours   : ft_rrange(1, 3) = [3, 4, 5]$"
+ },
+ "3e1372b8961c99323cc0": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_rrange(1, 3) = [3, 2, 1]$\n  yours   : ft_rrange(1, 3) = [3, 4, 5]$"
+ },
+ "e064ed7a0d228aa16341": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_rrange(1, 3) = [3, 2, 1]$\n  yours   : ft_rrange(1, 3) = [3, 2, 0]$"
+ },
+ "e81a46a500d19a04185c": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_rrange(1, 3) = [3, 2, 1]$\n  yours   : ft_rrange(1, 3) = [1, 0, -1]$"
+ },
+ "49c6a0217557130347b0": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "6279e22b36057c442e07": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 3/25: ./hidenp \"abc\" \"btarc\"\n  Segmentation fault (access violation)\n  expected: 0$\n  yours   : <nothing>"
+ },
+ "54525362ca4dbe7cd810": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/25: ./hidenp \"fgex.;\" \"tyf34gdgf;'ektufjhgdgex.;.;rtjynur6\"\n  expected: 1$\n  yours   : 0$"
+ },
+ "63360e9d6f9aec4d187f": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 3/25: ./hidenp \"abc\" \"btarc\"\n  expected: 0$\n  yours   : 1$"
+ },
+ "557130fcfe0ba5ec8645": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/25: ./hidenp \"fgex.;\" \"tyf34gdgf;'ektufjhgdgex.;.;rtjynur6\"\n  expected: 1$\n  yours   : 0$"
+ },
+ "5fef84a715c4660e74d3": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/11: fixed edge cases\n  Division by zero\n  first difference at output line 1:\n  expected: lcm(0, 5) = 0$\n  yours   : lcm(0, 5) = "
+ },
+ "6f190116d82d480e2a02": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 4:\n  expected: lcm(1, 1) = 1$\n  yours   : lcm(1, 1) = 0$"
+ },
+ "bc09ab14405f8f3ba26e": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 5:\n  expected: lcm(4, 6) = 12$\n  yours   : lcm(4, 6) = 24$"
+ },
+ "d7ca2513a49a1b175f57": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 5:\n  expected: lcm(4, 6) = 12$\n  yours   : lcm(4, 6) = 6$"
+ },
+ "ddb7fd2209e5ca6a6db4": {
+  "passed": false,
+  "reason": "Timeout",
+  "details": "  Test 1/11: fixed edge cases\n  your code ran for more than 5s (infinite loop?)"
+ },
+ "40f021cf6f6d4840effa": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "4d023fa2dee8aed08a01": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "d1a22e5f265ec507e52d": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/20: ./paramsum\n  expected: 0$\n  yours   : 1$"
+ },
+ "40e8bb6d0ca94fb55b4a": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/25: ./pgcd \"42\" \"10\"\n  Division by zero\n  expected: 2$\n  yours   : <nothing>"
+ },
+ "3dfa9ca542bff5291cc5": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/25: ./pgcd \"42\" \"10\"\n  Division by zero\n  expected: 2$\n  yours   : <nothing>"
+ },
+ "e8f1342b4bba04162853": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/25: ./pgcd \"42\" \"10\"\n  expected: 2$\n  yours   : 10$"
+ },
+ "7f7f8d85ef1f826d1d0e": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 2/25: ./pgcd \"42\" \"12\"\n  expected: 6$\n  yours   : 4$"
+ },
+ "677935d446bd82fff61f": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/25: ./pgcd \"42\" \"10\"\n  expected: 2$\n  yours   : 0$"
+ },
+ "f5fc13b164d34352ab43": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/25: ./pgcd \"42\" \"10\"\n  expected: 2$\n  yours   : 0$"
+ },
+ "7f0086e4b0be46986b6a": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/25: ./pgcd \"42\" \"10\"\n  expected: 2$\n  yours   : 0$"
+ },
+ "87e4442d82307a93c1f9": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 6/24: ./print_hex \"16\"\n  expected: 10$\n  yours   : 0$"
+ },
+ "ca1a77fd8b95c3b38262": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/24: ./print_hex \"10\"\n  expected: a$\n  yours   : 0a$"
+ },
+ "5c538de89f13ad9d4c26": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "06d381fe40bc6bf2a8cd": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 2/24: ./print_hex \"255\"\n  expected: ff$\n  yours   : fo$"
+ },
+ "949f1c600063e34790dd": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/24: ./print_hex \"10\"\n  expected: a$\n  yours   : A$"
+ },
+ "0acb9008188b9b138873": {
+  "passed": false,
+  "reason": "Timeout",
+  "details": "  Test 1/24: ./print_hex \"10\"\n  your code ran for more than 5s (infinite loop?)"
+ },
+ "d0c0754628d95339bf16": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/24: ./print_hex \"10\"\n  expected: a$\n  yours   : 10$"
+ },
+ "f4ca18aa8fc4db6f2ecf": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/22: ./rstr_capitalizer\n  Segmentation fault (access violation)\n  expected: $\n  yours   : $"
+ },
+ "89cd1368d3d3312be7e1": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 2/22: ./rstr_capitalizer \"a FiRSt LiTTlE TESt\"\n  expected: A firsT littlE tesT$\n  yours   : <nothing>"
+ },
+ "e0c01cdfcd75900880d3": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "fd7179a85dfaf132b6cb": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 2/22: ./rstr_capitalizer \"a FiRSt LiTTlE TESt\"\n  expected: A firsT littlE tesT$\n  yours   : A firsT littlE test$"
+ },
+ "5c9d900eeaf8640a5729": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 2/22: ./rstr_capitalizer \"a FiRSt LiTTlE TESt\"\n  expected: A firsT littlE tesT$\n  yours   : A firsT littlE test$"
+ },
+ "c9af2aebdde6b77471a7": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "85d95fe7691ea6d26758": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 2/22: ./str_capitalizer \"a FiRSt LiTTlE TESt\"\n  expected: A First Little Test$\n  yours   : A &i23t ,i44l% 4%3t$"
+ },
+ "c5de477f1bbc4094fa18": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 2/22: ./str_capitalizer \"a FiRSt LiTTlE TESt\"\n  expected: A First Little Test$\n  yours   : a First Little Test$"
+ },
+ "600e1d6522f8bce6cd2f": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "8a6f9e1db5b776b39c9a": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 2/22: ./str_capitalizer \"a FiRSt LiTTlE TESt\"\n  expected: A First Little Test$\n  yours   : A firsT littlE test$"
+ },
+ "b42077bf10c832392626": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "19c1f1f86961b8657bb6": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/21: ./tab_mult \"9\"\n  expected: 1 x 9 = 9$\n            2 x 9 = 18$\n            3 x 9 = 27$\n            4 x 9 = 36$\n            5 x 9 = 45$\n            6 x 9 = 54$\n            7 x 9 = 63$\n     ... (+42 chars)\n  yours   : 1 x 9 = 9$\n            2 x 9 = 18$\n            3 x 9 = 27$\n            4 x 9 = 36$\n            5 x 9 = 45$\n            6 x 9 = 54$\n            7 x 9 = 63$\n     ... (+18 chars)"
+ },
+ "73987646a4f11d7b43b0": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/21: ./tab_mult \"9\"\n  expected: 1 x 9 = 9$\n            2 x 9 = 18$\n            3 x 9 = 27$\n            4 x 9 = 36$\n            5 x 9 = 45$\n            6 x 9 = 54$\n            7 x 9 = 63$\n     ... (+42 chars)\n  yours   : 1x^@ 9 = 9$\n            2x^@ 9 = 18$\n            3x^@ 9 = 27$\n            4x^@ 9 = 36$\n            5x^@ 9 = 45$\n            6x^@ 9 = 54$\n            7x^@ 9 = 63... (+51 chars)"
+ },
+ "057484ca02f58b1edbfe": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "a3fb460782edeb83dc38": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/21: ./tab_mult \"9\"\n  expected: 1 x 9 = 9$\n            2 x 9 = 18$\n            3 x 9 = 27$\n            4 x 9 = 36$\n            5 x 9 = 45$\n            6 x 9 = 54$\n            7 x 9 = 63$\n     ... (+42 chars)\n  yours   : 1 x 9 = 10$\n            2 x 9 = 11$\n            3 x 9 = 12$\n            4 x 9 = 13$\n            5 x 9 = 14$\n            6 x 9 = 15$\n            7 x 9 = 16$\n    ... (+43 chars)"
+ },
+ "dfe58220565eda103491": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/21: ./tab_mult \"9\"\n  expected: 1 x 9 = 9$\n            2 x 9 = 18$\n            3 x 9 = 27$\n            4 x 9 = 36$\n            5 x 9 = 45$\n            6 x 9 = 54$\n            7 x 9 = 63$\n     ... (+42 chars)\n  yours   : 1 x 9 = 9$\n            2 x 9 = 9$\n            3 x 9 = 9$\n            4 x 9 = 9$\n            5 x 9 = 9$\n            6 x 9 = 9$\n            7 x 9 = 9$\n           ... (+34 chars)"
+ },
+ "fbb3eda556447faa03ac": {
+  "passed": true,
+  "reason": "Success",
+  "details": ""
+ },
+ "122a6d9e6b3eb4b846b6": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/16: fixed edge cases\n  first difference at output line 8:\n  expected:   FFFFFFFF$\n  yours   :   11111111$"
+ },
+ "f1b5e13e9667869d8a3c": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/16: fixed edge cases\n  Segmentation fault (access violation)\n  first difference at output line 8:\n  expected:   FFFFFFFF$\n  yours   : <no more output>"
+ },
+ "fd4dfbb925819d41e2a3": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "0e4e3e7ee6a1eef48ac4": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "a0ed57ccc9dad55a14b1": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "6a4527ad782a33ccadeb": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/16: fixed edge cases\n  first difference at output line 8:\n  expected:   FFFFFFFF$\n  yours   :   1111111F$"
+ },
+ "ce878b22190b79c62c01": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "f1e6c8b7456e367fae29": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "adea95fb28af68ca6a5b": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "0665f72ebeb3318a6d5a": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/16: fixed edge cases\n  first difference at output line 8:\n  expected:   FFFFFFFF$\n  yours   :   11111111$"
+ },
+ "04d215098b5441e7ce1c": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/16: fixed edge cases\n  first difference at output line 8:\n  expected:   FFFFFFFF$\n  yours   :   11111111$"
+ },
+ "5b7b50dc31ed2eaeab77": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "660bd985a92b49b53600": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/16: fixed edge cases\n  Segmentation fault (access violation)\n  first difference at output line 8:\n  expected:   FFFFFFFF$\n  yours   : <no more output>"
+ },
+ "92fb4d3abfb2d15a956c": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/16: fixed edge cases\n  first difference at output line 8:\n  expected:   FFFFFFFF$\n  yours   :   11111111$"
+ },
+ "195eb1070a525f478265": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "049f8fb7c8be47142835": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/32: ./fprime \"225225\"\n  expected: 3*3*5*5*7*11*13$\n  yours   : $"
+ },
+ "8778e1e76308f2efacb9": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "f4e38e2bcd15ffb47326": {
+  "passed": false,
+  "reason": "Timeout",
+  "details": "  Test 1/32: ./fprime \"225225\"\n  your code ran for more than 5s (infinite loop?)"
+ },
+ "b992efc24b03cd9fbf83": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/32: ./fprime \"225225\"\n  Division by zero\n  expected: 3*3*5*5*7*11*13$\n  yours   : <nothing>"
+ },
+ "74d070a0255819711b9c": {
+  "passed": false,
+  "reason": "Timeout",
+  "details": "  Test 1/32: ./fprime \"225225\"\n  your code ran for more than 5s (infinite loop?)"
+ },
+ "81d31715c84343a3fead": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/32: ./fprime \"225225\"\n  expected: 3*3*5*5*7*11*13$\n  yours   : 225226$"
+ },
+ "2916156db9046420b695": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/32: ./fprime \"225225\"\n  expected: 3*3*5*5*7*11*13$\n  yours   : 2*3*3*3*4*4*6*6*6$"
+ },
+ "b3b72c1456d17ac072b9": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/32: ./fprime \"225225\"\n  expected: 3*3*5*5*7*11*13$\n  yours   : 3$"
+ },
+ "666c389ee06b701a9c11": {
+  "passed": false,
+  "reason": "Timeout",
+  "details": "  Test 1/32: ./fprime \"225225\"\n  your code ran for more than 5s (infinite loop?)"
+ },
+ "f60f8ecf13feec308a06": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "8d638596e8a747c3173a": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/32: ./fprime \"225225\"\n  expected: 3*3*5*5*7*11*13$\n  yours   : 2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2$"
+ },
+ "50305df584ec8128c6e7": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_itoa(0) = \"0\"$\n  yours   : ft_itoa(0) = \"0\\xf5\\x805\\xce^B\"$"
+ },
+ "6ba582ff30d476b71b17": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_itoa(0) = \"0\"$\n  yours   : ft_itoa(0) = \"0\\xf5\\xdaT^W^B\"$"
+ },
+ "d5f719bdb22309f86da4": {
+  "passed": true,
+  "reason": "Success",
+  "details": ""
+ },
+ "fa367755d3bb444b97b6": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 1:\n  expected: ft_itoa(0) = \"0\"$\n  yours   : ft_itoa(0) = \"00\\xba\\xe4\\xc4^B\"$"
+ },
+ "4b4f0a3db2eb16497257": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "b18bb694532feeaf2c1c": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "00cc1b8094e975f572f3": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 3:\n  expected: ft_itoa(-1) = \"-1\"$\n  yours   : ft_itoa(-1) = \"-/\"$"
+ },
+ "5509d22116f5a2b17313": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 20:\n  expected: ft_itoa(-2147483648) = \"-2147483648\"$\n  yours   : ft_itoa(-2147483648) = \"-./,),(-*,(\"$"
+ },
+ "bc9cb1908e36dbe12bba": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 2:\n  expected: ft_itoa(1) = \"1\"$\n  yours   : ft_itoa(1) = \"\\xe01^P\\xcc\\xb2^A\"$"
+ },
+ "a6fc7dbd1096b7aeb90c": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 2:\n  expected: ft_itoa(1) = \"1\"$\n  yours   : ft_itoa(1) = \"\\xe01\\xf6^D\\xa6^A\"$"
+ },
+ "ebc298653e4b42921e11": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 7:\n  expected: ft_itoa(10) = \"10\"$\n  yours   : ft_itoa(10) = \"P1\"$"
+ },
+ "d8708ba31c321e173406": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 2:\n  expected: ft_itoa(1) = \"1\"$\n  yours   : ft_itoa(1) = \"^A\"$"
+ },
+ "c1d55f4bc55d3b177908": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 2:\n  expected: ft_itoa(1) = \"1\"$\n  yours   : ft_itoa(1) = \"0\"$"
+ },
+ "0c2e710af6b4d951d873": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/11: fixed edge cases\n  first difference at output line 7:\n  expected: ft_itoa(10) = \"10\"$\n  yours   : ft_itoa(10) = \"1:\"$"
+ },
+ "6ec12691dafefe26c6b9": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "5d97865eb27149b1287d": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "6d9239fe9ec74090ad64": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "ccd1088ee4529fe18325": {
+  "passed": true,
+  "reason": "Success",
+  "details": ""
+ },
+ "99067b307de6cdb44179": {
+  "passed": true,
+  "reason": "Success",
+  "details": ""
+ },
+ "2e80684de982862bed70": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "341776815107ac852114": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "4abff27f965ee8c59b4f": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "41bbebc44dc018c5f899": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/11: fixed edge cases\n  Segmentation fault (access violation)\n  first difference at output line 2:\n  expected:   -> f was called 0 time(s)$\n  yours   : <no more output>"
+ },
+ "2642baa73447f5a7e2c1": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/11: fixed edge cases\n  Segmentation fault (access violation)\n  first difference at output line 2:\n  expected:   -> f was called 0 time(s)$\n  yours   : <no more output>"
+ },
+ "82050f0451b3a3fe6ee2": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "cb73d0eb456603078af1": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/11: fixed edge cases\n  Segmentation fault (access violation)\n  first difference at output line 4:\n  expected:   call #1: f(\"42\")$\n  yours   :   call #1: f(\"\")$"
+ },
+ "c39f14e8fb92d3f6181b": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/11: fixed edge cases\n  Segmentation fault (access violation)\n  first difference at output line 4:\n  expected:   call #1: f(\"42\")$\n  yours   :   call #1: f(\"\")$"
+ },
+ "97073738f836a6969fed": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "b34d50840cf3315b939d": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "419a01295426b3dbb06b": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/11: fixed edge cases\n  Segmentation fault (access violation)\n  first difference at output line 5:\n  expected:   -> f was called 1 time(s)$\n  yours   :   call #2: f(\""
+ },
+ "5b339cbfc15cdaedef35": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "a4a90e245a8a5b03bbc9": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/11: fixed edge cases\n  Segmentation fault (access violation)\n  first difference at output line 5:\n  expected:   -> f was called 1 time(s)$\n  yours   :   call #2: f(\""
+ },
+ "f19ef41e592ad5bc74db": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "f4cf405965a7b98bac19": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "b8d5bb1da4523e8f8175": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "48e934f2fe5410d1ea2a": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "091aa80658ae9df85f66": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/16: fixed edge cases\n  first difference at output line 2:\n  expected: ft_list_remove_if([\"a\"], \"a\", cmp) -> []$\n  yours   : ft_list_remove_if([\"a\"], \"a\", cmp) -> [\"a\"]$"
+ },
+ "102a1724b06407a8c0b9": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/16: fixed edge cases\n  first difference at output line 2:\n  expected: ft_list_remove_if([\"a\"], \"a\", cmp) -> []$\n  yours   : ft_list_remove_if([\"a\"], \"a\", cmp) -> [\"a\"]$"
+ },
+ "2d652ba5b10c8fae4434": {
+  "passed": false,
+  "reason": "Forbidden function",
+  "details": ""
+ },
+ "6a8e05494ffe24aa6d1c": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/16: fixed edge cases\n  Stack overflow (infinite recursion?)\n  first difference at output line 2:\n  expected: ft_list_remove_if([\"a\"], \"a\", cmp) -> []$\n  yours   : ft_list_remove_if([\"a\"], \"a\", cmp) -> "
+ },
+ "b3a16959534bf80f4a84": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "88f1da9100a7cc48256b": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/16: fixed edge cases\n  Heap corruption (double free / invalid free / buffer overflow?)\n  first difference at output line 2:\n  expected: ft_list_remove_if([\"a\"], \"a\", cmp) -> []$\n  yours   : ft_list_remove_if([\"a\"], \"a\", cmp) -> "
+ },
+ "4470cc74b5f97d403c73": {
+  "passed": true,
+  "reason": "Success",
+  "details": ""
+ },
+ "de8c7d94bfd1120ed0dc": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/16: fixed edge cases\n  Heap corruption (double free / invalid free / buffer overflow?)\n  first difference at output line 2:\n  expected: ft_list_remove_if([\"a\"], \"a\", cmp) -> []$\n  yours   : ft_list_remove_if([\"a\"], \"a\", cmp) -> "
+ },
+ "6592f22436d2b1d8af5e": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "36e3cc17e20ff6827320": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "bdfab36471b4c139d4c7": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "127e974fdfa0969d925a": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "b974bde3c2b37c40de36": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "938ee91ce090b8179fc8": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/16: fixed edge cases\n  Stack overflow (infinite recursion?)\n  first difference at output line 3:\n  expected: ft_list_remove_if([\"a\"], \"b\", cmp) -> [\"a\"]$\n  yours   : ft_list_remove_if([\"a\"], \"b\", cmp) -> "
+ },
+ "a448812e8545c787860e": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/16: fixed edge cases\n  Stack overflow (infinite recursion?)\n  first difference at output line 3:\n  expected: ft_list_remove_if([\"a\"], \"b\", cmp) -> [\"a\"]$\n  yours   : ft_list_remove_if([\"a\"], \"b\", cmp) -> "
+ },
+ "721df5b1c670ccde0feb": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "d686060c209fbeff9ab1": {
+  "passed": true,
+  "reason": "Success",
+  "details": ""
+ },
+ "5883f36ccb29f57a285d": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 10/16: random tests, seed 9\n  Heap corruption (double free / invalid free / buffer overflow?)\n  first difference at output line 6:\n  expected: ft_split(\"byq_6 uj-uheb\\n\\nX m d sm\\t0\") = {\"byq_6\", \"uj-uheb\", \"X\", \"m\", \"d\", \"sm\", \"0\", NULL}$\n  yours   : ft_split(\"byq_6 uj-uheb\\n\\nX m d sm\\t0\") = "
+ },
+ "a972308f4edc115d65b0": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/16: fixed edge cases\n  first difference at output line 15:\n  expected: ft_split(\"tabs\\tand spaces \\t mixed\\t\\t\") = {\"tabs\", \"and\", \"spaces\", \"mixed\", NULL}$\n  yours   : ft_split(\"tabs\\tand spaces \\t mixed\\t\\t\") = {\"tabs\", \"\\xf0\\xfa\\xf7^O*^B\", \"spaces\", \"mixed\", NULL}$"
+ },
+ "8646defcb3f6fcb4d93d": {
+  "passed": true,
+  "reason": "Success",
+  "details": ""
+ },
+ "d3e3b26556f7f21fa1a0": {
+  "passed": true,
+  "reason": "Success",
+  "details": ""
+ },
+ "f6cbdfd2d60dafb825bf": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/16: fixed edge cases\n  first difference at output line 5:\n  expected: ft_split(\"hello world\") = {\"hello\", \"world\", NULL}$\n  yours   : ft_split(\"hello world\") = {\"hello world\", NULL}$"
+ },
+ "699e512f0fbfd56a5e19": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/16: fixed edge cases\n  Segmentation fault (access violation)\n  first difference at output line 4:\n  expected: ft_split(\"hello\") = {\"hello\", NULL}$\n  yours   : ft_split(\"hello\") = "
+ },
+ "4e0c5de77d13e2a0ff6a": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/16: fixed edge cases\n  first difference at output line 8:\n  expected: ft_split(\"\\tone\\ttwo\\n\\nthree   \") = {\"one\", \"two\", \"three\", NULL}$\n  yours   : ft_split(\"\\tone\\ttwo\\n\\nthree   \") = {\"one\\ttwo\\n\\nthree\", NULL}$"
+ },
+ "1c580214ab72ee5b566a": {
+  "passed": true,
+  "reason": "Success",
+  "details": ""
+ },
+ "4545c5285eb20f94c0ab": {
+  "passed": true,
+  "reason": "Success",
+  "details": ""
+ },
+ "81703d80a498f360e985": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "4ff8033140e896c05202": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/16: fixed edge cases\n  Segmentation fault (access violation)\n  first difference at output line 4:\n  expected: ft_split(\"hello\") = {\"hello\", NULL}$\n  yours   : ft_split(\"hello\") = "
+ },
+ "35373464406402820f65": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/16: fixed edge cases\n  first difference at output line 5:\n  expected: ft_split(\"hello world\") = {\"hello\", \"world\", NULL}$\n  yours   : ft_split(\"hello world\") = {\"hello\", \"a\", NULL}$"
+ },
+ "7cabc01691029d05d413": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/16: fixed edge cases\n  Segmentation fault (access violation)\n  first difference at output line 4:\n  expected: ft_split(\"hello\") = {\"hello\", NULL}$\n  yours   : ft_split(\"hello\") = {\"hello\", \"ello\", \"llo\", \"lo\", \"o\", NULL}$"
+ },
+ "d8cb27a30a982892260b": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/16: fixed edge cases\n  Segmentation fault (access violation)\n  first difference at output line 5:\n  expected: ft_split(\"hello world\") = {\"hello\", \"world\", NULL}$\n  yours   : ft_split(\"hello world\") = "
+ },
+ "5d32bb57bee0c38ddb38": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/16: fixed edge cases\n  Segmentation fault (access violation)\n  first difference at output line 4:\n  expected: ft_split(\"hello\") = {\"hello\", NULL}$\n  yours   : ft_split(\"hello\") = "
+ },
+ "7821867c8d7eed387286": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/16: fixed edge cases\n  Segmentation fault (access violation)\n  first difference at output line 1:\n  expected: ft_split(\"\") = {NULL}$\n  yours   : ft_split(\"\") = {\"\", \"\\xb0\\xaf\\xf9\\xc6z^B\", \"0\\xc3\\xf8\\xc6z^B\", \""
+ },
+ "d28657930e92392187b1": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/16: fixed edge cases\n  Segmentation fault (access violation)\n  first difference at output line 1:\n  expected: ft_split(\"\") = {NULL}$\n  yours   : ft_split(\"\") = {\"\", \"\\xb0\\xaf\\xba:q^A\", \"0\\xc3\\xb9:q^A\", \""
+ },
+ "b614113d4d956babe45d": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "9c0f47a9fcb38d544542": {
+  "passed": false,
+  "reason": "Timeout",
+  "details": "  Test 1/24: ./rev_wstr \"You hate people! But I love gatherings. Isn't it ironic?\"\n  your code ran for more than 5s (infinite loop?)"
+ },
+ "7e1609015e82ff967a37": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "1c8428dacb8300e68f87": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/24: ./rev_wstr \"You hate people! But I love gatherings. Isn't it ironic?\"\n  expected: ironic? it Isn't gatherings. love I But people! hate You$\n  yours   : ironic? it Isn't gatherings. love I But people! hate \\x97You$"
+ },
+ "9a56c61aa73aad96ffa4": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/24: ./rev_wstr \"You hate people! But I love gatherings. Isn't it ironic?\"\n  expected: ironic? it Isn't gatherings. love I But people! hate You$\n  yours   :  ironic it Isn't gatherings. love I But people! hate ^@\\x97You$"
+ },
+ "8b70401fea4db54e0b07": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/24: ./rev_wstr \"You hate people! But I love gatherings. Isn't it ironic?\"\n  expected: ironic? it Isn't gatherings. love I But people! hate You$\n  yours   :  ironic?itIsn'tgatherings.loveIButpeople!hateYou$"
+ },
+ "241419026cf8ed709192": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "b914f1a8ee8930ce9fc9": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "18ae03fb29a88397904e": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/24: ./rev_wstr \"You hate people! But I love gatherings. Isn't it ironic?\"\n  expected: ironic? it Isn't gatherings. love I But people! hate You$\n  yours   : You hat Yo You h You hate pe You  Y You You hat You  You$"
+ },
+ "828eaa14d502d64ce78f": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/24: ./rev_wstr \"You hate people! But I love gatherings. Isn't it ironic?\"\n  expected: ironic? it Isn't gatherings. love I But people! hate You$\n  yours   : ^@\\xad<I\\xc2^A^@  i  it i  Isn't it i  gat    I   But I   peo  ha$"
+ },
+ "f53089acc1b379b02152": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/24: ./rev_wstr \"You hate people! But I love gatherings. Isn't it ironic?\"\n  expected: ironic? it Isn't gatherings. love I But people! hate You$\n  yours   : ironic?^@ it  Isn't  gatherings.  love  I  But  people!  hate  You $"
+ },
+ "456ea21aaf48153d3a96": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/24: ./rev_wstr \"You hate people! But I love gatherings. Isn't it ironic?\"\n  expected: ironic? it Isn't gatherings. love I But people! hate You$\n  yours   :          $"
+ },
+ "b8ba96c74fc2ba65991c": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/24: ./rev_wstr \"You hate people! But I love gatherings. Isn't it ironic?\"\n  expected: ironic? it Isn't gatherings. love I But people! hate You$\n  yours   : ironic?^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@}s\\xa3\\xef^@^U^@\\x90C^@:^@\\^@W^@I^@N^@D^@O^@W^@S^@\\^@S^@Y it ironic?^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@}s\\xa3\\xef^@^U^@\\x90C... (+250 chars)"
+ },
+ "76ebfbeb698edaf34417": {
+  "passed": false,
+  "reason": "Timeout",
+  "details": "  Test 1/24: ./rev_wstr \"You hate people! But I love gatherings. Isn't it ironic?\"\n  your code ran for more than 5s (infinite loop?)"
+ },
+ "e1e50253ffaa7f36f0c6": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/24: ./rev_wstr \"You hate people! But I love gatherings. Isn't it ironic?\"\n  expected: ironic? it Isn't gatherings. love I But people! hate You$\n  yours   : ironic? i Isn' gatherings lov  Bu people hat Yo$"
+ },
+ "35fe2cbf4c1d711cf9da": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 4/27: ./rostring \"first\" \"2\" \"11000000\"\n  expected: first$\n  yours   : $"
+ },
+ "bfc20462d01d67fb8554": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 5/27: ./rostring\n  Segmentation fault (access violation)\n  expected: $\n  yours   : <nothing>"
+ },
+ "8d29c62b6939c831fbe1": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 5/27: ./rostring\n  Segmentation fault (access violation)\n  expected: $\n  yours   : <nothing>"
+ },
+ "982b196e795017898e75": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 3/27: ./rostring \"     AkjhZ zLKIJz , 23y\"\n  expected: zLKIJz , 23y AkjhZ$\n  yours   : zLKIJz , 23y AkjhZ zLKI$"
+ },
+ "a0ea474e24b26062391e": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/27: ./rostring \"abc   \"\n  expected: abc$\n  yours   : abc $"
+ },
+ "f7ba6116daab44ce1d87": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/27: ./rostring \"abc   \"\n  expected: abc$\n  yours   : abc   ^@^@P^A\\xa2$\n            t^B^@^@a^@l^@\\^@M^@\\xfe\\xb5U\\xc4+`^@^@P^A\\xa2$\n            t^B^@^@P^A\\xa2$\n            t^B^@^@G^@e^@t^@\\^@P^@a^@c^@k^@a^@g^@e^@s^... (+10972 chars)"
+ },
+ "8c4bead70de1066c0957": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/27: ./rostring \"abc   \"\n  expected: abc$\n  yours   :  abc$"
+ },
+ "fe68b9098197744a33ee": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/27: ./rostring \"abc   \"\n  expected: abc$\n  yours   :  abc$"
+ },
+ "c935890508f332f007ca": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 2/27: ./rostring \"Que la      lumiere soit et la lumiere fut\"\n  expected: la lumiere soit et la lumiere fut Que$\n  yours   : a  umiere  oit  t  a  umiere  ut^@ Que$"
+ },
+ "1c7a617cac29f08efa02": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "0b6baae381ef1bf7fa5a": {
+  "passed": false,
+  "reason": "Timeout",
+  "details": "  Test 2/27: ./rostring \"Que la      lumiere soit et la lumiere fut\"\n  your code ran for more than 5s (infinite loop?)"
+ },
+ "9aaf8540d7fb3e5588ce": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/27: ./rostring \"abc   \"\n  expected: abc$\n  yours   :  abc$"
+ },
+ "38999cd755117ec92b32": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/27: ./rostring \"abc   \"\n  expected: abc$\n  yours   :  abc$"
+ },
+ "6eff49b5cbf6179f6a71": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 2/27: ./rostring \"Que la      lumiere soit et la lumiere fut\"\n  expected: la lumiere soit et la lumiere fut Que$\n  yours   : la lumiere soit et la lumiere futQue$"
+ },
+ "d1001f87596137dabdf9": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 3/27: ./rostring \"     AkjhZ zLKIJz , 23y\"\n  expected: zLKIJz , 23y AkjhZ$\n  yours   : zLKIJz , 23y      $"
+ },
+ "5582d42fec64226f868b": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "5c4eb6ecf343869f7fe0": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/27: ./rostring \"abc   \"\n  expected: abc$\n  yours   : ^@^@P$"
+ },
+ "73ecea352e7b5880bee1": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/16: fixed edge cases\n  first difference at output line 1:\n  expected: sort_int_tab([42], 1) -> [42]$\n  yours   : sort_int_tab([42], 1) -> [-2147483648]$"
+ },
+ "5dd311d7028d946cf7a0": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/16: fixed edge cases\n  first difference at output line 1:\n  expected: sort_int_tab([42], 1) -> [42]$\n  yours   : sort_int_tab([42], 1) -> [-2147483648]$"
+ },
+ "8165f565b0bd7b767c84": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/16: fixed edge cases\n  first difference at output line 5:\n  expected: sort_int_tab([5, 4, 3, 2, 1], 5) -> [1, 2, 3, 4, 5]$\n  yours   : sort_int_tab([5, 4, 3, 2, 1], 5) -> [3, 2, 4, 1, 5]$"
+ },
+ "cc05edf6b01b96de56a6": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/16: fixed edge cases\n  first difference at output line 2:\n  expected: sort_int_tab([2, 1], 2) -> [1, 2]$\n  yours   : sort_int_tab([2, 1], 2) -> [2, 1]$"
+ },
+ "16cee8d0275904fef1be": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/16: fixed edge cases\n  first difference at output line 8:\n  expected: sort_int_tab([-5, 10, 0, -2147483648, 2147483647, 7, -1], 7) -> [-2147483648, -5, -1, 0, 7, 10, 2147483647]$\n  yours   : sort_int_tab([-5, 10, 0, -2147483648, 2147483647, 7, -1], 7) -> [-5, 0, 7, 10, 2147483647, -2147483648, -1]$"
+ },
+ "32188907c4622ef0ca86": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/16: fixed edge cases\n  Segmentation fault (access violation)\n  first difference at output line 2:\n  expected: sort_int_tab([2, 1], 2) -> [1, 2]$\n  yours   : sort_int_tab([2, 1], 2) -> "
+ },
+ "c31daae2241c048faa25": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/16: fixed edge cases\n  first difference at output line 2:\n  expected: sort_int_tab([2, 1], 2) -> [1, 2]$\n  yours   : sort_int_tab([2, 1], 2) -> [2, 2]$"
+ },
+ "657255e982db038a2017": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/16: fixed edge cases\n  first difference at output line 2:\n  expected: sort_int_tab([2, 1], 2) -> [1, 2]$\n  yours   : sort_int_tab([2, 1], 2) -> [2, 2]$"
+ },
+ "2cf65f4555a4c47c9fe2": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/16: fixed edge cases\n  first difference at output line 2:\n  expected: sort_int_tab([2, 1], 2) -> [1, 2]$\n  yours   : sort_int_tab([2, 1], 2) -> [2, 1]$"
+ },
+ "5a528110e2b88e6a7480": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "4aae897457336ccea392": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "715d3769117907832f4b": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "fa90a69149296cab74a6": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "93cef3d3a7a97cccfa8d": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/16: fixed edge cases\n  Segmentation fault (access violation)\n  first difference at output line 1:\n  expected: sort_list([42], ascending) -> [42]$\n  yours   : sort_list([42], ascending) -> "
+ },
+ "0600f9417ad1e836c5e0": {
+  "passed": true,
+  "reason": "Success",
+  "details": ""
+ },
+ "74b567ebf7e001f18021": {
+  "passed": true,
+  "reason": "Success",
+  "details": ""
+ },
+ "674d165b5e915e45d717": {
+  "passed": false,
+  "reason": "Timeout",
+  "details": "  Test 1/16: fixed edge cases\n  your code ran for more than 5s (infinite loop?)"
+ },
+ "477dd81c75ffdbac0eb6": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "acc52939d1f884bfcee6": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "f38ee6946b2f90cc98ef": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/16: fixed edge cases\n  first difference at output line 2:\n  expected: sort_list([2, 1], ascending) -> [1, 2]$\n  yours   : sort_list([2, 1], ascending) -> [2, 1]$"
+ },
+ "784ef228b4682ac03b1b": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "87cf17c1b9b9a7d95f0c": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/16: fixed edge cases\n  first difference at output line 2:\n  expected: sort_list([2, 1], ascending) -> [1, 2]$\n  yours   : sort_list([2, 1], ascending) -> [2, 2]$"
+ },
+ "15c2b3b6057d4e381e72": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/16: fixed edge cases\n  first difference at output line 5:\n  expected: sort_list([5, 4, 3, 2, 1], ascending) -> [1, 2, 3, 4, 5]$\n  yours   : sort_list([5, 4, 3, 2, 1], ascending) -> [4, 3, 2, 1, 5]$"
+ },
+ "022a54724b286792486e": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/16: fixed edge cases\n  first difference at output line 5:\n  expected: sort_list([5, 4, 3, 2, 1], ascending) -> [1, 2, 3, 4, 5]$\n  yours   : sort_list([5, 4, 3, 2, 1], ascending) -> [4, 3, 2, 1, 5]$"
+ },
+ "0451437d2c6d28beb968": {
+  "passed": false,
+  "reason": "Compilation error",
+  "details": ""
+ },
+ "47fb09df8ba29d8daa20": {
+  "passed": false,
+  "reason": "Crash",
+  "details": "  Test 1/16: fixed edge cases\n  Segmentation fault (access violation)\n  first difference at output line 2:\n  expected: sort_list([2, 1], ascending) -> [1, 2]$\n  yours   : sort_list([2, 1], ascending) -> "
+ },
+ "6099d4bd82fa70ef4043": {
+  "passed": false,
+  "reason": "Timeout",
+  "details": "  Test 1/16: fixed edge cases\n  your code ran for more than 5s (infinite loop?)"
+ },
+ "7e0f8aa92c40ee888994": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/16: fixed edge cases\n  first difference at output line 5:\n  expected: sort_list([5, 4, 3, 2, 1], ascending) -> [1, 2, 3, 4, 5]$\n  yours   : sort_list([5, 4, 3, 2, 1], ascending) -> [4, 5, 2, 3, 1]$"
+ },
+ "673c51cca1d9fcaaa347": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/16: fixed edge cases\n  first difference at output line 2:\n  expected: sort_list([2, 1], ascending) -> [1, 2]$\n  yours   : sort_list([2, 1], ascending) -> [2]$"
+ },
+ "0d28ab4f9d0baf22f7e3": {
+  "passed": false,
+  "reason": "Wrong output",
+  "details": "  Test 1/16: fixed edge cases\n  first difference at output line 1:\n  expected: sort_list([42], ascending) -> [42]$\n  yours   : sort_list([42], ascending) -> []$"
+ }
+}

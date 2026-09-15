@@ -1,0 +1,31 @@
+{
+  "type": "program",
+  "expected_files": [
+    "camel_to_snake.c"
+  ],
+  "allowed_functions": [
+    "malloc",
+    "realloc",
+    "write"
+  ],
+  "fixed_tests": [
+    [
+      "hereIsACamelCaseWord"
+    ],
+    [
+      "helloWorld"
+    ],
+    [],
+    [
+      "word"
+    ],
+    [
+      "aB"
+    ],
+    [
+      "iLoveC"
+    ]
+  ],
+  "generator": "camel",
+  "random_tests": 15
+}

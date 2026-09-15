@@ -1,0 +1,53 @@
+@@ question
+match: exact
+args: ["Wingardium Leviosa"]
+answer: Leviosa Wingardium$
+    $> ./rev_wstr "Wingardium Leviosa" | cat -e
+---
+The WORDS come out in reverse order, separated by one space, followed by "\n".
+
+@@ question
+match: exact
+args: ["abcdefghijklm"]
+answer: abcdefghijklm$
+wrong: mlkjihgfedcba$ => rev_wstr reverses the order of the WORDS, not the letters. One word stays exactly the same.
+    $> ./rev_wstr "abcdefghijklm" | cat -e
+---
+Only the order of the words changes, never the letters inside a word. A single
+word is printed unchanged.
+
+@@ question
+match: exact
+args: ["You hate people! But I love gatherings."]
+answer: gatherings. love I But people! hate You$
+    $> ./rev_wstr "You hate people! But I love gatherings." | cat -e
+---
+A word is everything between spaces - punctuation included. "people!" and
+"gatherings." are words, the `!` and `.` stay attached to them.
+
+@@ question
+match: exact
+args: ["Hello", "World"]
+answer: $
+wrong: World Hello$ => Those are two separate PARAMETERS. The program takes exactly one; with 2 it only prints a newline.
+    $> ./rev_wstr "Hello" "World" | cat -e
+---
+Two parameters (argc == 3) => "the program will display '\n'". The quotes matter:
+"Hello World" would be one parameter with two words.
+
+@@ question
+match: exact
+args: [""]
+answer: $
+    $> ./rev_wstr "" | cat -e
+---
+One parameter, but it contains no words: nothing to print except the newline.
+
+@@ question
+match: exact
+args: ["1 22 333"]
+answer: 333 22 1$
+    $> ./rev_wstr "1 22 333" | cat -e
+---
+Words are reversed as a whole: "333" stays "333". One space between words, none
+at the end - `cat -e` would show a trailing space as "1 $".

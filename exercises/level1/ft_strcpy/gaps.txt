@@ -1,0 +1,58 @@
+@@ intro
+strcpy(dest, src) copies the string src into dest, INCLUDING the '\0' at the end, and
+returns dest. In the subject's prototype `s1` is the destination and `s2` the source -
+the same order as an assignment: `s1 = s2`.
+
+@@ file ft_strcpy.c
+char	*ft_strcpy(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while ({{1}})
+	{
+		{{2}};
+		i++;
+	}
+	{{3}};
+	return ({{4}});
+}
+
+@@ gap 1
+answer: s2[i]
+accept: s2[i] != '\0'
+accept: s2[i] != 0
+wrong: s1[i] => s1 is the destination: its old content is garbage. Copy until the end of the SOURCE: s2[i].
+hint: Copy until the end of which string?
+We copy until the end of the source string, s2. `s2[i]` is false exactly when it is the
+'\0' terminator.
+
+@@ gap 2
+answer: s1[i] = s2[i]
+wrong: s2[i] = s1[i] => Wrong direction: that overwrites the source. s1 is the destination.
+hint: Copy one character from the source into the destination.
+The copy itself: character i of the source goes into position i of the destination.
+Same order as the prototype and as strcpy(dest, src): destination on the left.
+
+@@ gap 3
+answer: s1[i] = '\0'
+accept: s1[i] = 0
+wrong: s1[i + 1] = '\0' => The loop stopped at i = length: the terminator goes at s1[i]. s1[i + 1] leaves garbage at s1[i].
+wrong: s2[i] = '\0' => s2 already ends with '\0'. It's the DESTINATION that needs one.
+hint: The loop stopped before copying the terminator. Add it.
+The loop stops when s2[i] is '\0', WITHOUT copying it. Without this line, s1 would not be
+terminated and printing it would show whatever garbage follows in memory.
+
+@@ gap 4
+answer: s1
+wrong: s2 => strcpy returns the DESTINATION.
+wrong: s1 + i => That points at the end of the copy. strcpy returns the start of the destination: s1.
+hint: What does strcpy return? (man strcpy)
+strcpy returns its first argument, the destination - handy to chain calls like
+`printf("%s", strcpy(buf, "hi"))`.
+
+@@ outro
+Remember:
+- strcpy(dest, src): destination first, like `dest = src`
+- copy the '\0' too (here: after the loop)
+- return the destination

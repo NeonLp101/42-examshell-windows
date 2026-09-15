@@ -1,0 +1,56 @@
+@@ intro
+Reverse the order of the 8 bits: 00100110 => 01100100.
+
+Picture two stacks: take bits off the RIGHT end of octet one by one, and push each onto
+the right end of result. The first bit taken (octet's lowest) ends up pushed all the way
+to the left.
+
+    each step:   result = (result << 1) | (octet & 1);    octet >>= 1;
+
+@@ file reverse_bits.c
+unsigned char	reverse_bits(unsigned char octet)
+{
+	unsigned char	result;
+	int				i;
+
+	result = 0;
+	i = 0;
+	while (i < 8)
+	{
+		result = {{1}};
+		{{2}};
+		i++;
+	}
+	return (result);
+}
+
+@@ gap 1
+answer: (result << 1) | (octet & 1)
+accept: (result << 1) + (octet & 1)
+accept: result * 2 + (octet & 1)
+accept: result * 2 + octet % 2
+accept: (result << 1) | (octet % 2)
+wrong: (result >> 1) | (octet & 1) => Shift result LEFT to make room on the right for the new bit.
+wrong: (result << 1) | octet => Without & 1 all the bits of octet are added, not just the lowest one.
+wrong: result | (octet & 1) => result is never shifted: every bit lands in the same position.
+hint: Make room in result (shift left), then put octet's lowest bit in the free spot.
+`result << 1` shifts everything left, leaving bit 0 free; `| (octet & 1)` puts octet's
+lowest bit there. After 8 rounds, octet's bit 0 has been shifted to position 7, bit 1 to
+position 6, and so on: reversed.
+
+@@ gap 2
+answer: octet >>= 1
+accept: octet = octet >> 1
+accept: octet /= 2
+accept: octet = octet / 2
+wrong: octet <<= 1 => Shift right: the NEXT bit must arrive at position 0.
+wrong: octet >> 1 => That computes a value but doesn't store it (and gcc refuses unused values). Use >>=.
+hint: Bring octet's next bit into position 0.
+Dropping the bit we just used: shift octet right, so the next bit is at position 0 for
+the next round.
+
+@@ outro
+Remember:
+- `(result << 1) | (octet & 1)` pushes one bit into result
+- `octet >>= 1` moves to the next bit
+- exactly 8 rounds for a byte (leading zeros matter: 1 => 128)

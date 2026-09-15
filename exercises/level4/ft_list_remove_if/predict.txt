@@ -1,0 +1,77 @@
+@@ question
+answer: ["b", "c"]
+wrong: ["b", "a", "c"] => ALL matching elements are removed, including consecutive ones.
+Type the list afterwards, like ["x", "y"] (or [] if empty):
+
+    list: ["a", "b", "a", "a", "c"]
+    ft_list_remove_if(&list, "a", cmp);
+---
+Every node whose data compares equal to "a" is removed. Consecutive matches are
+the classic trap: after removing one node, the NEXT node must be checked too.
+
+@@ question
+answer: []
+wrong: ["x"] => Every node matches, including the last one - the list becomes empty (list == NULL).
+    list: ["x", "x", "x"]
+    ft_list_remove_if(&list, "x", cmp);
+---
+All nodes are removed, so the caller's head pointer must become NULL. That's only
+possible because the function receives `&list` (a t_list **).
+
+@@ question
+answer: ["a", "b"]
+    list: ["a", "b"]
+    ft_list_remove_if(&list, "z", cmp);
+---
+Nothing matches: the list stays unchanged.
+
+@@ question
+answer: ["a", "b"]
+wrong: ["b"] => This version never looks at the FIRST node: it only checks cur->next.
+This buggy version only checks the node AFTER cur. What is the list afterwards?
+
+    t_list *cur = *begin_list;
+    while (cur && cur->next)
+    {
+        if (cmp(cur->next->data, data_ref) == 0)
+        {
+            tmp = cur->next;
+            cur->next = tmp->next;
+            free(tmp);
+        }
+        else
+            cur = cur->next;
+    }
+
+    list: ["a", "a", "b"]
+    ft_list_remove_if(&list, "a", cmp);
+---
+The second "a" is removed (it's cur->next), but the head is never compared, so
+the first "a" stays. Handling the head needs `*begin_list = ...` - that's the
+whole point of the double pointer.
+
+@@ question
+answer: 0
+wrong: 2 => == compares ADDRESSES, and data_ref is a different copy of "hi": no pointer is equal.
+This buggy version compares with `cur->data == data_ref`.
+The list holds two separately allocated copies of "hi", and data_ref is a third
+copy. How many nodes are removed?
+
+    list: ["hi", "hi"]
+    ft_list_remove_if(&list, ref_copy_of_hi, cmp);
+---
+Three copies of "hi" live at three different addresses, so `==` is never true.
+Same content, different pointers - that's why the subject gives you cmp.
+
+@@ question
+match: text
+answer: the node
+accept: node
+accept: only the node
+accept: cur
+wrong: both => The data belongs to the caller - ft_list_remove_if only frees the node it unlinks.
+wrong: the data => The data belongs to the caller - ft_list_remove_if only frees the node it unlinks.
+When a node is removed, what must be freed: the node, the data, or both?
+---
+Only the node. The list doesn't own the data (it may not even be malloc'ed - here
+the grader uses string literals). Freeing it would crash or break the caller.

@@ -1,0 +1,13 @@
+# your own exams and practice work - never commit these
+exam/
+practice/
+
+# Python
+__pycache__/
+*.pyc
+
+# editors / OS
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini

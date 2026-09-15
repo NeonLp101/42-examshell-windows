@@ -1,0 +1,68 @@
+@@ intro
+Swap the case of every letter. In ASCII, uppercase and lowercase letters are exactly 32
+apart:
+
+    'A' = 65   'a' = 97       'Z' = 90   'z' = 122
+
+So lowercase => uppercase is `c - 32`, uppercase => lowercase is `c + 32`.
+
+@@ file ulstr.c
+#include <unistd.h>
+
+int	main(int argc, char **argv)
+{
+	char	*s;
+	char	c;
+
+	if (argc == 2)
+	{
+		s = argv[1];
+		while (*s)
+		{
+			c = *s;
+			if ({{1}})
+				c = {{2}};
+			else if (c >= 'A' && c <= 'Z')
+				c = {{3}};
+			write(1, &c, 1);
+			s++;
+		}
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+@@ gap 1
+answer: c >= 'a' && c <= 'z'
+accept: 'a' <= c && c <= 'z'
+accept: c <= 'z' && c >= 'a'
+wrong: c >= 'a' || c <= 'z' => With || this is true for every character. Both bounds: &&.
+wrong: c >= 'a' => '{', '|', '}' and '~' are after 'z': they are not letters.
+hint: Is c a lowercase letter?
+Lowercase letters are the range 'a' to 'z': both bounds must hold => `&&`.
+
+@@ gap 2
+answer: c - 32
+accept: c - ('a' - 'A')
+accept: c - 'a' + 'A'
+accept: c + 'A' - 'a'
+wrong: c + 32 => Wrong direction: lowercase letters have the BIGGER codes. Subtract 32.
+wrong: c - 'a' => That's a position 0-25, not a letter. c - 32 (or c - 'a' + 'A').
+hint: 'a' is 97 and 'A' is 65.
+Lowercase codes are 32 higher than uppercase codes, so subtracting 32 turns 'a' (97)
+into 'A' (65). `c - 'a' + 'A'` says the same thing without the magic number.
+
+@@ gap 3
+answer: c + 32
+accept: c + ('a' - 'A')
+accept: c - 'A' + 'a'
+accept: c + 'a' - 'A'
+wrong: c - 32 => Wrong direction: uppercase => lowercase means going UP 32.
+hint: The other direction.
+Uppercase => lowercase: + 32.
+
+@@ outro
+Remember:
+- 'a' - 'A' == 32
+- lower => upper: `c - 32`, upper => lower: `c + 32`
+- test ranges with &&: `c >= 'a' && c <= 'z'`

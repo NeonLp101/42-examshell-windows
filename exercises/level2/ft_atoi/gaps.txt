@@ -1,0 +1,82 @@
+@@ intro
+atoi's rules, in order:
+
+1. skip whitespace: ' ', '\t', '\n', '\v', '\f', '\r' (codes 9 to 13 and 32)
+2. ONE optional sign: '+' or '-'
+3. read digits until something that isn't a digit
+
+    "  -42abc"  =>  -42          "--5"  =>  0          "+17"  =>  17
+
+Each digit is added with `result = result * 10 + digit`: 4 => 42 => 423 ...
+
+@@ file ft_atoi.c
+int	ft_atoi(const char *str)
+{
+	int	sign;
+	int	result;
+
+	sign = 1;
+	result = 0;
+	while ({{1}})
+		str++;
+	if ({{2}})
+	{
+		if (*str == '-')
+			sign = -1;
+		str++;
+	}
+	while (*str >= '0' && *str <= '9')
+	{
+		result = {{3}};
+		str++;
+	}
+	return (result);
+}
+
+@@ gap 1
+answer: *str == ' ' || (*str >= '\t' && *str <= '\r')
+accept: *str == ' ' || (*str >= 9 && *str <= 13)
+accept: (*str >= '\t' && *str <= '\r') || *str == ' '
+accept: (*str >= 9 && *str <= 13) || *str == ' '
+accept: *str == 32 || (*str >= 9 && *str <= 13)
+wrong: *str == ' ' => atoi also skips tabs, newlines, \v, \f and \r (codes 9 to 13).
+wrong: *str == ' ' || *str == '\t' => atoi also skips \n, \v, \f and \r (all codes from 9 to 13).
+wrong: *str == ' ' || *str >= '\t' && *str <= '\r' => Right idea, but add parentheses around the && part (gcc -Wall refuses it without them).
+hint: Space, plus every character from '\t' (9) to '\r' (13).
+The whitespace characters atoi skips are the space (32) and the codes 9 to 13, which
+are consecutive: '\t' 9, '\n' 10, '\v' 11, '\f' 12, '\r' 13. A range test covers them all.
+
+@@ gap 2
+answer: *str == '-' || *str == '+'
+accept: *str == '+' || *str == '-'
+wrong: *str == '-' => atoi also accepts ONE '+' sign: ft_atoi("+17") must return 17.
+wrong: *str == '-' && *str == '+' => A character can't be both: that's never true. Use ||.
+hint: Which characters can come right before the digits?
+One optional sign, '+' or '-'. It's an `if`, not a `while`: "--5" or "+-5" give 0,
+because after the first sign the next character is not a digit.
+
+@@ gap 3
+answer: result * 10 + (*str - '0') * sign
+accept: result * 10 + sign * (*str - '0')
+accept: 10 * result + (*str - '0') * sign
+accept: result * 10 + (*str - 48) * sign
+wrong: result * 10 + (*str - '0') => The sign is never applied: "-42" would return 42. Multiply the digit by sign.
+wrong: result * 10 + *str => *str is the character code ('4' is 52). The digit is *str - '0'.
+wrong: result + (*str - '0') * sign => Shift the previous digits left first: result * 10.
+hint: Shift the result one decimal place left, then add the new digit (with its sign).
+`result * 10` shifts the digits one place left, then the new digit is added:
+
+    "423":   0 * 10 + 4 = 4      4 * 10 + 2 = 42      42 * 10 + 3 = 423
+
+Why multiply each digit by `sign` instead of `return (result * sign)` at the end? For
+"-2147483648": 2147483648 doesn't fit in an int, but building -2147483648 directly
+(going negative from the start) never overflows.
+
+@@ outro
+Remember the three steps: whitespace (9-13 and 32), ONE sign, digits.
+
+    result = result * 10 + (c - '0');
+
+- stop at the first non-digit ("42abc" => 42)
+- "--5", "+-5", "- 5" => 0
+- ft_atoi("") and ft_atoi("abc") => 0

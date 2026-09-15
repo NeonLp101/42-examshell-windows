@@ -1,0 +1,56 @@
+@@ intro
+strspn(s, accept) returns how many characters at the START of s are all in accept.
+
+    strspn("hello", "hel")   = 4    ("hell" - 'o' is not in "hel")
+    strspn("hello", "")      = 0
+
+For each character of s, search it in accept. If it's not found, stop.
+
+@@ file ft_strspn.c
+#include <stddef.h>
+
+size_t	ft_strspn(const char *s, const char *accept)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (s[i])
+	{
+		j = 0;
+		while ({{1}})
+			j++;
+		if ({{2}})
+			return (i);
+		i++;
+	}
+	return (i);
+}
+
+@@ gap 1
+answer: accept[j] && accept[j] != s[i]
+accept: accept[j] != s[i] && accept[j]
+accept: accept[j] != '\0' && accept[j] != s[i]
+wrong: accept[j] != s[i] => If s[i] is not in accept, this runs past the '\0' of accept. Stop at the end: accept[j] && ...
+wrong: accept[j] && accept[j] == s[i] => Reversed: we move on while it's NOT the character we're looking for.
+hint: Search s[i] in accept: move on while not at the end AND not found.
+The inner loop stops in one of two situations:
+
+- `accept[j] == s[i]`: the character was found
+- `accept[j] == '\0'`: we reached the end of accept without finding it
+
+@@ gap 2
+answer: !accept[j]
+accept: accept[j] == '\0'
+accept: accept[j] == 0
+wrong: accept[j] => Reversed: accept[j] is not '\0' when the character WAS found - then we must continue.
+wrong: accept[j] == s[i] => That's the "found" case: then we continue with the next character.
+hint: How do you know the search reached the end of accept without finding s[i]?
+If the inner loop stopped on the '\0' of accept, s[i] is not an accepted character: the
+accepted start of s has exactly i characters.
+
+@@ outro
+Remember:
+- strspn: length of the start of s made only of characters from accept
+- strcspn: the opposite (characters NOT in reject)
+- inner loop "search": stop when found OR at the end, then look at WHY it stopped

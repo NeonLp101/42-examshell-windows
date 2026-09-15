@@ -1,0 +1,24 @@
+@@ question
+match: exact
+args: [" this        time it      will     be    more complex  "]
+answer: this   time   it   will   be   more   complex$
+    $> ./expand_str " this        time it      will     be    more complex  " | cat -e
+---
+Exactly three spaces between words, none at the start or the end.
+
+@@ question
+match: exact
+args: ["a"]
+answer: a$
+wrong: a   $ => No separator after the last word.
+    $> ./expand_str "a" | cat -e
+---
+A single word: no separator at all.
+
+@@ question
+match: exact
+args: [""]
+answer: $
+    $> ./expand_str "" | cat -e
+---
+No word: only the newline.

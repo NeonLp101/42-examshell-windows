@@ -1,0 +1,65 @@
+@@ intro
+The LCM of a and b is the smallest positive number divisible by both. The simple way:
+start at the bigger of the two and count up until a number is divisible by a AND b.
+
+    lcm(4, 6):  6 no, 7 no, 8 no, ... 12 = 4*3 = 6*2   => 12
+
+If one of them is 0, the subject says the LCM is 0 (and a loop would divide by zero).
+
+@@ file lcm.c
+unsigned int	lcm(unsigned int a, unsigned int b)
+{
+	unsigned int	n;
+
+	if ({{1}})
+		return (0);
+	n = {{2}};
+	while ({{3}})
+		n++;
+	return (n);
+}
+
+@@ gap 1
+answer: a == 0 || b == 0
+accept: b == 0 || a == 0
+accept: !a || !b
+accept: !b || !a
+wrong: a == 0 && b == 0 => ONE null parameter is enough: lcm(0, 5) is 0 - and n % 0 would crash.
+hint: "If at least one integer is null, LCM is equal to 0."
+At least one is 0 => `||`. Without this test, `n % a` with a == 0 is a division by zero:
+the program crashes.
+
+@@ gap 2
+answer: a > b ? a : b
+accept: (a > b) ? a : b
+accept: a >= b ? a : b
+accept: b > a ? b : a
+accept: (b > a) ? b : a
+accept: a
+accept: b
+wrong: 0 => 0 is divisible by everything: the loop would stop immediately and return 0.
+wrong: a * b => a * b is a common multiple, but not always the SMALLEST (lcm(4, 6) is 12, not 24).
+hint: The LCM can't be smaller than the biggest of the two numbers.
+The LCM is at least max(a, b), so there's no point testing smaller numbers. (Starting at
+a or b also works - it just tests a few more numbers.)
+
+@@ gap 3
+answer: n % a != 0 || n % b != 0
+accept: n % a || n % b
+accept: n % b || n % a
+accept: !(n % a == 0 && n % b == 0)
+accept: n % b != 0 || n % a != 0
+wrong: n % a != 0 && n % b != 0 => That stops as soon as ONE of them divides n. Keep going until BOTH do.
+wrong: n % a == 0 || n % b == 0 => Reversed: the loop must continue while n is NOT a common multiple.
+hint: Keep counting while n is not divisible by both.
+"Not (divisible by a and by b)" = "not divisible by a, or not divisible by b". The loop
+stops at the first n divisible by both.
+
+@@ outro
+Two ways, both accepted:
+
+    brute force:  n = max(a, b); while (n % a || n % b) n++;
+    with the gcd: lcm = a / gcd(a, b) * b
+
+The gcd version is much faster for big numbers (divide first, to avoid overflow).
+Remember: lcm(x, 0) == 0.

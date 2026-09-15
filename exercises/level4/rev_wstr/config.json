@@ -1,0 +1,12 @@
+{
+  "type": "program",
+  "expected_files": ["rev_wstr.c"],
+  "allowed_functions": ["write", "malloc", "free"],
+  "fixed_tests": [
+    ["You hate people! But I love gatherings. Isn't it ironic?"],
+    ["abcdefghijklm"], ["Wingardium Leviosa"], [], ["a", "b"], [""],
+    ["a"], ["the quick brown fox jumps over the lazy dog"], ["1 22 333 4444 55555"]
+  ],
+  "generator": "words_single_space",
+  "random_tests": 15
+}

@@ -1,0 +1,37 @@
+@@ question
+match: text
+answer: fizzbuzz
+What is printed on line 15?
+---
+15 is a multiple of 3 and of 5 => fizzbuzz.
+
+@@ question
+match: text
+answer: buzz
+What is printed on line 10?
+---
+10 is a multiple of 5 but not of 3 => buzz.
+
+@@ question
+match: text
+answer: buzz
+wrong: 100 => 100 is a multiple of 5 => buzz.
+What is the LAST line printed?
+---
+The loop goes up to 100 included, and 100 is a multiple of 5 (not of 3) => buzz.
+
+@@ question
+match: text
+answer: fizz
+wrong: fizzbuzz => That's what the correct program prints. With this order the fizz test catches 15 first.
+The tests are written in this order. What does this program print on line 15?
+
+    if (i % 3 == 0)
+        write(1, "fizz", 4);
+    else if (i % 5 == 0)
+        write(1, "buzz", 4);
+    else if (i % 15 == 0)
+        write(1, "fizzbuzz", 8);
+---
+An else-if chain stops at the first true test: `15 % 3 == 0` is true, so "fizz" is
+printed and the fizzbuzz test is never reached. The 15 test must come first.

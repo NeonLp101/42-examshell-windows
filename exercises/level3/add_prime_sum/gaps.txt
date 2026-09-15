@@ -1,0 +1,118 @@
+@@ intro
+Sum every prime number <= n. Two tools:
+
+1. an `is_prime` test: n is prime if no number from 2 up to sqrt(n) divides it
+2. only `write` is allowed for output, so numbers are printed with a recursive put_nbr
+
+Invalid input (wrong argument count, not a positive number) prints "0\n". The helper
+`to_int` returns 0 when the argument contains anything but digits.
+
+    5  =>  2 + 3 + 5 = 10          7  =>  2 + 3 + 5 + 7 = 17
+
+@@ file add_prime_sum.c
+#include <unistd.h>
+
+void	put_nbr(int n)
+{
+	char	c;
+
+	if (n >= 10)
+		put_nbr(n / 10);
+	c = n % 10 + '0';
+	write(1, &c, 1);
+}
+
+int	to_int(char *s)
+{
+	int	n;
+
+	n = 0;
+	while (*s >= '0' && *s <= '9')
+		n = n * 10 + (*s++ - '0');
+	if (*s)
+		return (0);
+	return (n);
+}
+
+int	is_prime(int n)
+{
+	int	d;
+
+	if ({{1}})
+		return (0);
+	d = 2;
+	while ({{2}})
+	{
+		if ({{3}})
+			return (0);
+		d++;
+	}
+	return (1);
+}
+
+int	main(int argc, char **argv)
+{
+	int	n;
+	int	sum;
+
+	sum = 0;
+	if (argc == 2)
+	{
+		n = to_int(argv[1]);
+		while (n > 1)
+		{
+			if (is_prime(n))
+				sum += {{4}};
+			n--;
+		}
+	}
+	put_nbr(sum);
+	write(1, "\n", 1);
+	return (0);
+}
+
+@@ gap 1
+answer: n < 2
+accept: n <= 1
+accept: 2 > n
+wrong: n < 1 => 1 is not a prime number: is_prime(1) must return 0. (main never asks here, but the helper would be wrong.)
+wrong: n == 0 => 1 (and negative numbers) are not prime either: n < 2.
+hint: The smallest prime number is 2.
+Primes start at 2: 0, 1 and negative numbers are not prime.
+
+@@ gap 2
+answer: d * d <= n
+accept: d <= n / d
+accept: d < n
+accept: d <= n / 2
+accept: d <= n - 1
+wrong: d <= n => At d == n, n % d is 0: every number would look non-prime.
+wrong: d * d < n => For n = 4, 9, 25... the divisor d = sqrt(n) is never tested: squares would count as prime.
+hint: Which divisors must be tested? Stop before d reaches n itself - or much earlier.
+Any d from 2 to n - 1 is correct, but you can stop at the square root: if n = a * b with
+a <= b, then a * a <= n. So if nothing up to sqrt(n) divides n, nothing bigger does.
+
+`d * d <= n` (with `<=`!) tests exactly up to sqrt(n): for 25, d = 5 must be tested.
+
+@@ gap 3
+answer: n % d == 0
+accept: !(n % d)
+accept: 0 == n % d
+wrong: d % n == 0 => Reversed: we want to know whether d divides n, i.e. n % d == 0.
+wrong: n % d => That's true when d does NOT divide n: almost every number would be "not prime".
+hint: Does d divide n?
+If d divides n exactly, n has a divisor other than 1 and itself: not prime.
+
+@@ gap 4
+answer: n
+wrong: 1 => That counts the primes. We want their SUM: add n itself.
+wrong: is_prime(n) => is_prime returns 1: that counts the primes. Add n.
+hint: Add the prime number itself.
+The loop goes from n down to 2; every prime found is added to the sum.
+
+@@ outro
+Remember:
+- prime test: no divisor from 2 to sqrt(n) (`d * d <= n`)
+- 1 is not prime; the smallest prime is 2
+- invalid input or wrong argument count => "0\n", not just "\n"
+- only write is allowed: print numbers with a recursive put_nbr
