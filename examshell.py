@@ -4,6 +4,7 @@ examshell - practice the 42 Exam Rank 02 (levels 1-4) locally on Windows.
 
     examshell.bat                         main menu
     examshell.bat exam [level] [minutes]  start / resume an exam (no level = levels 1 -> 4)
+    examshell.bat loop [level] [minutes]  every exercise of a level, one after another
     examshell.bat practice [exercise]     practice mode
     examshell.bat gaps [exercise]         fill the gap (learn the key lines)
     examshell.bat bugs [exercise]         find the bug
@@ -1069,14 +1070,17 @@ class Shell:
 
 
 class ExamShell(Shell):
+    """Exam mode (levels 1 -> 4, or one level) and loop mode (every exercise of one level)."""
     mode = "exam"
     STATE_FILE = EXAM_DIR / "current.json"
 
     def __init__(self, tools: Toolchain, exercises: list, state: dict):
         super().__init__(tools, exercises, Workspace(ROOT / state["session"]))
-        state.setdefault("levels", [4])          # exams started by older versions
+        state.setdefault("levels", [4])          # sessions started by older versions
         state.setdefault("level_index", 0)
+        state.setdefault("kind", "exam")
         self.state = state
+        self.mode = state["kind"]
         self.current = self.by_name.get(state["current"])
 
     # -- state -------------------------------------------------------------------
@@ -1088,6 +1092,24 @@ class ExamShell(Shell):
             return None
         return None if state.get("finished") else state
 
+    @staticmethod
+    def is_active(state) -> bool:
+        """Not finished, and either untimed or with time left."""
+        if not state or state.get("finished"):
+            return False
+        return not state.get("minutes") or state["start"] + state["minutes"] * 60 > time.time()
+
+    @staticmethod
+    def describe_state(state: dict) -> str:
+        if state.get("kind") == "loop":
+            total = state.get("total", 0)
+            info = f"loop level {state['levels'][0]}: {state['current']}, {len(state.get('completed', []))}/{total} done"
+        else:
+            info = f"exam: {state['current']}"
+        if state.get("minutes"):
+            info += f", {fmt_duration(state['start'] + state['minutes'] * 60 - time.time())} left"
+        return info
+
     def save(self) -> None:
         EXAM_DIR.mkdir(parents=True, exist_ok=True)
         self.STATE_FILE.write_text(json.dumps(self.state, indent=2), encoding="utf-8")
@@ -1095,35 +1117,77 @@ class ExamShell(Shell):
     @classmethod
     def new(cls, tools: Toolchain, exercises: list, minutes: int, levels: list) -> "ExamShell":
         session = f"exam/{time.strftime('%Y-%m-%d_%H-%M-%S')}"
-        state = {"session": session, "start": time.time(), "minutes": minutes, "current": None,
-                 "levels": levels, "level_index": 0, "seen": [], "history": [],
+        state = {"session": session, "kind": "exam", "start": time.time(), "minutes": minutes,
+                 "current": None, "levels": levels, "level_index": 0, "seen": [], "history": [],
                  "finished": False, "passed": False}
         shell = cls(tools, exercises, state)
         shell.assign_random()
         return shell
 
+    @classmethod
+    def new_loop(cls, tools: Toolchain, exercises: list, level: int, minutes: int) -> "ExamShell":
+        names = [e.name for e in exercises if e.level == level]
+        random.shuffle(names)
+        session = f"exam/loop-L{level}_{time.strftime('%Y-%m-%d_%H-%M-%S')}"
+        state = {"session": session, "kind": "loop", "start": time.time(), "minutes": minutes,
+                 "current": None, "levels": [level], "level_index": 0, "seen": [], "history": [],
+                 "queue": names, "completed": [], "total": len(names), "finished": False, "passed": False}
+        shell = cls(tools, exercises, state)
+        shell.next_in_queue()
+        return shell
+
+    # -- helpers -----------------------------------------------------------------
     @property
     def level(self) -> int:
         levels = self.state["levels"]
         return levels[min(self.state["level_index"], len(levels) - 1)]
 
     @property
+    def is_loop(self) -> bool:
+        return self.state["kind"] == "loop"
+
+    @property
     def full_exam(self) -> bool:
-        return len(self.state["levels"]) > 1
+        return not self.is_loop and len(self.state["levels"]) > 1
+
+    @property
+    def timed(self) -> bool:
+        return bool(self.state.get("minutes"))
 
     def score(self) -> str:
+        if self.is_loop:
+            return f"{len(self.state['completed'])}/{self.state['total']} done"
         done, total = self.state["level_index"], len(self.state["levels"])
         return f"{done * 100 // total}/100"
 
     def remaining(self) -> float:
+        if not self.timed:
+            return float("inf")
         return self.state["start"] + self.state["minutes"] * 60 - time.time()
+
+    def used(self) -> float:
+        elapsed = time.time() - self.state["start"]
+        return min(elapsed, self.state["minutes"] * 60) if self.timed else elapsed
+
+    def time_line(self) -> str:
+        if self.timed:
+            return f"{'time left':<12}: {fmt_duration(self.remaining())}"
+        return f"{'time':<12}: {fmt_duration(self.used())} (no time limit)"
+
+    def fails(self) -> int:
+        return sum(1 for h in self.state["history"] if not h["passed"])
 
     def assign_random(self) -> None:
         level_pool = [e for e in self.exercises if e.level == self.level] or self.exercises
         pool = [e for e in level_pool if e.name not in self.state["seen"]]
         if not pool:  # every exercise of this level was seen: allow repeats, but not the same one twice in a row
             pool = [e for e in level_pool if e.name != self.state["current"]] or level_pool
-        ex = random.choice(pool)
+        self._set_current(random.choice(pool))
+
+    def next_in_queue(self) -> None:
+        self._set_current(self.by_name[self.state["queue"].pop(0)])
+
+    def _set_current(self, ex: Exercise) -> None:
         self.state["seen"].append(ex.name)
         self.state["current"] = ex.name
         self.current = ex
@@ -1135,95 +1199,136 @@ class ExamShell(Shell):
         self.state["passed"] = passed
         self.save()
         EXAM_DIR.mkdir(parents=True, exist_ok=True)
-        used = self.state["minutes"] * 60 - max(0, self.remaining())
-        levels = "levels " + "-".join(str(lv) for lv in self.state["levels"])
+        what = f"LOOP L{self.level}" if self.is_loop else "levels " + "-".join(str(lv) for lv in self.state["levels"])
         with open(EXAM_DIR / "history.log", "a", encoding="utf-8") as log:
             tries = ", ".join(f"{h['exercise']}:{'OK' if h['passed'] else 'KO'}" for h in self.state["history"])
             log.write(f"{time.strftime('%Y-%m-%d %H:%M')}  {'PASSED' if passed else 'FAILED'}  {self.score()}  "
-                      f"{levels}  time {fmt_duration(used)}  [{tries}]  ({why})\n")
+                      f"{what}  time {fmt_duration(self.used())}  [{tries}]  ({why})\n")
         self.running = False
 
     # -- shell hooks ---------------------------------------------------------------
     def prompt(self) -> str:
-        left = self.remaining()
-        color = C.GREEN if left > 15 * 60 else C.YELLOW if left > 5 * 60 else C.RED
-        return (f"{color}[{fmt_duration(left)}]{C.RESET} {C.MAGENTA}L{self.level}{C.RESET} "
-                f"{C.CYAN}{C.BOLD}examshell{C.RESET}> ")
+        if self.timed:
+            left = self.remaining()
+            color = C.GREEN if left > 15 * 60 else C.YELLOW if left > 5 * 60 else C.RED
+            clock = f"{color}[{fmt_duration(left)}]{C.RESET}"
+        else:
+            clock = f"{C.DIM}[{fmt_duration(self.used())}]{C.RESET}"
+        progress = f" {len(self.state['completed']) + 1}/{self.state['total']}" if self.is_loop else ""
+        return f"{clock} {C.MAGENTA}L{self.level}{progress}{C.RESET} {C.CYAN}{C.BOLD}examshell{C.RESET}> "
 
     def before_command(self) -> bool:
         if self.remaining() <= 0:
-            print(f"\n  {C.RED}{C.BOLD}Time is up!{C.RESET} The exam is over. Final score: {self.score()}\n")
+            print(f"\n  {C.RED}{C.BOLD}Time is up!{C.RESET} The {self.mode} is over. Final score: {self.score()}\n")
             self.finish(False, "time is up")
             return False
         return True
 
     def extra_commands(self) -> dict:
-        return {"finish": self.cmd_finish}
+        commands = {"finish": self.cmd_finish}
+        if self.is_loop:
+            commands["skip"] = self.cmd_skip
+        return commands
 
     def extra_help(self) -> list:
-        return [("finish", "give up and end the exam")]
+        rows = [("finish", f"give up and end the {self.mode}")]
+        if self.is_loop:
+            rows.insert(0, ("skip", "move this exercise to the end of the loop"))
+        return rows
 
     def status_lines(self) -> list:
-        fails = sum(1 for h in self.state["history"] if not h["passed"])
         levels = self.state["levels"]
-        lines = [f"{'time left':<12}: {fmt_duration(self.remaining())}"]
-        if self.full_exam:
+        lines = [self.time_line()]
+        if self.is_loop:
+            lines.append(f"{'loop':<12}: level {self.level}, {self.score()}, "
+                         f"{len(self.state['queue'])} left after this one")
+        elif self.full_exam:
             lines.append(f"{'level':<12}: {self.level}   (levels {levels[0]} -> {levels[-1]}, score {self.score()})")
-        lines += [f"{'failed tries':<12}: {fails}", f"{'session':<12}: {self.ws.root}"]
+        lines += [f"{'failed tries':<12}: {self.fails()}", f"{'session':<12}: {self.ws.root}"]
         return lines
 
     def after_grade(self, result: GradeResult) -> None:
         self.state["history"].append({"exercise": self.current.name, "level": self.level,
                                       "passed": result.passed, "at": time.time(), "reason": result.reason})
         self.save()
-        fails = sum(1 for h in self.state["history"] if not h["passed"])
-        if result.passed:
+        if not result.passed:
+            tries = sum(1 for h in self.state["history"] if h["exercise"] == self.current.name and not h["passed"])
+            extra = f" (or {C.BOLD}skip{C.RESET} it for now)" if self.is_loop and self.state["queue"] else ""
+            print(f"  {C.YELLOW}Not yet ({tries} failed tr{'y' if tries == 1 else 'ies'} on {self.current.name}).{C.RESET} "
+                  f"Read the trace above, fix your code and type {C.BOLD}grademe{C.RESET} again - "
+                  f"you can retry as often as you want{extra}.\n")
+            return
+
+        if self.is_loop:
+            passed = self.current.name
+            self.state["completed"].append(passed)
+            if not self.state["queue"]:
+                print(f"  {C.GREEN}{C.BOLD}Loop complete - all {self.state['total']} level-{self.level} exercises "
+                      f"passed!{C.RESET}  (time: {fmt_duration(self.used())}, failed tries: {self.fails()})\n")
+                self.finish(True, "loop complete")
+                ask("  press Enter to go back to the menu ")
+                return
+            self.next_in_queue()
+            print(f"  {C.GREEN}{C.BOLD}{passed} passed!{C.RESET}  ({self.score()})")
+            print(f"  Next assignment: {C.BOLD}{C.YELLOW}{self.current.name}{C.RESET}")
+        else:
             finished_level = self.level
             self.state["level_index"] += 1
             if self.state["level_index"] >= len(self.state["levels"]):
-                used = self.state["minutes"] * 60 - self.remaining()
                 what = "Exam Rank 02 passed - 100/100!" if self.full_exam else \
                     f"Level {finished_level} validated - exam passed!"
-                print(f"  {C.GREEN}{C.BOLD}{what}{C.RESET}  (time used: {fmt_duration(used)}, "
-                      f"failed tries: {fails})\n")
+                print(f"  {C.GREEN}{C.BOLD}{what}{C.RESET}  (time used: {fmt_duration(self.used())}, "
+                      f"failed tries: {self.fails()})\n")
                 self.finish(True, "passed")
                 ask("  press Enter to go back to the menu ")
                 return
             self.assign_random()
             print(f"  {C.GREEN}{C.BOLD}Level {finished_level} validated!{C.RESET}  score: {self.score()}")
             print(f"  Level {self.level} - your new assignment: {C.BOLD}{C.YELLOW}{self.current.name}{C.RESET}")
-        else:
-            tries = sum(1 for h in self.state["history"] if h["exercise"] == self.current.name and not h["passed"])
-            print(f"  {C.YELLOW}Not yet ({tries} failed tr{'y' if tries == 1 else 'ies'} on {self.current.name}).{C.RESET} "
-                  f"Read the trace above, fix your code and type {C.BOLD}grademe{C.RESET} again - "
-                  f"you can retry as often as you want.\n")
+        print(f"  subject  : {self.ws.subject_file(self.current)}")
+        print(f"  your code: {self.ws.rendu(self.current)}{os.sep}\n")
+
+    def cmd_skip(self, args: list) -> None:
+        if not self.state["queue"]:
+            print(f"  {self.current.name} is the last exercise of the loop - nothing to skip to.\n")
             return
+        skipped = self.current.name
+        self.state["queue"].append(skipped)
+        self.next_in_queue()
+        print(f"  {C.DIM}{skipped} moved to the end of the loop.{C.RESET}")
+        print(f"  Next assignment: {C.BOLD}{C.YELLOW}{self.current.name}{C.RESET}")
         print(f"  subject  : {self.ws.subject_file(self.current)}")
         print(f"  your code: {self.ws.rendu(self.current)}{os.sep}\n")
 
     def cmd_finish(self, args: list) -> None:
-        if confirm("  Really end the exam now?"):
+        if confirm(f"  Really end the {self.mode} now?"):
             self.finish(False, "gave up")
-            print(f"  exam finished - score {self.score()}\n")
+            print(f"  {self.mode} finished - {self.score()}\n")
 
     def cmd_exit(self, args: list) -> None:
-        print(f"  {C.DIM}the exam keeps running - you can resume it from the menu{C.RESET}")
+        print(f"  {C.DIM}the {self.mode} keeps running - you can resume it from the menu{C.RESET}")
         self.running = False
 
     def start(self) -> None:
         levels = self.state["levels"]
         print()
-        rule("exam")
-        if self.full_exam:
+        rule(self.mode)
+        if self.is_loop:
+            print(f"  Loop       : every level-{self.level} exercise, one after another   ({self.score()})")
+        elif self.full_exam:
             print(f"  Exam       : Exam Rank 02, levels {levels[0]} -> {levels[-1]}   (score {self.score()})")
-        print(f"  Level      : {self.level}")
+        if not self.is_loop:
+            print(f"  Level      : {self.level}")
         print(f"  Assignment : {C.BOLD}{C.YELLOW}{self.current.name}{C.RESET}")
-        print(f"  Time left  : {fmt_duration(self.remaining())}")
+        if self.timed:
+            print(f"  Time left  : {fmt_duration(self.remaining())}")
         print(f"  Subject    : {self.ws.subject_file(self.current)}")
         print(f"  Your code  : {C.BOLD}{self.ws.rendu(self.current)}{os.sep}{C.RESET}")
         print()
         print("  Write your solution in the rendu folder, then type 'grademe'.")
-        if self.full_exam:
+        if self.is_loop:
+            print("  Pass = next exercise. Fail = you see the trace and retry. 'skip' = come back to it later.")
+        elif self.full_exam:
             print("  Pass = next level. Fail = you see the trace and retry, as often as you want.")
         else:
             print("  Fail = you see the trace and retry, as often as you want. Pass = exam passed.")
@@ -2325,18 +2430,40 @@ def ask_exam_setup():
     return chosen, (int(raw) if raw.isdigit() and int(raw) > 0 else default)
 
 
-def start_exam(tools: Toolchain, exercises: list, minutes=None, levels=None) -> None:
+def ask_loop_setup(exercises: list):
+    """Returns (level, minutes) or None. minutes == 0 means no time limit."""
+    levels = sorted({e.level for e in exercises})
+    print()
+    for level in levels:
+        count = sum(1 for e in exercises if e.level == level)
+        print(f"  {C.BOLD}{level}{C.RESET}   level {level}  ({count} exercises)")
+    raw = ask(f"  {C.CYAN}loop through level{C.RESET}> ").lower()
+    if not raw.isdigit() or int(raw) not in levels:
+        return None
+    raw_minutes = ask(f"  time limit in minutes {C.DIM}[none]{C.RESET}: ")
+    return int(raw), (int(raw_minutes) if raw_minutes.isdigit() else 0)
+
+
+def can_start_new_session(tools: Toolchain, exercises: list) -> bool:
+    """Handle a running exam/loop: resume it (returns False), abandon it, or cancel."""
     state = ExamShell.load_state()
-    if state and state["start"] + state["minutes"] * 60 > time.time():
-        left = fmt_duration(state["start"] + state["minutes"] * 60 - time.time())
-        if confirm(f"  An exam is running ({state['current']}, {left} left). Resume it?"):
-            ExamShell(tools, exercises, state).start()
-            return
-        if not confirm("  Abandon it and start a new exam?"):
-            return
-        ExamShell(tools, exercises, state).finish(False, "abandoned")
-    elif state:
+    if not state:
+        return True
+    if not ExamShell.is_active(state):
         ExamShell(tools, exercises, state).finish(False, "time is up")
+        return True
+    if confirm(f"  Something is still running ({ExamShell.describe_state(state)}). Resume it?"):
+        ExamShell(tools, exercises, state).start()
+        return False
+    if not confirm("  Abandon it and start something new?"):
+        return False
+    ExamShell(tools, exercises, state).finish(False, "abandoned")
+    return True
+
+
+def start_exam(tools: Toolchain, exercises: list, minutes=None, levels=None) -> None:
+    if not can_start_new_session(tools, exercises):
+        return
     if levels is None and minutes is None:
         setup = ask_exam_setup()
         if setup is None:
@@ -2349,6 +2476,17 @@ def start_exam(tools: Toolchain, exercises: list, minutes=None, levels=None) -> 
     ExamShell.new(tools, exercises, minutes, levels).start()
 
 
+def start_loop(tools: Toolchain, exercises: list, level=None, minutes=None) -> None:
+    if not can_start_new_session(tools, exercises):
+        return
+    if level is None:
+        setup = ask_loop_setup(exercises)
+        if setup is None:
+            return
+        level, minutes = setup
+    ExamShell.new_loop(tools, exercises, level, minutes or 0).start()
+
+
 def main_menu(tools: Toolchain, exercises: list) -> None:
     while True:
         clear_screen()
@@ -2356,15 +2494,15 @@ def main_menu(tools: Toolchain, exercises: list) -> None:
         print_banner(f"{C.DIM}{len(exercises)} exercises in {len(levels)} levels - "
                      f"compiler: {tools.describe()}{C.RESET}")
         state = ExamShell.load_state()
-        resume = ""
-        if state and state["start"] + state["minutes"] * 60 > time.time():
-            resume = f"  {C.YELLOW}(exam running: {state['current']}, " \
-                     f"{fmt_duration(state['start'] + state['minutes'] * 60 - time.time())} left){C.RESET}"
-        print(f"   {C.BOLD}1{C.RESET}  Exam mode      levels 1 -> 4 with a timer, unlimited retries with the trace{resume}")
+        running = f"  {C.YELLOW}({ExamShell.describe_state(state)}){C.RESET}" if ExamShell.is_active(state) else ""
+        exam_running = running if state and state.get("kind", "exam") == "exam" else ""
+        loop_running = running if state and state.get("kind") == "loop" else ""
+        print(f"   {C.BOLD}1{C.RESET}  Exam mode      levels 1 -> 4 with a timer, unlimited retries with the trace{exam_running}")
         print(f"   {C.BOLD}2{C.RESET}  Practice mode  choose any exercise, retry as often as you want")
         print(f"   {C.BOLD}3{C.RESET}  Fill the gap   complete the key lines of a solution and learn why they work")
         print(f"   {C.BOLD}4{C.RESET}  Find the bug   read the grader's trace, find the broken line, fix it")
         print(f"   {C.BOLD}5{C.RESET}  Predict        type the exact output for tricky inputs (spaces, newlines, argc...)")
+        print(f"   {C.BOLD}6{C.RESET}  Loop mode      every exercise of one level, one after another{loop_running}")
         print(f"   {C.BOLD}q{C.RESET}  Quit")
         print()
         choice = ask(f"  {C.CYAN}choice{C.RESET}> ").lower()
@@ -2378,6 +2516,8 @@ def main_menu(tools: Toolchain, exercises: list) -> None:
             find_the_bug_menu(tools, exercises)
         elif choice == "5":
             predict_menu(tools, exercises)
+        elif choice == "6":
+            start_loop(tools, exercises)
         elif choice in ("q", "quit", "exit"):
             return
 
@@ -2469,6 +2609,11 @@ def main(argv: list) -> int:
                 start_exam(tools, exercises)
             else:
                 start_exam(tools, exercises, minutes, [level] if level else None)
+        elif cmd == "loop":
+            numbers = [int(a) for a in argv[1:] if a.isdigit()]
+            level = next((n for n in numbers if 1 <= n <= 4), None)
+            minutes = next((n for n in numbers if n > 4), None)
+            start_loop(tools, exercises, level, minutes)
         elif cmd == "practice":
             shell = PracticeShell(tools, exercises)
             if len(argv) > 1:

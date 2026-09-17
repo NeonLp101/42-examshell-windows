@@ -12,6 +12,7 @@ parts of every exercise.
    3  Fill the gap   complete the key lines of a solution and learn why they work
    4  Find the bug   read the grader's trace, find the broken line, fix it
    5  Predict        type the exact output for tricky inputs (spaces, newlines, argc...)
+   6  Loop mode      every exercise of one level, one after another
    q  Quit
 ```
 
@@ -78,6 +79,16 @@ and `grademe` again, as often as you want.
 - `exit` keeps the exam running, so you can resume it later from the menu.
 - Each session is kept in `exam\<date>\` (subjects, rendu, traces), and results go to `exam\history.log`.
 
+### Loop mode
+Go through **every exercise of one level**, one after another, in random order. Same flow as the
+exam: `grademe`, the trace on failure, unlimited retries. Passing brings the next exercise, and the
+loop is done when you've passed them all.
+
+- `skip` moves the current exercise to the end of the loop, if you want to come back to it later.
+- No time limit by default: `examshell.bat loop 4` loops through level 4, `examshell.bat loop 4 120`
+  adds a 120 minute timer.
+- `exit` keeps the loop running; resume it from the menu.
+
 ### Practice
 Any exercise, any level, no timer. Progress is saved.
 - `list` shows all exercises grouped by level (`list 2` shows only level 2)
@@ -116,10 +127,11 @@ Most exam failures come from details like these, not from the algorithm. 220 que
 | `open` / `code` | open your rendu folder in Explorer / VS Code |
 | `list [level]`, `pick`, `next [level]` | practice mode: choose exercises |
 | `learn`, `bugs`, `predict` | practice mode: learning modes for the current exercise |
-| `finish` | exam mode: give up |
+| `skip` | loop mode: move the current exercise to the end of the loop |
+| `finish` | exam / loop mode: give up |
 | `exit` | back to the menu |
 
-Command line shortcuts: `examshell.bat practice ft_split`, `examshell.bat gaps flood_fill`,
+Command line shortcuts: `examshell.bat loop 4`, `examshell.bat practice ft_split`, `examshell.bat gaps flood_fill`,
 `examshell.bat bugs rostring`, `examshell.bat predict ft_itoa`, and
 `examshell.bat grade <exercise> <folder>` to grade any folder once.
 
