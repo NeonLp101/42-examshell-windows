@@ -1093,11 +1093,17 @@ class ExamShell(Shell):
         return None if state.get("finished") else state
 
     @staticmethod
+    def effective_start(state: dict) -> float:
+        """The start time, moved forward by the current pause (the clock doesn't run while paused)."""
+        paused_at = state.get("paused_at")
+        return state["start"] + (time.time() - paused_at if paused_at else 0.0)
+
+    @staticmethod
     def is_active(state) -> bool:
         """Not finished, and either untimed or with time left."""
         if not state or state.get("finished"):
             return False
-        return not state.get("minutes") or state["start"] + state["minutes"] * 60 > time.time()
+        return not state.get("minutes") or ExamShell.effective_start(state) + state["minutes"] * 60 > time.time()
 
     @staticmethod
     def describe_state(state: dict) -> str:
@@ -1107,7 +1113,10 @@ class ExamShell(Shell):
         else:
             info = f"exam: {state['current']}"
         if state.get("minutes"):
-            info += f", {fmt_duration(state['start'] + state['minutes'] * 60 - time.time())} left"
+            left = ExamShell.effective_start(state) + state["minutes"] * 60 - time.time()
+            info += f", {fmt_duration(left)} left"
+        if state.get("paused_at"):
+            info += ", paused"
         return info
 
     def save(self) -> None:
@@ -1163,16 +1172,32 @@ class ExamShell(Shell):
     def remaining(self) -> float:
         if not self.timed:
             return float("inf")
-        return self.state["start"] + self.state["minutes"] * 60 - time.time()
+        return self.effective_start(self.state) + self.state["minutes"] * 60 - time.time()
 
     def used(self) -> float:
-        elapsed = time.time() - self.state["start"]
+        elapsed = time.time() - self.effective_start(self.state)
         return min(elapsed, self.state["minutes"] * 60) if self.timed else elapsed
 
+    def paused_total(self) -> float:
+        current = time.time() - self.state["paused_at"] if self.state.get("paused_at") else 0.0
+        return self.state.get("paused_total", 0.0) + current
+
     def time_line(self) -> str:
+        paused = f", paused {fmt_duration(self.paused_total())}" if self.paused_total() >= 1 else ""
         if self.timed:
-            return f"{'time left':<12}: {fmt_duration(self.remaining())}"
-        return f"{'time':<12}: {fmt_duration(self.used())} (no time limit)"
+            return f"{'time left':<12}: {fmt_duration(self.remaining())}{paused}"
+        return f"{'time':<12}: {fmt_duration(self.used())} (no time limit{paused})"
+
+    def unpause(self) -> float:
+        """Restart the clock after a pause. Returns how long the pause lasted."""
+        paused_at = self.state.pop("paused_at", None)
+        if not paused_at:
+            return 0.0
+        duration = time.time() - paused_at
+        self.state["start"] += duration
+        self.state["paused_total"] = self.state.get("paused_total", 0.0) + duration
+        self.save()
+        return duration
 
     def fails(self) -> int:
         return sum(1 for h in self.state["history"] if not h["passed"])
@@ -1195,15 +1220,17 @@ class ExamShell(Shell):
         self.save()
 
     def finish(self, passed: bool, why: str) -> None:
+        self.unpause()
         self.state["finished"] = True
         self.state["passed"] = passed
         self.save()
         EXAM_DIR.mkdir(parents=True, exist_ok=True)
         what = f"LOOP L{self.level}" if self.is_loop else "levels " + "-".join(str(lv) for lv in self.state["levels"])
+        paused = f"  paused {fmt_duration(self.paused_total())}" if self.paused_total() >= 1 else ""
         with open(EXAM_DIR / "history.log", "a", encoding="utf-8") as log:
             tries = ", ".join(f"{h['exercise']}:{'OK' if h['passed'] else 'KO'}" for h in self.state["history"])
             log.write(f"{time.strftime('%Y-%m-%d %H:%M')}  {'PASSED' if passed else 'FAILED'}  {self.score()}  "
-                      f"{what}  time {fmt_duration(self.used())}  [{tries}]  ({why})\n")
+                      f"{what}  time {fmt_duration(self.used())}{paused}  [{tries}]  ({why})\n")
         self.running = False
 
     # -- shell hooks ---------------------------------------------------------------
@@ -1225,16 +1252,37 @@ class ExamShell(Shell):
         return True
 
     def extra_commands(self) -> dict:
-        commands = {"finish": self.cmd_finish}
+        commands = {"finish": self.cmd_finish, "pause": self.cmd_pause}
         if self.is_loop:
             commands["skip"] = self.cmd_skip
         return commands
 
     def extra_help(self) -> list:
-        rows = [("finish", f"give up and end the {self.mode}")]
+        rows = [("pause", "stop the clock (food, a call...) - Enter continues"),
+                ("finish", f"give up and end the {self.mode}")]
         if self.is_loop:
             rows.insert(0, ("skip", "move this exercise to the end of the loop"))
         return rows
+
+    def wait_while_paused(self) -> bool:
+        """Show the pause screen until Enter. Returns False if the shell should close (pause kept)."""
+        clock = f"{fmt_duration(self.remaining())} left" if self.timed else f"{fmt_duration(self.used())} so far"
+        print()
+        rule("paused")
+        print(f"\n  {C.YELLOW}{C.BOLD}PAUSED{C.RESET} - the clock is stopped ({clock}).")
+        print(f"  {C.DIM}You can also close this window: the pause is kept until you resume from the menu.{C.RESET}\n")
+        if read_line(f"  {C.CYAN}press Enter to continue{C.RESET} ") is None:
+            print(f"  {C.DIM}still paused - resume it from the menu{C.RESET}")
+            self.running = False
+            return False
+        duration = self.unpause()
+        print(f"  {C.GREEN}Welcome back!{C.RESET} Paused for {fmt_duration(duration)} - the clock is running again.\n")
+        return True
+
+    def cmd_pause(self, args: list) -> None:
+        self.state["paused_at"] = time.time()
+        self.save()
+        self.wait_while_paused()
 
     def status_lines(self) -> list:
         levels = self.state["levels"]
@@ -1311,6 +1359,8 @@ class ExamShell(Shell):
 
     def start(self) -> None:
         levels = self.state["levels"]
+        if self.state.get("paused_at") and not self.wait_while_paused():
+            return
         print()
         rule(self.mode)
         if self.is_loop:

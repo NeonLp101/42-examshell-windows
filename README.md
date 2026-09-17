@@ -77,6 +77,9 @@ and `grademe` again, as often as you want.
 
 - `examshell.bat exam 3` practices a single level; `examshell.bat exam 4 90` sets the duration.
 - `exit` keeps the exam running, so you can resume it later from the menu.
+- `pause` stops the clock when you need a break (food, a call...). Enter continues with exactly the
+  time you had left — you can even close the window while paused. Paused time is shown in `status`
+  and in the history. The real exam has no pause, so use it for practice runs.
 - Each session is kept in `exam\<date>\` (subjects, rendu, traces), and results go to `exam\history.log`.
 
 ### Loop mode
@@ -87,7 +90,7 @@ loop is done when you've passed them all.
 - `skip` moves the current exercise to the end of the loop, if you want to come back to it later.
 - No time limit by default: `examshell.bat loop 4` loops through level 4, `examshell.bat loop 4 120`
   adds a 120 minute timer.
-- `exit` keeps the loop running; resume it from the menu.
+- `pause` stops the clock, `exit` keeps the loop running; resume it from the menu.
 
 ### Practice
 Any exercise, any level, no timer. Progress is saved.
@@ -128,6 +131,7 @@ Most exam failures come from details like these, not from the algorithm. 220 que
 | `list [level]`, `pick`, `next [level]` | practice mode: choose exercises |
 | `learn`, `bugs`, `predict` | practice mode: learning modes for the current exercise |
 | `skip` | loop mode: move the current exercise to the end of the loop |
+| `pause` | exam / loop mode: stop the clock until you press Enter |
 | `finish` | exam / loop mode: give up |
 | `exit` | back to the menu |
 
